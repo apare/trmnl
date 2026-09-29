@@ -4,6 +4,8 @@ A personal workspace for building custom content for a TRMNL e-ink device. Uses 
 
 ## Language
 
+### TRMNL
+
 **Device**:
 The physical TRMNL e-ink display; here, a TRMNL X (10.3", 16 grays).
 _Avoid_: Screen, display, frame
@@ -39,3 +41,29 @@ _Avoid_: Rotation, carousel, loop
 **Developer Edition**:
 The one-time Device add-on that unlocks Private Plugins and the API.
 _Avoid_: Dev mode, API license
+
+### How to dress
+
+**Outfit**:
+The clothes How to dress recommends for one day, shared by every kid: one pick per Slot, where Base clothes may also carry a Girls' alternative.
+_Avoid_: Clothes list, items
+
+**Slot**:
+A body area that gets exactly one pick in an Outfit (Top, Bottom, Legs, Warm layer, Coat, Outdoor pants, Head, Hands, Neck, Feet, Extra); "none" is a valid pick.
+_Avoid_: Category, item type
+
+**Outdoor window**:
+The hours of the day whose weather decides the Outfit; Base clothes fit its warmest moment and Layers its coldest and wettest.
+_Avoid_: School hours, day
+
+**Base clothes**:
+The Slots worn all day that can't come off outside (Top, Bottom, Legs); they fit the warmest moment of the Outdoor window.
+_Avoid_: Outfit (that's the whole set), underlayer
+
+**Layer**:
+A Slot that comes off or goes on during the day (Warm layer, Coat, Outdoor pants, Head, Hands, Neck, Feet); Layers fit the coldest and wettest moment of the Outdoor window.
+_Avoid_: Outerwear, gear
+
+**Girls' alternative**:
+A second pick for Bottom and Legs (robe, or jupe + collants) shown beside the regular pick on days they differ; each kid takes the one that fits them.
+_Avoid_: Girl mode, variant
