@@ -94,25 +94,10 @@ const MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet'
 
 // ---------- Mannequin drawing ----------
 
-// Where each piece sits on the mannequin, as [x, y, width, height, mirrored] in a
-// 200 × 414 drawing (viewBox 0 -14 200 414). Pieces are listed in drawing order.
-const MANNEQUIN = { viewBox: '0 -14 200 414', width: 200, height: 414 };
-const BOXES = {
-  legs: [[55, 200, 90, 150]],
-  bottom: [[50, 195, 100, 160]],
-  short: [[50, 195, 100, 100]],
-  jupe: [[38, 182, 124, 112]],
-  feet: [[40, 336, 62, 58, true], [98, 336, 62, 58, false]],
-  top: [[25, 82, 150, 150]],
-  robe: [[38, 80, 124, 236]],
-  warm: [[22, 80, 156, 156]],
-  pants: [[44, 168, 112, 196]],
-  coat: [[16, 76, 168, 186]],
-  neck: [[76, 60, 48, 42]],
-  head: [[54, -16, 92, 76]],
-  hands: [[12, 196, 46, 46, false], [142, 196, 46, 46, true]],
-};
-const DRAW_ORDER = ['legs', 'bottom', 'feet', 'top', 'warm', 'pants', 'coat', 'neck', 'head', 'hands'];
+// Approved illustrations use one shared coordinate system; a piece includes both
+// hands or feet, so no per-item stretching or mirroring is needed.
+const MANNEQUIN = { viewBox: '60 10 280 620', width: 280, height: 620 };
+const DRAW_ORDER = ['legs', 'bottom', 'top', 'warm', 'pants', 'feet', 'coat', 'head', 'neck', 'hands'];
 
 // ---------- Reading the forecast ----------
 
@@ -248,16 +233,7 @@ function chartOf(hours) {
 // ---------- Mannequins ----------
 
 function pieces(items) {
-  const list = [];
-  DRAW_ORDER.forEach(slot => {
-    const key = items[slot];
-    if (!key) return;
-    const boxes = slot === 'bottom' && (key === 'short' || key === 'jupe') ? BOXES[key]
-      : slot === 'top' && key === 'robe' ? BOXES.robe
-        : BOXES[slot];
-    boxes.forEach(([x, y, w, h, mirrored]) => list.push({ key, x, y, w, h, mirrored: !!mirrored }));
-  });
-  return list;
+  return DRAW_ORDER.filter(slot => items[slot]).map(slot => ({ key: items[slot] }));
 }
 
 const names = keys => keys.filter(Boolean).map(k => LABELS[k]).join(' · ');

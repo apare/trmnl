@@ -1,9 +1,8 @@
 <style>
   /* Only what the Framework has no class for: the mannequin drawings and the chart bars. */
-  .htd-mannequin { display: block; width: calc(179px * var(--content-scale, 1)); height: calc(370px * var(--content-scale, 1)); }
-  .htd-mannequin.small { width: calc(97px * var(--content-scale, 1)); height: calc(200px * var(--content-scale, 1)); }
+  .htd-mannequin { display: block; width: calc(167px * var(--content-scale, 1)); height: calc(370px * var(--content-scale, 1)); }
+  .htd-mannequin.small { width: calc(90px * var(--content-scale, 1)); height: calc(200px * var(--content-scale, 1)); }
   .htd-ico { display: block; width: calc(70px * var(--content-scale, 1)); height: calc(70px * var(--content-scale, 1)); }
-  .ico path, .ico rect, .ico circle, .ico ellipse, .ico line, .ico polyline { stroke: #000; stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
   .htd-alt { border: 3px dashed #000; }
   .htd-number { width: calc(36px * var(--content-scale, 1)); height: calc(36px * var(--content-scale, 1)); display: inline-flex; align-items: center; justify-content: center; }
   .htd-bottom { border-top: 2px solid #000; }
@@ -22,17 +21,17 @@
       {% unless forloop.first %}<span class="value value--large flex flex--center-y h--96">→</span>{% endunless %}
       <div class="flex flex--col flex--center-x gap--xsmall">
         <div class="flex flex--row flex--bottom gap--small">
-          {% render 'mannequin', pieces: stage.pieces, size: '' %}
+          {% render 'mannequin', pieces: stage.pieces, size: '', uid: forloop.index, suffix: 'main', character: 'short' %}
           {% if stage.alt %}
             <div class="htd-alt flex flex--col flex--center-x rounded--large p--1 mb--5">
               <span class="title title--small">ou</span>
-              {% render 'mannequin', pieces: stage.alt.pieces, size: 'small' %}
+              {% render 'mannequin', pieces: stage.alt.pieces, size: 'small', uid: forloop.index, suffix: 'alt', character: 'long' %}
               <span class="description text--center">{{ stage.alt.added }}</span>
             </div>
           {% endif %}
           {% if stage.extra %}
             <div class="flex flex--col flex--center-x mb--5">
-              <svg class="htd-ico ico" viewBox="-6 -6 112 112">{% render 'icon', key: stage.extra.key %}</svg>
+              <svg class="htd-ico" viewBox="303 459 55 106" fill="none" stroke="#000" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round">{% render 'icon', key: stage.extra.key %}</svg>
               <span class="description text--center">{{ stage.extra.label }}</span>
             </div>
           {% endif %}

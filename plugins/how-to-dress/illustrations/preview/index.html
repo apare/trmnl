@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Un petit personnage à habiller pour la journée. Choisis ses vêtements et compose sa tenue.">
+  <title>Le petit vestiaire — On met quoi aujourd’hui ?</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="../wardrobe.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="./" class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M12 6h16l7 9-6 5-3-4v18H14V16l-3 4-6-5z"/></svg>le petit vestiaire<span class="brand-dot">.</span></a>
+    <span class="header-note">Un matin, une tenue, et c’est parti.</span>
+  </header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">POUR LES PETITS MATINS</p><h1>On met quoi<br>aujourd’hui ?<span class="sun" aria-hidden="true">☼</span></h1></div><p class="intro-note">Un petit haut, des chaussures…<br>Choisis les vêtements et habille<br>ton compagnon pour la journée.</p></div>
+    <div class="workspace">
+      <section class="doll-panel" aria-label="Le personnage habillé">
+        <div class="paper-top"><span class="tiny-dot"></span><span>MA TENUE DU JOUR</span><button id="reset" class="text-button" type="button">Tout enlever <span aria-hidden="true">↺</span></button></div>
+        <div class="character-picker" role="group" aria-label="Choisir la tête du personnage"><button type="button" data-character="short" aria-pressed="true">Cheveux courts</button><button type="button" data-character="long" aria-pressed="false">Cheveux longs</button></div>
+        <div id="doll-stage"></div>
+        <div class="doll-caption"><span class="caption-line"></span><span id="outfit-name">Tout prêt pour une belle journée.</span><span class="caption-line"></span></div>
+        <div class="paper-bottom"><span id="item-count" aria-live="polite"></span><button id="download" class="download" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5"/></svg>Télécharger la tenue</button></div>
+      </section>
+      <section class="wardrobe" aria-label="Choisir les vêtements">
+        <div class="wardrobe-heading"><div><p class="eyebrow">À TOI DE JOUER</p><h2>Dans le vestiaire</h2></div><span class="small-count">22 pièces</span></div>
+        <p class="hint">Touche une pièce pour l’ajouter ou l’enlever.</p>
+        <div class="presets" role="group" aria-label="Tenues de départ"><button type="button" data-preset="sun">☼ <span>Grand soleil</span></button><button type="button" data-preset="rain">☂ <span>Sous la pluie</span></button><button type="button" data-preset="snow">❄ <span>Bien au chaud</span></button></div>
+        <div id="categories" class="categories" role="group" aria-label="Catégorie de vêtements"></div>
+        <div class="category-title"><h3 id="category-title">Les hauts</h3><span id="category-subtitle"></span></div>
+        <div id="items" class="items"></div>
+        <div class="selected-wrap"><p class="eyebrow">DANS MA TENUE</p><div id="selected" class="selected"></div></div>
+        <p class="wardrobe-foot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.5 5 5.5.8-4 4 .9 5.6-4.9-2.6-4.9 2.6.9-5.6-4-4 5.5-.8z"/></svg>Un personnage, plein de façons de s’habiller.</p>
+      </section>
+    </div>
+    <footer><span>Le petit vestiaire</span><span>Dessiné pour les matins d’école.</span><button type="button" id="print">Imprimer la tenue <span aria-hidden="true">↗</span></button></footer>
+  </main>
+  <div id="announcement" class="sr-only" role="status"></div>
+</body>
+</html>
