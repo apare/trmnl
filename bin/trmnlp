@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# Runs trmnlp (TRMNL's local preview and push tool) in Docker for one Plugin of this repo.
+#
+#   bin/trmnlp login                  save the TRMNL API key in ~/.config/trmnlp (once)
+#   bin/trmnlp new <slug>             scaffold plugins/<slug>
+#   bin/trmnlp serve <slug>           preview on http://localhost:4567 (PORT=4568 for a second one)
+#   bin/trmnlp push <slug>            lint, then push to the TRMNL account
+#   bin/trmnlp <command> <slug> ...   any other trmnlp command (lint, build, pull…)
+#
+# In the preview, pick "TRMNL X" and "16 Grays" once per port (1040×780).
+set -euo pipefail
+
+IMAGE="trmnl/trmnlp:v0.12.0"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/trmnlp"
+PORT="${PORT:-4567}"
+
+usage() {
+  sed -n '2,9p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
+  exit 1
+}
+
+# docker run with the repo at /plugin and the API key folder mounted.
+run() {
+  local tty=()
+  [ -t 0 ] && tty=(-it)
+  mkdir -p "$CONFIG_DIR"
+  docker run --rm ${tty[@]+"${tty[@]}"} \
+    --volume "$ROOT:/plugin" \
+    --volume "$CONFIG_DIR:/root/.config/trmnlp" \
+    "$@"
+}
+
+plugin_dir() {
+  local slug="$1"
+  if [ ! -f "$ROOT/plugins/$slug/.trmnlp.yml" ]; then
+    echo "No Plugin at plugins/$slug (no .trmnlp.yml)." >&2
+    exit 1
+  fi
+  echo "plugins/$slug"
+}
+
+command="${1:-}"
+[ -n "$command" ] || usage
+shift
+
+case "$command" in
+  login)
+    run "$IMAGE" login "$@"
+    ;;
+
+  new)
+    slug="${1:?usage: bin/trmnlp new <slug>}"
+    shift
+    if [ -e "$ROOT/plugins/$slug" ]; then
+      echo "plugins/$slug already exists." >&2
+      exit 1
+    fi
+    run "$IMAGE" init --skip-git "plugins/$slug" "$@"
+    # Not useful inside this repo: GitHub ignores a nested .github/, the
+    # wrapper is this script, and push would upload the example transform.
+    rm -rf "$ROOT/plugins/$slug/.github" "$ROOT/plugins/$slug/bin" "$ROOT/plugins/$slug/src/transform.py.example"
+    echo "Created plugins/$slug. Preview it with: bin/trmnlp serve $slug"
+    ;;
+
+  serve)
+    slug="${1:?usage: bin/trmnlp serve <slug>}"
+    shift
+    dir="$(plugin_dir "$slug")"
+    echo "Preview of $slug on http://localhost:$PORT"
+    run --name "trmnlp-$slug-$PORT" --publish "$PORT:4567" "$IMAGE" serve -d "$dir" "$@"
+    ;;
+
+  push)
+    slug="${1:?usage: bin/trmnlp push <slug>}"
+    shift
+    dir="$(plugin_dir "$slug")"
+    settings="$ROOT/$dir/src/settings.yml"
+    before="$(cat "$settings")"
+    run "$IMAGE" lint -d "$dir"
+    # No --force: trmnlp asks before overwriting the settings on the server,
+    # until we know whether a push resets what the web UI set.
+    run "$IMAGE" push -d "$dir" "$@"
+    if [ "$before" != "$(cat "$settings")" ]; then
+      echo
+      echo "$dir/src/settings.yml changed (it now holds the Plugin id): commit it."
+    fi
+    ;;
+
+  -h|--help|help)
+    usage
+    ;;
+
+  *)
+    slug="${1:?usage: bin/trmnlp $command <slug>}"
+    shift
+    dir="$(plugin_dir "$slug")"
+    run "$IMAGE" "$command" -d "$dir" "$@"
+    ;;
+esac
