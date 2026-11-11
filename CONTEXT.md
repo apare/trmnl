@@ -56,6 +56,10 @@ _Avoid_: Category, item type
 The hours of the day whose weather decides the Outfit; Base clothes fit its warmest moment and Layers its coldest and wettest.
 _Avoid_: School hours, day
 
+**Wet hour**:
+An hour of the Outdoor window that is likely to see rain or snow; each Wet hour is either rain or snow, never both.
+_Avoid_: Rainy hour, precipitation hour
+
 **Base clothes**:
 The Slots worn all day that can't come off outside (Top, Bottom, Legs); they fit the warmest moment of the Outdoor window.
 _Avoid_: Outfit (that's the whole set), underlayer
