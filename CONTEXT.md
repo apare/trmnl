@@ -71,3 +71,7 @@ _Avoid_: Outerwear, gear
 **Girls' alternative**:
 A second pick for Bottom and Legs (robe, or jupe + collants) shown beside the regular pick on days they differ; each kid takes the one that fits them.
 _Avoid_: Girl mode, variant
+
+**Dressing step**:
+One mannequin on the How to dress page, wearing what is on so far: "En dessous" (Base clothes), "Le chandail" (with the Warm layer), "Pour sortir" (with the Coat or Outdoor pants); a day with no Layer has a single "Aujourd'hui" step. In the code, a stage.
+_Avoid_: Panel, frame, card

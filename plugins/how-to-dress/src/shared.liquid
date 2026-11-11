@@ -1,0 +1,43 @@
+{% comment %}
+  Shared by every Layout of How to dress.
+  icon: one clothing piece, drawn in a 100 × 100 box (viewBox -6 -6 112 112).
+  These are the rough icons of the ticket 06 mockup; the real pictures will replace
+  the content of each "when" without moving anything else.
+{% endcomment %}
+{% template icon %}{% case key %}
+{% when 'tshirt' %}<path d="M30 15 L42 15 Q50 24 58 15 L70 15 L92 32 L82 46 L72 40 L72 88 L28 88 L28 40 L18 46 L8 32 Z" fill="#fff"/>
+{% when 'manches' %}<path d="M30 12 L42 12 Q50 21 58 12 L70 12 L84 22 L95 80 L84 82 L74 42 L72 90 L28 90 L26 42 L16 82 L5 80 L16 22 Z" fill="#fff"/>
+{% when 'chandail' %}<path d="M30 12 L42 12 Q50 21 58 12 L70 12 L84 22 L95 80 L84 82 L74 42 L72 90 L28 90 L26 42 L16 82 L5 80 L16 22 Z" fill="#d4d4d4"/><path d="M38 12 Q50 0 62 12" fill="none"/><path d="M38 66 L62 66 L66 80 L34 80 Z" fill="#fff"/><line x1="26" y1="84" x2="74" y2="84"/>
+{% when 'misaison' %}<path d="M32 10 L44 10 L50 18 L56 10 L68 10 L84 20 L94 84 L82 86 L74 44 L74 94 L26 94 L26 44 L18 86 L6 84 L16 20 Z" fill="#fff"/><line x1="50" y1="18" x2="50" y2="94"/><circle cx="58" cy="36" r="2"/><circle cx="58" cy="54" r="2"/><circle cx="58" cy="72" r="2"/>
+{% when 'hiver' %}<path d="M32 10 L44 10 L50 18 L56 10 L68 10 L84 20 L94 84 L82 86 L74 44 L74 94 L26 94 L26 44 L18 86 L6 84 L16 20 Z" fill="#9a9a9a"/><path d="M32 10 Q50 -6 68 10" fill="#fff"/><line x1="26" y1="40" x2="74" y2="40"/><line x1="26" y1="58" x2="74" y2="58"/><line x1="26" y1="76" x2="74" y2="76"/><line x1="50" y1="18" x2="50" y2="94"/>
+{% when 'impermeable' %}<path d="M32 10 L44 10 L50 18 L56 10 L68 10 L84 20 L94 84 L82 86 L74 44 L74 94 L26 94 L26 44 L18 86 L6 84 L16 20 Z" fill="#d4d4d4"/><path d="M34 12 L50 -2 L66 12" fill="#d4d4d4"/><line x1="50" y1="18" x2="50" y2="94"/><path d="M90 3 Q97 14 90 18 Q83 14 90 3Z" fill="#fff" style="stroke-width:3"/><path d="M10 1 Q17 12 10 16 Q3 12 10 1Z" fill="#fff" style="stroke-width:3"/>
+{% when 'short' %}<path d="M22 20 L78 20 L82 62 L56 64 L50 40 L44 64 L18 62 Z" fill="#fff"/><line x1="22" y1="28" x2="78" y2="28"/>
+{% when 'pantalon' %}<path d="M26 8 L74 8 L80 94 L58 94 L50 34 L42 94 L20 94 Z" fill="#fff"/><line x1="26" y1="16" x2="74" y2="16"/>
+{% when 'neige' %}<path d="M32 4 L68 4 L68 26 L32 26 Z" fill="#9a9a9a"/><path d="M26 26 L74 26 L80 96 L58 96 L50 46 L42 96 L20 96 Z" fill="#9a9a9a"/><line x1="36" y1="4" x2="30" y2="0"/><line x1="64" y1="4" x2="70" y2="0"/>
+{% when 'pluie' %}<path d="M26 8 L74 8 L80 94 L58 94 L50 34 L42 94 L20 94 Z" fill="#d4d4d4"/><line x1="26" y1="16" x2="74" y2="16"/><path d="M90 21 Q97 32 90 36 Q83 32 90 21Z" fill="#fff" style="stroke-width:3"/><path d="M10 31 Q17 42 10 46 Q3 42 10 31Z" fill="#fff" style="stroke-width:3"/>
+{% when 'jupe' %}<path d="M34 20 L66 20 L86 78 L14 78 Z" fill="#fff"/><line x1="34" y1="28" x2="66" y2="28"/><line x1="42" y1="30" x2="36" y2="78"/><line x1="58" y1="30" x2="64" y2="78"/>
+{% when 'robe' %}<path d="M38 6 L44 6 Q50 14 56 6 L62 6 L64 34 L86 94 L14 94 L36 34 Z" fill="#fff"/><line x1="36" y1="34" x2="64" y2="34"/>
+{% when 'collants' %}<path d="M30 6 L70 6 L68 70 L76 86 L62 94 L52 74 L50 30 L48 74 L38 94 L24 86 L32 70 Z" fill="#555"/>
+{% when 'casquette' %}<path d="M18 62 Q18 26 50 26 Q80 26 80 62 Z" fill="#fff"/><path d="M14 62 L96 62 L96 70 L14 70 Z" fill="#555"/><circle cx="50" cy="26" r="3"/>
+{% when 'tuque' %}<path d="M22 66 Q22 24 50 24 Q78 24 78 66 Z" fill="#d4d4d4"/><rect x="18" y="62" width="64" height="22" rx="4" fill="#9a9a9a"/><circle cx="50" cy="16" r="10" fill="#fff"/>
+{% when 'gants' %}<path d="M30 92 L30 24 Q30 16 36 16 Q42 16 42 24 L42 44 L42 14 Q42 8 48 8 Q54 8 54 14 L54 44 L54 16 Q54 10 60 10 Q66 10 66 16 L66 46 L66 28 Q66 22 72 22 Q78 22 78 28 L78 72 Q78 92 60 92 Z" fill="#fff"/><path d="M30 58 L16 42 Q12 34 20 32 Q26 32 30 40" fill="#fff"/>
+{% when 'mitaines' %}<path d="M30 92 L30 30 Q30 10 52 10 Q74 10 74 30 L74 92 Z" fill="#d4d4d4"/><path d="M30 62 Q8 52 14 36 Q20 28 30 38" fill="#d4d4d4"/><rect x="26" y="76" width="52" height="16" fill="#9a9a9a"/>
+{% when 'cachecou' %}<path d="M26 22 L74 22 L78 82 L22 82 Z" fill="#d4d4d4"/><ellipse cx="50" cy="22" rx="24" ry="8" fill="#fff"/><line x1="40" y1="32" x2="38" y2="80"/><line x1="60" y1="32" x2="62" y2="80"/>
+{% when 'souliers' %}<path d="M8 50 L8 74 L92 74 L92 66 Q90 56 70 52 L52 46 L46 32 L14 32 Z" fill="#fff"/><rect x="8" y="74" width="84" height="10" fill="#555"/><line x1="30" y1="40" x2="42" y2="38"/><line x1="32" y1="48" x2="46" y2="46"/>
+{% when 'bottesPluie' %}<path d="M24 6 L58 6 L58 64 Q86 64 90 80 L90 92 L24 92 Z" fill="#d4d4d4"/><rect x="24" y="86" width="66" height="8" fill="#555"/><path d="M78 13 Q85 24 78 28 Q71 24 78 13Z" fill="#fff" style="stroke-width:3"/>
+{% when 'bottesHiver' %}<path d="M24 22 L60 22 L60 62 Q88 64 92 80 L92 90 L24 90 Z" fill="#9a9a9a"/><rect x="18" y="8" width="48" height="18" rx="6" fill="#fff" style="stroke-dasharray:4 4"/><rect x="22" y="88" width="72" height="10" fill="#555"/>
+{% when 'creme' %}<rect x="40" y="10" width="20" height="16" fill="#555"/><path d="M34 26 L66 26 L70 94 L30 94 Z" fill="#fff"/><circle cx="50" cy="60" r="10" fill="#fff"/><line x1="50" y1="42" x2="50" y2="46"/><line x1="50" y1="74" x2="50" y2="78"/><line x1="32" y1="60" x2="36" y2="60"/><line x1="64" y1="60" x2="68" y2="60"/>
+{% endcase %}{% endtemplate %}
+
+{% comment %}body: the bare mannequin, in the 200 × 414 drawing the transform's boxes use.{% endcomment %}
+{% template body %}<g fill="#d4d4d4" stroke="#000" stroke-width="3">
+  <rect x="62" y="205" width="34" height="145" rx="12"/><rect x="104" y="205" width="34" height="145" rx="12"/>
+  <rect x="28" y="96" width="22" height="118" rx="11"/><rect x="150" y="96" width="22" height="118" rx="11"/>
+  <rect x="55" y="88" width="90" height="125" rx="20"/><rect x="90" y="70" width="20" height="22"/>
+  <circle cx="100" cy="45" r="32" fill="#fff"/></g>
+<g fill="#000"><circle cx="89" cy="44" r="4"/><circle cx="111" cy="44" r="4"/></g>
+<path d="M88 58 Q100 68 112 58" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"/>{% endtemplate %}
+
+{% comment %}mannequin: the body wearing a list of pieces from the transform.{% endcomment %}
+{% template mannequin %}<svg class="htd-mannequin {{ size }}" viewBox="0 -14 200 414">{% render 'body' %}{% for p in pieces %}
+<svg x="{{ p.x }}" y="{{ p.y }}" width="{{ p.w }}" height="{{ p.h }}" viewBox="-6 -6 112 112" preserveAspectRatio="none" class="ico">{% if p.mirrored %}<g transform="translate(100 0) scale(-1 1)">{% endif %}{% render 'icon', key: p.key %}{% if p.mirrored %}</g>{% endif %}</svg>{% endfor %}</svg>{% endtemplate %}

@@ -1,0 +1,15 @@
+# trmnlp configuration for How to dress (local preview only, never uploaded).
+---
+watch:
+  - .trmnlp.yml
+  - src
+
+time_zone: America/Toronto
+
+custom_fields: {}
+
+# The weather the preview shows. `node plugins/how-to-dress/samples/use.js <name>`
+# swaps in a sample day (grand-froid, neige, neige-au-sol, pluie, doux-venteux,
+# canicule); `use.js live` removes it so the preview polls Open-Meteo.
+# sample: live
+variables: {}

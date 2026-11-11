@@ -1,0 +1,71 @@
+<style>
+  /* Only what the Framework has no class for: the mannequin drawings and the chart bars. */
+  .htd-mannequin { display: block; width: calc(179px * var(--content-scale, 1)); height: calc(370px * var(--content-scale, 1)); }
+  .htd-mannequin.small { width: calc(97px * var(--content-scale, 1)); height: calc(200px * var(--content-scale, 1)); }
+  .htd-ico { display: block; width: calc(70px * var(--content-scale, 1)); height: calc(70px * var(--content-scale, 1)); }
+  .ico path, .ico rect, .ico circle, .ico ellipse, .ico line, .ico polyline { stroke: #000; stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+  .htd-alt { border: 3px dashed #000; }
+  .htd-number { width: calc(36px * var(--content-scale, 1)); height: calc(36px * var(--content-scale, 1)); display: inline-flex; align-items: center; justify-content: center; }
+  .htd-bottom { border-top: 2px solid #000; }
+  .htd-bar { width: 64%; }
+  .htd-wet { width: 22px; height: 22px; }
+</style>
+
+<div class="layout layout--col layout--stretch gap--small">
+  {% if error %}
+    <span class="title title--xlarge">{{ error }}</span>
+  {% else %}
+  <span class="title title--large text--bold">{{ friendly }}</span>
+
+  <div class="flex flex--row flex--center-x flex--top gap--xsmall grow">
+    {% for stage in stages %}
+      {% unless forloop.first %}<span class="value value--large flex flex--center-y h--96">→</span>{% endunless %}
+      <div class="flex flex--col flex--center-x gap--xsmall">
+        <div class="flex flex--row flex--bottom gap--small">
+          {% render 'mannequin', pieces: stage.pieces, size: '' %}
+          {% if stage.alt %}
+            <div class="htd-alt flex flex--col flex--center-x rounded--large p--1 mb--5">
+              <span class="title title--small">ou</span>
+              {% render 'mannequin', pieces: stage.alt.pieces, size: 'small' %}
+              <span class="description text--center">{{ stage.alt.added }}</span>
+            </div>
+          {% endif %}
+          {% if stage.extra %}
+            <div class="flex flex--col flex--center-x mb--5">
+              <svg class="htd-ico ico" viewBox="-6 -6 112 112">{% render 'icon', key: stage.extra.key %}</svg>
+              <span class="description text--center">{{ stage.extra.label }}</span>
+            </div>
+          {% endif %}
+        </div>
+        <span class="title text--bold flex flex--row flex--center-y gap--xsmall">
+          {% if stage.number %}<span class="htd-number rounded--full bg--black"><span class="title text--white">{{ stage.number }}</span></span>{% endif %}
+          {{ stage.title }}
+        </span>
+        <span class="description description--large text--center w--max-80">{{ stage.added }}</span>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="htd-bottom flex flex--row flex--bottom gap--large pt--2">
+    <span class="title w--96 flex-none">{{ sentence }}</span>
+    <div class="flex flex--row flex--bottom gap--xsmall grow">
+      {% for h in chart %}
+        <div class="flex flex--col flex--center-x flex--bottom grow">
+          <span class="value value--xxsmall">{{ h.temp }}</span>
+          <div class="htd-bar {% if h.wet %}bg--gray-4{% else %}bg--black{% endif %}" style="height: calc({{ h.height | times: 0.7 }}px * var(--content-scale, 1))"></div>
+          <span class="description">{{ h.hour }} h</span>
+          <svg class="htd-wet" viewBox="0 0 22 22">
+            {% if h.wet == 'rain' %}<path d="M11 2 Q18 13 11 18 Q4 13 11 2Z" fill="#fff" stroke="#000" stroke-width="2.5"/>{% endif %}
+            {% if h.wet == 'snow' %}<g stroke="#000" stroke-width="2.5"><line x1="3" y1="11" x2="19" y2="11"/><line x1="7" y1="4" x2="15" y2="18"/><line x1="7" y1="18" x2="15" y2="4"/></g>{% endif %}
+          </svg>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<div class="title_bar">
+  <span class="title">Comment s'habiller</span>
+  <span class="instance">{{ date }} · Montréal</span>
+</div>
