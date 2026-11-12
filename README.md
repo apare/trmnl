@@ -22,4 +22,11 @@ In the preview, pick "TRMNL X" and "16 Grays" once per port (1040×780).
 
 After the first push of a Plugin, commit its `src/settings.yml`: it now holds the Plugin's id, and a push without it creates a new Plugin.
 
+## CI
+
+[`.github/workflows/trmnl.yml`](.github/workflows/trmnl.yml) lints and tests every Plugin on each pull request and push to `main`. On `main`, it then pushes each Plugin whose `src/` changed, with `--force`: a push overwrites the Plugin's settings on trmnl.com but leaves the Playlist alone. A manual run (Run workflow) pushes them all.
+
+- The first push of a new Plugin stays local (above): the workflow refuses a Plugin with no `id:`.
+- The `TRMNL_API_KEY` repository secret holds a `trmnl_` key with the content capability: `pbpaste | gh secret set TRMNL_API_KEY --repo apare/trmnl`.
+
 Only `full` is designed; the other Layouts hold a one-line placeholder.

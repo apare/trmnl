@@ -23,11 +23,13 @@ usage() {
 # docker run with the repo at /plugin and the API key folder mounted.
 # stdin is always passed (-i), so a piped answer works without a terminal:
 #   pbpaste | bin/trmnlp login
+# TRMNL_API_KEY, when set (in CI), reaches trmnlp and wins over the saved key.
 run() {
-  local tty=(-i)
+  local tty=(-i) env=()
   [ -t 0 ] && tty=(-it)
+  [ -n "${TRMNL_API_KEY:-}" ] && env=(--env TRMNL_API_KEY)
   mkdir -p "$CONFIG_DIR"
-  docker run --rm ${tty[@]+"${tty[@]}"} \
+  docker run --rm ${tty[@]+"${tty[@]}"} ${env[@]+"${env[@]}"} \
     --volume "$ROOT:/plugin" \
     --volume "$CONFIG_DIR:/root/.config/trmnlp" \
     "$@"
@@ -81,8 +83,8 @@ case "$command" in
     before="$(cat "$settings")"
     # </dev/null: lint must not swallow a piped answer meant for push.
     run "$IMAGE" lint -d "$dir" </dev/null
-    # No --force: trmnlp asks before overwriting the settings on the server,
-    # until we know whether a push resets what the web UI set.
+    # Without --force, trmnlp asks before overwriting the settings on the server.
+    # A push leaves the Playlist alone; CI passes --force.
     run "$IMAGE" push -d "$dir" "$@"
     if [ "$before" != "$(cat "$settings")" ]; then
       echo

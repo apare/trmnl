@@ -1,0 +1,80 @@
+# Lints and tests every Plugin, then pushes the changed ones to the TRMNL account.
+#
+# A push to main pushes each Plugin whose plugins/<slug>/src/ changed since the
+# previous push; a manual run on main pushes them all. A Plugin with no `id:` in
+# src/settings.yml fails the run: push it once locally (bin/trmnlp push <slug>)
+# and commit its settings.yml, or every run would create a new Plugin.
+#
+# Secret TRMNL_API_KEY: a trmnl_ key with the content capability.
+name: TRMNL
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trmnl-${{ github.ref }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Lint and test each Plugin
+        run: |
+          for config in plugins/*/.trmnlp.yml; do
+            slug="$(basename "$(dirname "$config")")"
+            echo "::group::$slug"
+            bin/trmnlp lint "$slug"
+            if compgen -G "plugins/$slug/test/*.test.js" >/dev/null; then
+              node --test "plugins/$slug"/test/*.test.js
+            fi
+            echo "::endgroup::"
+          done
+
+  push:
+    needs: check
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Push the changed Plugins
+        env:
+          TRMNL_API_KEY: ${{ secrets.TRMNL_API_KEY }}
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ -z "$TRMNL_API_KEY" ]; then
+            echo "::error::The TRMNL_API_KEY secret is missing."
+            exit 1
+          fi
+          # A manual run, a new branch or a force push has no previous commit to diff: push all.
+          if [ "$EVENT" = workflow_dispatch ] || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            slugs="$(ls plugins)"
+          else
+            slugs="$(git diff --name-only "$BEFORE" HEAD -- plugins | awk -F/ '$3 == "src" { print $2 }' | sort -u)"
+          fi
+          failed=0
+          for slug in $slugs; do
+            [ -f "plugins/$slug/.trmnlp.yml" ] || continue # deleted Plugin
+            if ! grep -q '^id:' "plugins/$slug/src/settings.yml"; then
+              echo "::error file=plugins/$slug/src/settings.yml::$slug has no id: push it once with bin/trmnlp push $slug and commit settings.yml."
+              failed=1
+              continue
+            fi
+            echo "::group::$slug"
+            bin/trmnlp push "$slug" --force
+            echo "::endgroup::"
+          done
+          [ -n "$slugs" ] || echo "No Plugin changed under plugins/*/src/."
+          exit "$failed"
