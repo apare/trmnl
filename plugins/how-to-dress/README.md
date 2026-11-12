@@ -13,4 +13,8 @@ node plugins/how-to-dress/samples/use.js pluie            # preview a sample day
 bin/trmnlp serve how-to-dress
 ```
 
-On the TRMNL account, How to dress is meant to be an Important Playlist item from 6:15 to 8:30.
+On my TRMNL account, How to dress sits in the Playlist from 5:00 to 9:00, in turn with the other Plugins.
+
+## Another city
+
+The forecast comes from [Open-Meteo](https://open-meteo.com), which needs no API key. To use another city, change `latitude` and `longitude` in the `polling_url` of `src/settings.yml`; Open-Meteo returns the hours in that place's time zone (`timezone=auto`). Then replace "Montréal" in the title bar of `src/full.liquid`, and `time_zone` in `.trmnlp.yml` for the local preview.
