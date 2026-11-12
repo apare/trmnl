@@ -1,9 +1,3 @@
-#
-# Changes to this file will be overwritten by `trmnlp pull`, and by `trmnlp push`,
-# which writes the server's copy back here (with the Plugin id after the first push).
-#
-# Docs: https://help.trmnl.com/en/articles/10542599-importing-and-exporting-private-plugins#h_581fb988f0
-#
 ---
 strategy: polling
 no_screen_padding: 'no'
@@ -11,9 +5,14 @@ dark_mode: 'no'
 static_data: ''
 polling_verb: get
 framework_version: latest
-polling_url: https://api.open-meteo.com/v1/forecast?latitude=45.50&longitude=-73.57&timezone=auto&forecast_days=1&hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,snowfall,snow_depth,weather_code,wind_speed_10m,wind_gusts_10m,uv_index
-polling_headers: ''
 serverless_language: node
+refresh_interval_floor:
+polling_url: https://api.open-meteo.com/v1/forecast?latitude=45.50&longitude=-73.57&timezone=auto&forecast_days=1&hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,snowfall,snow_depth,weather_code,wind_speed_10m,wind_gusts_10m,uv_index
+polling_headers:
+polling_body:
+id: 538569
+oauth_enabled: 'false'
+oauth_pkce_enabled: 'no'
 name: How to dress
 description: Quoi porter selon la météo
 refresh_interval: 60
