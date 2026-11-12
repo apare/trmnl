@@ -21,8 +21,10 @@ usage() {
 }
 
 # docker run with the repo at /plugin and the API key folder mounted.
+# stdin is always passed (-i), so a piped answer works without a terminal:
+#   pbpaste | bin/trmnlp login
 run() {
-  local tty=()
+  local tty=(-i)
   [ -t 0 ] && tty=(-it)
   mkdir -p "$CONFIG_DIR"
   docker run --rm ${tty[@]+"${tty[@]}"} \
@@ -77,7 +79,8 @@ case "$command" in
     dir="$(plugin_dir "$slug")"
     settings="$ROOT/$dir/src/settings.yml"
     before="$(cat "$settings")"
-    run "$IMAGE" lint -d "$dir"
+    # </dev/null: lint must not swallow a piped answer meant for push.
+    run "$IMAGE" lint -d "$dir" </dev/null
     # No --force: trmnlp asks before overwriting the settings on the server,
     # until we know whether a push resets what the web UI set.
     run "$IMAGE" push -d "$dir" "$@"
