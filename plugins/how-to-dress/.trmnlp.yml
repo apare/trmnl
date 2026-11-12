@@ -6,6 +6,11 @@ watch:
 
 time_zone: America/Toronto
 
+# author_contact_method asks a public recipe for a way to reach its author;
+# How to dress is a Private Plugin, never published as a recipe.
+ignored_lint_rules:
+  - author_contact_method
+
 custom_fields: {}
 
 # The weather the preview shows. `node plugins/how-to-dress/samples/use.js <name>`

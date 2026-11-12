@@ -10,7 +10,7 @@
 # In the preview, pick "TRMNL X" and "16 Grays" once per port (1040×780).
 set -euo pipefail
 
-IMAGE="trmnl/trmnlp:v0.12.0"
+IMAGE="trmnl/trmnlp:v0.34.0"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/trmnlp"
 PORT="${PORT:-4567}"
