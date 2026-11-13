@@ -79,7 +79,7 @@ _Avoid_: Dressing step, stage, panel
 ### Mot du jour
 
 **Entry**:
-One word of `words.json` with everything the page shows for it: the word, its article, syllables, definition, example and picture.
+One word of `words.json` with everything the page shows for it: the word and its silent letters, its article, syllables, definition, example and picture.
 _Avoid_: Card, item
 
 **Reserve**:

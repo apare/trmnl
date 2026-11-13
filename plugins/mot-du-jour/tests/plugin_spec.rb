@@ -36,14 +36,24 @@ RSpec.describe 'Mot du jour' do
     expect(words_of('octobre')).to include(word_at('2026-10-31T21:00:00-04:00'))
   end
 
-  # Ten days from the 1st of each month: each of its words shows once, and none runs off the Device.
+  # The reading aids: the first letter in a black box, the silent letters in pale gray, the example's word in bold.
+  def expect_reading_aids(screen, entry)
+    expect(screen).to have_css('.mdj-word .mdj-initial.bg--black', exact_text: entry['word'][0])
+    expect(screen.all('.mdj-word .text--gray-55').map(&:text).join).to eq(entry['silent'].scan(/\((.*?)\)/).join)
+    expect(screen.find('.mdj-example .text--bold').text).to eq(entry['example'][/\*(.+)\*/, 1])
+    expect(screen).not_to have_text('*')
+  end
+
+  # Ten days from the 1st of each month: each of its words shows once, with its reading aids, and none runs off the Device.
   MONTHS.each_key.with_index(1) do |month, number|
     it "shows every word of #{month} once over 10 days, inside the Device" do
       first = Date.new(2027, number, 1)
       words = 10.times.map do |offset|
         screen = render_at("#{first + offset}T12:00:00-05:00")
         expect(screen.overflowing).to be_empty
-        screen.find('[data-word]')['data-word']
+        word = screen.find('[data-word]')['data-word']
+        expect_reading_aids(screen, MONTHS.fetch(month).find { it['word'] == word })
+        word
       end
       expect(words).to match_array(words_of(month))
     end

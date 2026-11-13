@@ -1,10 +1,10 @@
 <style>
-  /* Only what the Framework has no class for: the picture's box, the giant word, its first letter and the example's rule. */
+  /* Only what the Framework has no class for: the picture's box, the giant word, its first letter's box and the example's rule. */
   .mdj-picture { display: block; width: calc(400px * var(--content-scale, 1)); height: calc(400px * var(--content-scale, 1)); object-fit: contain; }
   .mdj-word { font-size: calc(120px * var(--content-scale, 1)); line-height: 1.05; padding-bottom: calc(10px * var(--content-scale, 1)); }
   .mdj-word.long { font-size: calc(88px * var(--content-scale, 1)); }
   .mdj-word.longer { font-size: calc(68px * var(--content-scale, 1)); }
-  .mdj-initial { text-decoration: underline; text-decoration-thickness: calc(9px * var(--content-scale, 1)); text-underline-offset: calc(12px * var(--content-scale, 1)); text-decoration-skip-ink: none; }
+  .mdj-initial { display: inline-block; line-height: 0.95; padding: 0.02em 0.07em 0.06em; margin-right: 0.04em; border-radius: 0.1em; }
   .mdj-example { border-left: 6px solid #000; }
 </style>
 
@@ -23,6 +23,24 @@
   {% assign entry = reserve[index] %}
   {% comment %} A longer word gets a smaller size, so it stays on the Device. {% endcomment %}
   {% if entry.word.size > 11 %}{% assign word_size = "longer" %}{% elsif entry.word.size > 8 %}{% assign word_size = "long" %}{% endif %}
+
+  {% comment %}
+    The word's silent letters are between parentheses in `silent` and `syllables`: each group turns pale gray.
+    The first letter goes white in a black box; a silent h (hibou, hamac) stays pale gray in it.
+  {% endcomment %}
+  {% assign mute = '<span class="text--gray-55">' %}
+  {% assign first = entry.silent | slice: 0 %}
+  {% if first == "(" %}
+    {% assign initial = entry.silent | slice: 1 %}
+    {% assign initial_color = "text--gray-55" %}
+    {% assign rest = entry.silent | slice: 3, 100 %}
+  {% else %}
+    {% assign initial = first %}
+    {% assign initial_color = "text--white" %}
+    {% assign rest = entry.silent | slice: 1, 100 %}
+  {% endif %}
+  {% comment %} The example's word is between asterisks: the second part of the split goes bold. {% endcomment %}
+  {% assign example_parts = entry.example | split: "*" %}
 {% endif %}
 
 <div class="layout layout--row layout--stretch-y gap--large">
@@ -32,18 +50,17 @@
     </div>
     <div class="flex flex--col flex--left flex--center-y gap--medium grow" data-word="{{ entry.word }}">
       <div class="flex flex--col flex--left gap--xsmall">
-        {% comment %} The first letter underlined in black, the rest of the word in dark gray. {% endcomment %}
-        <span class="mdj-word {{ word_size }} title text--bold"><span class="mdj-initial">{{ entry.word | slice: 0 }}</span><span class="text--gray-2">{{ entry.word | slice: 1, 100 }}</span></span>
+        <span class="mdj-word {{ word_size }} title text--bold"><span class="mdj-initial bg--black {{ initial_color }}">{{ initial }}</span>{{ rest | replace: "(", mute | replace: ")", "</span>" }}</span>
         {% comment %} A one-syllable word would only repeat itself. {% endcomment %}
         {% if entry.syllables.size > 1 %}
           <span class="title title--xlarge">
-            {% for syllable in entry.syllables %}<span class="text--bold">{{ syllable }}</span>{% unless forloop.last %} · {% endunless %}{% endfor %}
+            {% for syllable in entry.syllables %}<span class="text--bold">{{ syllable | replace: "(", mute | replace: ")", "</span>" }}</span>{% unless forloop.last %} · {% endunless %}{% endfor %}
           </span>
         {% endif %}
         <span class="description description--large">{{ entry.article }} {{ entry.word }} · nom</span>
       </div>
       <span class="title title--xlarge">{{ entry.definition }}</span>
-      <span class="mdj-example title title--large pl--4">{{ entry.example }}</span>
+      <span class="mdj-example title title--large pl--4">{% for part in example_parts %}{% if forloop.index == 2 %}<span class="text--bold">{{ part }}</span>{% else %}{{ part }}{% endif %}{% endfor %}</span>
     </div>
   {% else %}
     <span class="title title--xlarge">Aucun mot pour le mois de {{ month }}.</span>
