@@ -37,14 +37,14 @@ test('Wednesday 18 November evening: put the recycling out', () => {
   assert.deepEqual(keys(r), ['recyclage']);
   assert.equal(r.texte, 'Sors le recyclage\u{a0}!');
   assert.equal(r.collecte, '2026-11-19');
-  assert.match(r.matieres[0].svg, /^<svg class="col-bin"/);
+  assert.match(r.matieres[0].image, /^https:\/\/raw\.githubusercontent\.com\/apare\/trmnl\/[0-9a-f]{40}\/plugins\/collectes\/images\/recyclage\.png$/);
 });
 
 test('Wednesday 25 November evening: put the garbage out', () => {
   const r = at('2026-11-25T20:00');
   assert.equal(r.sortir, true);
   assert.deepEqual(keys(r), ['ordures']);
-  assert.equal(r.texte, 'Sors les poubelles\u{a0}!');
+  assert.equal(r.texte, 'Sors les vidanges\u{a0}!');
 });
 
 test('the eve switches at 15 h', () => {
@@ -67,7 +67,7 @@ test('a quiet Friday shows the next bin without the order', () => {
   assert.equal(r.sortir, false);
   assert.deepEqual(keys(r), ['recyclage']);
   assert.equal(r.collecte, '2026-11-19');
-  assert.doesNotMatch(r.matieres[0].svg, /fill="#555"/); // drawn pale
+  assert.match(r.matieres[0].image, /\/recyclage-pale\.png$/);
 });
 
 test('the alternation holds before the first date and months later', () => {
@@ -79,7 +79,7 @@ test('the alternation holds before the first date and months later', () => {
 test('two bins the same day are named together', () => {
   const r = at('2026-11-18T20:00', { ...HOUSE, ordures_frequence: 'semaine', ordures_date: '2026-11-19' });
   assert.deepEqual(keys(r), ['ordures', 'recyclage']);
-  assert.equal(r.texte, 'Sors les poubelles et le recyclage\u{a0}!');
+  assert.equal(r.texte, 'Sors les vidanges et le recyclage\u{a0}!');
 });
 
 test('"Pas de collecte" and an empty date leave a Matière out', () => {

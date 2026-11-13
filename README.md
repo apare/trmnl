@@ -5,7 +5,7 @@ Private Plugins for my [TRMNL X](https://trmnl.com), a 10.3" e-ink Device with 1
 ## Plugins
 
 - [How to dress](plugins/how-to-dress/): what the kids wear today, drawn as paper-doll mannequins, from Montréal's weather between 8 h and 17 h. Only the `full` Layout (the size that fills the whole Device) is designed; the other Layouts hold a one-line placeholder.
-- [Collectes](plugins/collectes/): on the eve of a Collecte, the bin to put out at the curb and "Sors les poubelles !", from a schedule set in the Plugin's settings. `full` Layout only.
+- [Collectes](plugins/collectes/): on the eve of a Collecte, the bin to put out at the curb and "Sors les vidanges !", from a schedule set in the Plugin's settings. `full` Layout only.
 
 ## Commands
 
