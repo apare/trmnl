@@ -6,11 +6,13 @@ static_data: ''
 polling_verb: get
 framework_version: latest
 serverless_language: node
+refresh_interval_floor:
 polling_url: ''
-polling_headers: ''
-name: Collectes
-description: Quel bac sortir au chemin ce soir
-refresh_interval: 60
+polling_headers:
+polling_body:
+id: 539531
+oauth_enabled: 'false'
+oauth_pkce_enabled: 'no'
 custom_fields:
 - keyname: ordures_date
   field_type: date
@@ -38,3 +40,6 @@ custom_fields:
   - Chaque semaine: semaine
   - Pas de collecte: aucune
   default: deux_semaines
+name: Collectes
+description: Quel bac sortir au chemin ce soir
+refresh_interval: 60
