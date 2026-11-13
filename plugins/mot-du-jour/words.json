@@ -1,0 +1,148 @@
+{
+  "months": {
+    "janvier": [
+      {"word":"flocon","silent":"flocon","article":"un","syllables":["flo","con"],"picto":38027,"definition":"Un tout petit morceau de neige qui tombe du ciel quand il fait froid.","example":"Chaque *flocon* a une forme différente."},
+      {"word":"tuque","silent":"tuqu(e)","article":"une","syllables":["tuqu(e)"],"picto":2412,"definition":"Un bonnet chaud qu’on met sur la tête quand il fait froid.","example":"Mets ta *tuque*, il fait froid dehors !"},
+      {"word":"mitaine","silent":"mitain(e)","article":"une","syllables":["mi","tain(e)"],"picto":8314,"definition":"Un gant chaud où tous les doigts sont ensemble, sauf le pouce.","example":"J’ai perdu une *mitaine* dans la neige."},
+      {"word":"bonhomme de neige","silent":"bon(h)omm(e) de neig(e)","article":"un","syllables":["bon","(h)omm(e)","de","neig(e)"],"picto":3131,"definition":"Un bonhomme fait de grosses boules de neige posées l’une sur l’autre.","example":"Notre *bonhomme de neige* a une carotte pour nez."},
+      {"word":"igloo","silent":"igloo","article":"un","syllables":["i","gloo"],"picto":8137,"definition":"Une maison ronde construite avec des blocs de neige.","example":"Nous avons fait un petit *igloo* dans la cour."},
+      {"word":"pelle","silent":"pell(e)","article":"une","syllables":["pell(e)"],"picto":2867,"definition":"Un outil à long manche pour creuser ou enlever la neige.","example":"Papa pellette l’entrée avec une grosse *pelle*."},
+      {"word":"foyer","silent":"foyer","article":"un","syllables":["fo","yer"],"picto":8072,"definition":"L’endroit de la maison où brûle un feu de bois pour nous réchauffer.","example":"On se réchauffe les pieds devant le *foyer*."},
+      {"word":"chocolat chaud","silent":"chocola(t) chau(d)","article":"un","syllables":["cho","co","la(t)","chau(d)"],"picto":6448,"definition":"Une boisson chaude et sucrée faite avec du lait et du chocolat.","example":"Après la glissade, on boit un *chocolat chaud*."},
+      {"word":"botte","silent":"bott(e)","article":"une","syllables":["bott(e)"],"picto":2287,"definition":"Une grosse chaussure haute qui garde les pieds au chaud et au sec.","example":"Je mets mes *bottes* avant de sortir dans la neige."},
+      {"word":"ours","silent":"ours","article":"un","syllables":["ours"],"picto":2488,"definition":"Un gros animal poilu qui dort presque tout l’hiver dans sa tanière.","example":"Au printemps, l’*ours* se réveille avec une grosse faim."}
+    ],
+    "février": [
+      {"word":"patin","silent":"patin","article":"un","syllables":["pa","tin"],"picto":30448,"definition":"Une bottine avec une lame dessous pour glisser sur la glace.","example":"Je mets mes *patins* pour aller à la patinoire."},
+      {"word":"luge","silent":"lug(e)","article":"une","syllables":["lug(e)"],"picto":8710,"definition":"Une petite planche qui glisse sur la neige pour descendre les côtes.","example":"On descend la côte en *luge*."},
+      {"word":"cœur","silent":"cœur","article":"un","syllables":["cœur"],"picto":4613,"definition":"Une forme qu’on dessine pour dire « je t’aime ».","example":"Pour la Saint-Valentin, je dessine un *cœur* rouge."},
+      {"word":"renard","silent":"renar(d)","article":"un","syllables":["re","nar(d)"],"picto":2623,"definition":"Un animal roux à longue queue touffue, qui ressemble à un petit chien.","example":"Le *renard* laisse des traces dans la neige."},
+      {"word":"cache-cou","silent":"cach(e)-cou","article":"un","syllables":["cach(e)","cou"],"picto":2290,"definition":"Un tube de laine chaud qu’on met autour du cou.","example":"Remonte ton *cache-cou*, le vent est froid !"},
+      {"word":"castor","silent":"castor","article":"un","syllables":["cas","tor"],"picto":7055,"definition":"Un animal à grandes dents et à queue plate qui construit des barrages.","example":"Le *castor* ronge les arbres près de la rivière."},
+      {"word":"lièvre","silent":"lièvr(e)","article":"un","syllables":["lièvr(e)"],"picto":17265,"definition":"Un animal comme un gros lapin, dont le poil devient blanc l’hiver.","example":"Le *lièvre* court vite dans la forêt enneigée."},
+      {"word":"hibou","silent":"(h)ibou","article":"un","syllables":["(h)i","bou"],"picto":2671,"definition":"Un oiseau aux grands yeux ronds qui se réveille la nuit.","example":"La nuit, le *hibou* fait « hou hou »."},
+      {"word":"glace","silent":"glac(e)","article":"la","syllables":["glac(e)"],"picto":7128,"definition":"De l’eau devenue dure parce qu’il fait très froid.","example":"On patine sur la *glace* du lac."},
+      {"word":"raquette","silent":"raquett(e)","article":"une","syllables":["ra","quett(e)"],"picto":38125,"definition":"Une grande semelle qu’on attache à ses bottes pour marcher sur la neige.","example":"Avec mes *raquettes*, je ne m’enfonce pas dans la neige."}
+    ],
+    "mars": [
+      {"word":"crêpe","silent":"crêp(e)","article":"une","syllables":["crêp(e)"],"picto":37849,"definition":"Une galette ronde et mince, cuite dans une poêle.","example":"À la cabane à sucre, on met du sirop sur les *crêpes*."},
+      {"word":"seau","silent":"seau","article":"un","syllables":["seau"],"picto":2725,"definition":"Un récipient avec une anse pour transporter de l’eau.","example":"On accroche un *seau* à l’érable pour recueillir son eau sucrée."},
+      {"word":"goutte","silent":"goutt(e)","article":"une","syllables":["goutt(e)"],"picto":8592,"definition":"Un tout petit peu d’eau, tout rond, qui tombe.","example":"Une *goutte* tombe du glaçon qui fond."},
+      {"word":"flaque","silent":"flaqu(e)","article":"une","syllables":["flaqu(e)"],"picto":25936,"definition":"Un peu d’eau qui reste sur le sol après la pluie.","example":"Avec mes bottes, je saute dans les *flaques*."},
+      {"word":"nuage","silent":"nuag(e)","article":"un","syllables":["nu","ag(e)"],"picto":2883,"definition":"Une grosse boule blanche ou grise qui flotte dans le ciel.","example":"Ce *nuage* ressemble à un mouton."},
+      {"word":"vent","silent":"ven(t)","article":"le","syllables":["ven(t)"],"picto":7259,"definition":"L’air qui bouge très fort dehors et qui fait danser les arbres.","example":"Le *vent* fait voler mon chapeau."},
+      {"word":"cerf-volant","silent":"cer(f)-volan(t)","article":"un","syllables":["cer(f)","vo","lan(t)"],"picto":2350,"definition":"Un jouet en tissu, attaché à une ficelle, qui vole dans le vent.","example":"Mon *cerf-volant* monte très haut dans le ciel."},
+      {"word":"bourgeon","silent":"bourgeon","article":"un","syllables":["bour","geon"],"picto":11202,"definition":"Une petite boule sur une branche, d’où sortira une feuille ou une fleur.","example":"Au printemps, les *bourgeons* apparaissent sur les arbres."},
+      {"word":"oiseau","silent":"oiseau","article":"un","syllables":["oi","seau"],"picto":2490,"definition":"Un animal avec des plumes et des ailes, qui vole et fait son nid.","example":"Un *oiseau* chante sur la branche."},
+      {"word":"érable","silent":"érabl(e)","article":"un","syllables":["é","rabl(e)"],"picto":3057,"definition":"Un grand arbre dont l’eau sucrée sert à faire le sirop d’érable.","example":"Au printemps, on récolte l’eau d’*érable*."}
+    ],
+    "avril": [
+      {"word":"lapin","silent":"lapin","article":"un","syllables":["la","pin"],"picto":2351,"definition":"Un petit animal aux longues oreilles qui saute et mange des carottes.","example":"Le *lapin* de Pâques cache des œufs en chocolat."},
+      {"word":"œuf","silent":"œuf","article":"un","syllables":["œuf"],"picto":2427,"definition":"Ce que pondent les poules et les oiseaux, avec une coquille qui casse.","example":"Pour Pâques, on peint des *œufs* de toutes les couleurs."},
+      {"word":"poussin","silent":"poussin","article":"un","syllables":["pous","sin"],"picto":2533,"definition":"Le bébé de la poule, tout jaune et tout doux.","example":"Le *poussin* sort de son œuf."},
+      {"word":"canard","silent":"canar(d)","article":"un","syllables":["ca","nar(d)"],"picto":28479,"definition":"Un oiseau qui nage sur l’eau et fait « coin-coin ».","example":"Le *canard* revient sur l’étang au printemps."},
+      {"word":"pluie","silent":"plui(e)","article":"la","syllables":["plui(e)"],"picto":3123,"definition":"L’eau qui tombe des nuages en gouttes.","example":"J’entends la *pluie* sur le toit."},
+      {"word":"arc-en-ciel","silent":"arc-en-ciel","article":"un","syllables":["arc","en","ciel"],"picto":2986,"definition":"Un grand pont de couleurs dans le ciel, quand le soleil brille sous la pluie.","example":"Regarde, un *arc-en-ciel* au-dessus de la maison !"},
+      {"word":"ver de terre","silent":"ver de terr(e)","article":"un","syllables":["ver","de","terr(e)"],"picto":2935,"definition":"Un petit animal long et mou, sans pattes, qui vit dans la terre.","example":"Après la pluie, les *vers de terre* sortent du sol."},
+      {"word":"grenouille","silent":"grenouill(e)","article":"une","syllables":["gre","nouill(e)"],"picto":2543,"definition":"Un petit animal vert qui saute très loin et vit près de l’eau.","example":"Le soir, la *grenouille* chante dans l’étang."},
+      {"word":"nid","silent":"ni(d)","article":"un","syllables":["ni(d)"],"picto":7173,"definition":"La petite maison que l’oiseau construit avec des brindilles pour ses œufs.","example":"Il y a trois œufs bleus dans le *nid*."},
+      {"word":"panier","silent":"panier","article":"un","syllables":["pa","nier"],"picto":3012,"definition":"Un contenant avec une anse pour transporter des choses.","example":"Je ramasse les œufs de Pâques dans mon *panier*."}
+    ],
+    "mai": [
+      {"word":"tulipe","silent":"tulip(e)","article":"une","syllables":["tu","lip(e)"],"picto":3163,"definition":"Une fleur en forme de petite coupe qui fleurit au printemps.","example":"Les *tulipes* rouges sortent de la terre en mai."},
+      {"word":"papillon","silent":"papillon","article":"un","syllables":["pa","pi","llon"],"picto":2465,"definition":"Un insecte aux grandes ailes colorées qui vole de fleur en fleur.","example":"Le *papillon* se pose sur ma main."},
+      {"word":"coccinelle","silent":"coccinell(e)","article":"une","syllables":["coc","ci","nell(e)"],"picto":2924,"definition":"Un petit insecte tout rond, rouge avec des points noirs.","example":"La *coccinelle* grimpe sur une feuille."},
+      {"word":"escargot","silent":"escargo(t)","article":"un","syllables":["es","car","go(t)"],"picto":2685,"definition":"Un petit animal tout mou qui avance lentement avec sa maison sur le dos.","example":"L’*escargot* laisse une trace brillante derrière lui."},
+      {"word":"vélo","silent":"vélo","article":"un","syllables":["vé","lo"],"picto":2277,"definition":"Une machine à deux roues qu’on fait avancer en pédalant.","example":"J’apprends à faire du *vélo* sans petites roues."},
+      {"word":"abeille","silent":"abeill(e)","article":"une","syllables":["a","beill(e)"],"picto":24823,"definition":"Un insecte rayé jaune et noir qui fait du miel avec les fleurs.","example":"L’*abeille* butine les fleurs du jardin."},
+      {"word":"fleur","silent":"fleur","article":"une","syllables":["fleur"],"picto":7104,"definition":"La partie colorée d’une plante, qui sent souvent bon.","example":"Je cueille une *fleur* pour maman."},
+      {"word":"graine","silent":"grain(e)","article":"une","syllables":["grain(e)"],"picto":8689,"definition":"Une toute petite chose qu’on met dans la terre pour faire pousser une plante.","example":"On plante une *graine* de tournesol."},
+      {"word":"arrosoir","silent":"arrosoir","article":"un","syllables":["a","rro","soir"],"picto":2817,"definition":"Un récipient avec un long bec pour arroser les plantes.","example":"J’arrose les fleurs avec mon *arrosoir*."},
+      {"word":"trottinette","silent":"trottinett(e)","article":"une","syllables":["trot","ti","nett(e)"],"picto":2508,"definition":"Une planche à deux roues avec un guidon, qu’on pousse avec un pied.","example":"Je vais au parc en *trottinette*."}
+    ],
+    "juin": [
+      {"word":"fraise","silent":"frais(e)","article":"une","syllables":["frais(e)"],"picto":2400,"definition":"Un petit fruit rouge et sucré avec de minuscules graines sur sa peau.","example":"On cueille des *fraises* en juin."},
+      {"word":"soleil","silent":"soleil","article":"le","syllables":["so","leil"],"picto":7252,"definition":"La grosse étoile qui nous éclaire et nous réchauffe le jour.","example":"Mets ta casquette, le *soleil* est fort !"},
+      {"word":"maringouin","silent":"maringouin","article":"un","syllables":["ma","rin","gouin"],"picto":2479,"definition":"Un petit insecte qui vole et qui pique pour boire une goutte de sang.","example":"Un *maringouin* m’a piqué sur le bras."},
+      {"word":"luciole","silent":"luciol(e)","article":"une","syllables":["lu","ciol(e)"],"picto":25203,"definition":"Un petit insecte qui s’allume comme une lumière la nuit.","example":"Le soir, les *lucioles* brillent dans le champ."},
+      {"word":"balançoire","silent":"balançoir(e)","article":"une","syllables":["ba","lan","çoir(e)"],"picto":4608,"definition":"Un siège attaché à des cordes, qui va et vient dans les airs.","example":"Pousse-moi sur la *balançoire* !"},
+      {"word":"glissoire","silent":"glissoir(e)","article":"une","syllables":["glis","soir(e)"],"picto":4759,"definition":"Un jeu du parc où on glisse sur une longue pente.","example":"Je descends la *glissoire* sur le ventre."},
+      {"word":"parc","silent":"parc","article":"un","syllables":["parc"],"picto":2859,"definition":"Un grand terrain avec du gazon, des arbres et des jeux.","example":"Après l’école, on va jouer au *parc*."},
+      {"word":"cerise","silent":"ceris(e)","article":"une","syllables":["ce","ris(e)"],"picto":8303,"definition":"Un petit fruit rouge et rond, avec un noyau dedans.","example":"Attention au noyau de la *cerise* !"},
+      {"word":"pique-nique","silent":"piqu(e)-niqu(e)","article":"un","syllables":["piqu(e)","niqu(e)"],"picto":10236,"definition":"Un repas qu’on mange dehors, assis sur une couverture.","example":"On fait un *pique-nique* au bord du lac."},
+      {"word":"casquette","silent":"casquett(e)","article":"une","syllables":["cas","quett(e)"],"picto":2411,"definition":"Un chapeau avec une visière pour protéger les yeux du soleil.","example":"Je mets ma *casquette* pour aller jouer dehors."}
+    ],
+    "juillet": [
+      {"word":"plage","silent":"plag(e)","article":"une","syllables":["plag(e)"],"picto":30518,"definition":"Le bord d’un lac ou de la mer, couvert de sable.","example":"On fait des châteaux de sable à la *plage*."},
+      {"word":"piscine","silent":"piscin(e)","article":"une","syllables":["pis","cin(e)"],"picto":3142,"definition":"Un grand bassin plein d’eau pour se baigner.","example":"Quand il fait chaud, on se baigne dans la *piscine*."},
+      {"word":"tente","silent":"tent(e)","article":"une","syllables":["tent(e)"],"picto":4756,"definition":"Une petite maison en tissu qu’on monte pour dormir dehors.","example":"Cet été, on dort sous la *tente* au camping."},
+      {"word":"crème glacée","silent":"crèm(e) glacé(e)","article":"une","syllables":["crèm(e)","gla","cé(e)"],"picto":2420,"definition":"Un dessert froid et sucré qu’on mange en cornet.","example":"Ma *crème glacée* fond au soleil !"},
+      {"word":"maillot","silent":"maillo(t)","article":"un","syllables":["mai","llo(t)"],"picto":2270,"definition":"Le vêtement qu’on porte pour se baigner.","example":"Je mets mon *maillot* pour aller à la piscine."},
+      {"word":"sable","silent":"sabl(e)","article":"le","syllables":["sabl(e)"],"picto":4565,"definition":"De toutes petites pierres qui couvrent la plage.","example":"Je construis un château de *sable*."},
+      {"word":"feu d’artifice","silent":"feu d’artific(e)","article":"un","syllables":["feu","d’ar","ti","fic(e)"],"picto":5474,"definition":"Des lumières de couleur qui éclatent dans le ciel, la nuit, pour une fête.","example":"Le *feu d’artifice* fait « boum » au-dessus du fleuve."},
+      {"word":"bateau","silent":"bateau","article":"un","syllables":["ba","teau"],"picto":6932,"definition":"Un véhicule qui flotte et avance sur l’eau.","example":"On fait un tour de *bateau* sur le lac."},
+      {"word":"canot","silent":"cano(t)","article":"un","syllables":["ca","no(t)"],"picto":8526,"definition":"Un petit bateau long et étroit qu’on fait avancer avec une pagaie.","example":"On part en *canot* sur la rivière."},
+      {"word":"poisson","silent":"poisson","article":"un","syllables":["pois","son"],"picto":2520,"definition":"Un animal qui vit dans l’eau et nage avec ses nageoires.","example":"Grand-papa a pêché un gros *poisson*."}
+    ],
+    "août": [
+      {"word":"bleuet","silent":"bleuet","article":"un","syllables":["bleu","et"],"picto":36488,"definition":"Un petit fruit bleu et sucré qui pousse sur un buisson.","example":"On met des *bleuets* dans les crêpes."},
+      {"word":"blé d’Inde","silent":"blé d’Ind(e)","article":"un","syllables":["blé","d’Ind(e)"],"picto":7150,"definition":"Un épi couvert de grains jaunes et sucrés.","example":"À l’épluchette, on mange du *blé d’Inde* avec du beurre."},
+      {"word":"tomate","silent":"tomat(e)","article":"une","syllables":["to","mat(e)"],"picto":2594,"definition":"Un fruit rouge et juteux qui pousse dans le potager.","example":"Je cueille une *tomate* bien mûre."},
+      {"word":"melon d’eau","silent":"melon d’eau","article":"un","syllables":["me","lon","d’eau"],"picto":2469,"definition":"Un très gros fruit, vert dehors et rouge dedans, plein de jus.","example":"Le *melon d’eau* a plein de pépins noirs."},
+      {"word":"guêpe","silent":"guêp(e)","article":"une","syllables":["guêp(e)"],"picto":6925,"definition":"Un insecte jaune et noir qui peut piquer.","example":"Une *guêpe* tourne autour de mon jus."},
+      {"word":"feu de camp","silent":"feu de cam(p)","article":"un","syllables":["feu","de","cam(p)"],"picto":4664,"definition":"Un feu qu’on allume dehors pour se réchauffer et raconter des histoires.","example":"Autour du *feu de camp*, on chante des chansons."},
+      {"word":"guimauve","silent":"guimauv(e)","article":"une","syllables":["gui","mauv(e)"],"picto":39967,"definition":"Une friandise blanche, molle et sucrée.","example":"Je fais griller ma *guimauve* sur le feu."},
+      {"word":"lune","silent":"lun(e)","article":"la","syllables":["lun(e)"],"picto":10294,"definition":"La grosse boule qui brille dans le ciel la nuit.","example":"Ce soir, la *lune* est toute ronde."},
+      {"word":"grillon","silent":"grillon","article":"un","syllables":["gri","llon"],"picto":25147,"definition":"Un petit insecte qui chante « cri-cri » les soirs d’été.","example":"J’entends les *grillons* dans l’herbe."},
+      {"word":"hamac","silent":"(h)amac","article":"un","syllables":["(h)a","mac"],"picto":30229,"definition":"Un lit en filet ou en tissu accroché entre deux arbres.","example":"Je me berce dans le *hamac*."}
+    ],
+    "septembre": [
+      {"word":"école","silent":"écol(e)","article":"une","syllables":["é","col(e)"],"picto":32446,"definition":"L’endroit où les enfants vont apprendre avec leur enseignante.","example":"Demain, c’est la rentrée à l’*école* !"},
+      {"word":"sac à dos","silent":"sac à do(s)","article":"un","syllables":["sac","à","do(s)"],"picto":2475,"definition":"Un sac qu’on porte sur le dos avec deux bretelles.","example":"Je range mes crayons dans mon *sac à dos*."},
+      {"word":"crayon","silent":"crayon","article":"un","syllables":["cra","yon"],"picto":2440,"definition":"Un petit bâton qui sert à écrire et à dessiner.","example":"Je dessine un soleil avec mon *crayon* jaune."},
+      {"word":"livre","silent":"livr(e)","article":"un","syllables":["livr(e)"],"picto":25191,"definition":"Des pages avec des mots et des images, attachées ensemble.","example":"Le soir, on lit un *livre* avant de dormir."},
+      {"word":"autobus","silent":"autobus","article":"un","syllables":["au","to","bus"],"picto":2263,"definition":"Un grand véhicule qui transporte beaucoup de gens.","example":"L’*autobus* jaune m’amène à l’école."},
+      {"word":"efface","silent":"effac(e)","article":"une","syllables":["ef","fac(e)"],"picto":2409,"definition":"Un petit bloc doux qui enlève les traits de crayon.","example":"Je corrige mon dessin avec mon *efface*."},
+      {"word":"pomme","silent":"pomm(e)","article":"une","syllables":["pomm(e)"],"picto":2462,"definition":"Un fruit rond et croquant qui pousse dans un pommier.","example":"On cueille des *pommes* au verger."},
+      {"word":"écureuil","silent":"écureuil","article":"un","syllables":["é","cu","reuil"],"picto":25815,"definition":"Un petit animal à grosse queue touffue qui saute d’arbre en arbre.","example":"L’*écureuil* cache des glands pour l’hiver."},
+      {"word":"gland","silent":"glan(d)","article":"un","syllables":["glan(d)"],"picto":8041,"definition":"Le petit fruit du chêne, avec son petit chapeau.","example":"J’ai trouvé un *gland* sous le grand chêne."},
+      {"word":"règle","silent":"règl(e)","article":"une","syllables":["règl(e)"],"picto":2815,"definition":"Un bâton plat et droit pour tracer des lignes et mesurer.","example":"Je trace un trait bien droit avec ma *règle*."}
+    ],
+    "octobre": [
+      {"word":"citrouille","silent":"citrouill(e)","article":"une","syllables":["ci","trouill(e)"],"picto":2679,"definition":"Un très gros légume orange et rond qui pousse dans les champs.","example":"On creuse une *citrouille* pour l’Halloween."},
+      {"word":"feuille","silent":"feuill(e)","article":"une","syllables":["feuill(e)"],"picto":5077,"definition":"La partie plate d’un arbre, verte l’été, jaune ou rouge l’automne.","example":"On saute dans le tas de *feuilles*."},
+      {"word":"champignon","silent":"champignon","article":"un","syllables":["cham","pi","gnon"],"picto":8328,"definition":"Un petit chapeau sur un pied, qui pousse dans la forêt quand il a plu.","example":"On ne mange jamais un *champignon* trouvé dans la forêt."},
+      {"word":"chauve-souris","silent":"chauv(e)-souri(s)","article":"une","syllables":["chauv(e)","sou","ri(s)"],"picto":2903,"definition":"Un petit animal qui vole la nuit et dort la tête en bas.","example":"La *chauve-souris* sort quand il fait noir."},
+      {"word":"fantôme","silent":"fantôm(e)","article":"un","syllables":["fan","tôm(e)"],"picto":5469,"definition":"Un personnage des histoires, tout blanc, qui fait « bouh ! ».","example":"Pour l’Halloween, je me déguise en *fantôme*."},
+      {"word":"sorcière","silent":"sorcièr(e)","article":"une","syllables":["sor","cièr(e)"],"picto":5404,"definition":"Une dame des contes, avec un chapeau pointu et un balai qui vole.","example":"La *sorcière* prépare une potion magique."},
+      {"word":"araignée","silent":"araigné(e)","article":"une","syllables":["a","rai","gné(e)"],"picto":38275,"definition":"Une petite bête à huit pattes qui tisse une toile.","example":"L’*araignée* attend dans sa toile."},
+      {"word":"bonbon","silent":"bonbon","article":"un","syllables":["bon","bon"],"picto":2686,"definition":"Une petite friandise très sucrée.","example":"J’ai ramassé plein de *bonbons* à l’Halloween."},
+      {"word":"costume","silent":"costum(e)","article":"un","syllables":["cos","tum(e)"],"picto":5985,"definition":"Des vêtements qu’on met pour se déguiser.","example":"Mon *costume* de dragon est vert."},
+      {"word":"épouvantail","silent":"épouvantail","article":"un","syllables":["é","pou","van","tail"],"picto":8571,"definition":"Un bonhomme de paille planté dans un champ pour faire peur aux oiseaux.","example":"L’*épouvantail* porte un vieux chapeau."}
+    ],
+    "novembre": [
+      {"word":"parapluie","silent":"paraplui(e)","article":"un","syllables":["pa","ra","plui(e)"],"picto":2500,"definition":"Un petit toit qu’on tient à la main pour rester au sec sous la pluie.","example":"J’ouvre mon *parapluie* quand il pleut."},
+      {"word":"râteau","silent":"râteau","article":"un","syllables":["râ","teau"],"picto":6200,"definition":"Un outil avec des dents pour ramasser les feuilles.","example":"On ramasse les feuilles avec le *râteau*."},
+      {"word":"imperméable","silent":"imperméabl(e)","article":"un","syllables":["im","per","mé","abl(e)"],"picto":8122,"definition":"Un manteau qui ne laisse pas passer la pluie.","example":"Mets ton *imperméable*, il pleut !"},
+      {"word":"soupe","silent":"soup(e)","article":"une","syllables":["soup(e)"],"picto":2573,"definition":"Un plat chaud et liquide qu’on mange à la cuillère.","example":"Une bonne *soupe* aux légumes, ça réchauffe !"},
+      {"word":"brouillard","silent":"brouillar(d)","article":"le","syllables":["brouil","lar(d)"],"picto":35049,"definition":"Un nuage tout près du sol qui cache le paysage.","example":"Ce matin, le *brouillard* cache la maison du voisin."},
+      {"word":"raton laveur","silent":"raton laveur","article":"un","syllables":["ra","ton","la","veur"],"picto":10239,"definition":"Un animal au masque noir sur les yeux et à la queue rayée.","example":"Le *raton laveur* fouille dans la poubelle."},
+      {"word":"chevreuil","silent":"chevreuil","article":"un","syllables":["che","vreuil"],"picto":3263,"definition":"Un animal de la forêt aux longues pattes fines, qui court très vite.","example":"Un *chevreuil* traverse le champ au lever du soleil."},
+      {"word":"pomme de pin","silent":"pomm(e) de pin","article":"une","syllables":["pomm(e)","de","pin"],"picto":8668,"definition":"Le fruit du pin, tout en écailles, qui tombe de l’arbre.","example":"Je ramasse des *pommes de pin* pour bricoler."},
+      {"word":"couverture","silent":"couvertur(e)","article":"une","syllables":["cou","ver","tur(e)"],"picto":2459,"definition":"Un grand tissu chaud qu’on met sur soi pour dormir.","example":"Je me cache sous ma *couverture*."},
+      {"word":"chandelle","silent":"chandell(e)","article":"une","syllables":["chan","dell(e)"],"picto":6242,"definition":"Un bâton de cire avec une mèche qu’on allume pour éclairer.","example":"On allume une *chandelle* quand il fait noir tôt."}
+    ],
+    "décembre": [
+      {"word":"sapin","silent":"sapin","article":"un","syllables":["sa","pin"],"picto":3051,"definition":"Un arbre qui garde ses aiguilles vertes tout l’hiver.","example":"On décore le *sapin* pour Noël."},
+      {"word":"cadeau","silent":"cadeau","article":"un","syllables":["ca","deau"],"picto":25381,"definition":"Une surprise emballée dans du papier, qu’on offre.","example":"Il y a un gros *cadeau* sous le sapin."},
+      {"word":"père Noël","silent":"pèr(e) Noël","article":"le","syllables":["pèr(e)","No","ël"],"picto":25298,"definition":"Le monsieur à barbe blanche qui apporte des cadeaux la nuit de Noël.","example":"Le *père Noël* passe par la cheminée."},
+      {"word":"étoile","silent":"étoil(e)","article":"une","syllables":["é","toil(e)"],"picto":4644,"definition":"Un petit point qui brille dans le ciel la nuit.","example":"On met une *étoile* en haut du sapin."},
+      {"word":"renne","silent":"renn(e)","article":"un","syllables":["renn(e)"],"picto":3150,"definition":"Un grand animal du Nord avec des bois sur la tête, qui tire le traîneau du père Noël.","example":"Le *renne* a un nez tout rouge."},
+      {"word":"lutin","silent":"lutin","article":"un","syllables":["lu","tin"],"picto":5445,"definition":"Un petit personnage au chapeau pointu qui aide le père Noël.","example":"Le *lutin* fabrique des jouets."},
+      {"word":"biscuit","silent":"biscui(t)","article":"un","syllables":["bis","cui(t)"],"picto":8312,"definition":"Un petit gâteau sec et croquant.","example":"On laisse des *biscuits* pour le père Noël."},
+      {"word":"cloche","silent":"cloch(e)","article":"une","syllables":["cloch(e)"],"picto":5938,"definition":"Un objet en métal qui sonne quand on le bouge.","example":"Les *cloches* sonnent la nuit de Noël."},
+      {"word":"bas de Noël","silent":"ba(s) de Noël","article":"un","syllables":["ba(s)","de","No","ël"],"picto":5065,"definition":"Une grande chaussette qu’on accroche pour que le père Noël la remplisse.","example":"Mon *bas de Noël* est plein de surprises !"},
+      {"word":"traîneau","silent":"traîneau","article":"un","syllables":["traî","neau"],"picto":3161,"definition":"Un véhicule qui glisse sur la neige, tiré par des chiens ou des rennes.","example":"Le *traîneau* du père Noël vole dans le ciel."}
+    ]
+  }
+}

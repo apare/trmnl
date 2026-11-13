@@ -37,6 +37,10 @@ jobs:
             if compgen -G "plugins/$slug/test/*.test.js" >/dev/null; then
               node --test "plugins/$slug"/test/*.test.js
             fi
+            # trmnlp's own tests render the Plugin in Firefox, inside the image.
+            if compgen -G "plugins/$slug/tests/*_spec.rb" >/dev/null; then
+              bin/trmnlp test "$slug" </dev/null
+            fi
             echo "::endgroup::"
           done
 

@@ -1,0 +1,17 @@
+# trmnlp configuration for Mot du jour (local preview only, never uploaded).
+---
+watch:
+  - .trmnlp.yml
+  - src
+
+# The day, and so the word, follows this zone; on TRMNL, the account's zone.
+time_zone: America/Toronto
+
+# author_contact_method asks a public recipe for a way to reach its author;
+# Mot du jour is a Private Plugin, never published as a recipe.
+ignored_lint_rules:
+  - author_contact_method
+
+custom_fields: {}
+
+variables: {}

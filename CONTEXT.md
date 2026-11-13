@@ -75,3 +75,13 @@ _Avoid_: Girl mode, variant
 **Inside kid / Outside kid**:
 The two mannequins on the How to dress page, a boy and a girl standing on the ground of the scene: on the left the Inside kid, wearing what stays on indoors (Base clothes and the Warm layer); on the right the Outside kid, wearing the whole Outfit. The boy and the girl swap every day. Each piece is named beside the kid, with a line to it. In the code, `kids`.
 _Avoid_: Dressing step, stage, panel
+
+### Mot du jour
+
+**Entry**:
+One word of `words.json` with everything the page shows for it: the word and its silent letters, its article, syllables, definition, example and picture.
+_Avoid_: Card, item
+
+**Reserve**:
+The 10 Entries of one month; the local date's month picks the Reserve, and the day number picks the Entry in it.
+_Avoid_: Pool, bucket, list (the list is all twelve Reserves)

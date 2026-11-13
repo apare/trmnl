@@ -1,0 +1,18 @@
+---
+strategy: polling
+no_screen_padding: 'no'
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+framework_version: latest
+serverless_language:
+refresh_interval_floor:
+polling_url: https://raw.githubusercontent.com/apare/trmnl/main/plugins/mot-du-jour/words.json
+polling_headers:
+polling_body:
+id: 539509
+oauth_enabled: 'false'
+oauth_pkce_enabled: 'no'
+name: Mot du jour
+description: Un mot par jour pour les enfants
+refresh_interval: 60
