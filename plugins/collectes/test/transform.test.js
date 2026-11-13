@@ -62,12 +62,12 @@ test('Thursday morning before 8 h still says to put it out, then moves to next w
   assert.equal(later.collecte, '2026-12-03');
 });
 
-test('a quiet Friday shows the next bin without the order', () => {
+test('a quiet Friday says there is nothing to put out', () => {
   const r = at('2026-11-13T10:00');
   assert.equal(r.sortir, false);
   assert.deepEqual(keys(r), ['recyclage']);
   assert.equal(r.collecte, '2026-11-19');
-  assert.match(r.matieres[0].image, /\/recyclage-pale\.png$/);
+  assert.equal(r.texte, 'Rien \u{e0} mettre au chemin aujourd\u{2019}hui');
 });
 
 test('the alternation holds before the first date and months later', () => {

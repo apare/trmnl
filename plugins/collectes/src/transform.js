@@ -12,13 +12,13 @@ const EVE_FROM_HOUR = 15; // the day before a Collecte, from this hour, the page
 const MORNING_UNTIL_HOUR = 8; // on the Collecte day, before this hour, it still does
 const LOOKAHEAD_DAYS = 28; // how far ahead the next Collecte is looked for
 const DAY_MS = 86400000;
+const NOTHING = 'Rien \u{e0} mettre au chemin aujourd\u{2019}hui'; // the page on the other days
 
 // ---------- Images ----------
 
 // Realistic bins seen from the side, generated then prepared for 16 grays (images/, README).
 // TRMNL fetches them from the public repo, pinned to a commit so a later change can't swap them.
-// Each has a `-pale` copy for a bin that waits for a later night.
-const IMAGE_BASE = 'https://raw.githubusercontent.com/apare/trmnl/7a429fdabab7914c932cfb74e56c4240a2a8f2f9/plugins/collectes/images/';
+const IMAGE_BASE = 'https://raw.githubusercontent.com/apare/trmnl/fcd8652dedc57f276c9d2addcdd53903c2310e05/plugins/collectes/images/';
 
 // Each Matière: its settings keys are `<key>_date` and `<key>_frequence`.
 const MATIERES = [
@@ -63,10 +63,10 @@ function plan(values, now) {
   if (!matieres.length) return { sortir: false, matieres: [], texte: '', collecte: null };
   const sortir = day === today || (day === today + 1 && hour >= EVE_FROM_HOUR);
   const quoi = matieres.map(m => m.quoi);
-  const texte = `Sors ${quoi.length > 1 ? `${quoi.slice(0, -1).join(', ')} et ${quoi[quoi.length - 1]}` : quoi[0]}\u{a0}!`;
+  const texte = !sortir ? NOTHING : `Sors ${quoi.length > 1 ? `${quoi.slice(0, -1).join(', ')} et ${quoi[quoi.length - 1]}` : quoi[0]}\u{a0}!`;
   return {
     sortir,
-    matieres: matieres.map(m => ({ key: m.key, image: `${IMAGE_BASE}${m.key}${sortir ? '' : '-pale'}.png` })),
+    matieres: matieres.map(m => ({ key: m.key, image: `${IMAGE_BASE}${m.key}.png` })),
     texte,
     collecte: new Date(day * DAY_MS).toISOString().slice(0, 10),
   };

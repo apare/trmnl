@@ -5,7 +5,7 @@
   .col-bin { display: block; width: auto; }
   .col-big .col-bin { height: 640px; }
   .col-two .col-bin { height: 520px; }
-  .col-later .col-bin { height: 460px; }
+  .col-rien { text-align: center; max-width: 900px; }
   .col-sors { letter-spacing: -2px; margin-top: 4px; white-space: nowrap; }
 </style>
 
@@ -16,9 +16,7 @@
     </div>
     <div class="col-sors value value--xxlarge text--bold">{{ texte }}</div>
   {% elsif matieres.size > 0 %}
-    <div class="col-bins col-later">
-      {% for matiere in matieres %}<img class="col-bin" src="{{ matiere.image }}" alt="">{% endfor %}
-    </div>
+    <div class="col-rien value value--xxlarge text--bold">{{ texte }}</div>
   {% else %}
     <span class="title">Horaire à régler dans les paramètres du Plugin</span>
   {% endif %}

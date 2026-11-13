@@ -1,6 +1,6 @@
 # Collectes
 
-On the eve of a Collecte, a big picture of the bin to put out at the curb, and one order: "Sors les vidanges !" or "Sors le recyclage !". Nothing else, so the kids can read it from across the room. The other nights, the next bin waits in pale gray.
+On the eve of a Collecte, a big picture of the bin to put out at the curb, and one order: "Sors les vidanges !" or "Sors le recyclage !". Nothing else, so the kids can read it from across the room. The other days: "Rien à mettre au chemin aujourd’hui".
 
 - `src/settings.yml`: the schedule lives in the Plugin's settings, editable in the TRMNL app. For each Matière (ordures, recyclage): any one date the truck comes, and how often (every week, every other week, never). The weekday and the alternation follow from the date.
 - `src/transform.js`: TRMNL runs `run(input)` with those settings and nothing polled; it returns whether to put a bin out tonight, which one, and its image. The order shows from 15 h the day before until 8 h on the day; each rule is a constant at the top.
