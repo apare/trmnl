@@ -413,9 +413,9 @@
       "sha256": "a82d8ade97d93c6b6faf2013d0e5d58d39acaf1afb2c648522134407ff51707a"
     },
     {
-      "word": "sable",
-      "file": "sable.png",
-      "subject": "A small mound of sand with a simple sandcastle made of two cylindrical towers and a bucket-shaped middle, visibly sandy granular edge but no texture noise (sable).",
+      "word": "château de sable",
+      "file": "chateau-de-sable.png",
+      "subject": "A small mound of sand with a simple sandcastle made of two cylindrical towers and a bucket-shaped middle, visibly sandy granular edge but no texture noise (château de sable).",
       "sha256": "4b3d77182451c9c8ae71fd80291b9af57f2e3a78865e8128830664b1c4463852"
     },
     {
@@ -668,9 +668,9 @@
       "sha256": "5ba83cbab085a9dc79d85f071f1cd4d033777fc7bb5e9d3a9acf4d19dc9a9af5"
     },
     {
-      "word": "pomme de pin",
-      "file": "pomme-de-pin.png",
-      "subject": "One large pine cone with clear overlapping woody scales, oval tapering form and tiny stem (pomme de pin).",
+      "word": "cocotte de pin",
+      "file": "cocotte-de-pin.png",
+      "subject": "One large pine cone with clear overlapping woody scales, oval tapering form and tiny stem (cocotte de pin).",
       "sha256": "b55c9f6f6c3a182bc530f458f3accfb653c9f8f44e5b60990204cade1c166fa3"
     },
     {
