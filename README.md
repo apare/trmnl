@@ -5,6 +5,7 @@ Private Plugins for my [TRMNL X](https://trmnl.com), a 10.3" e-ink Device with 1
 ## Plugins
 
 - [How to dress](plugins/how-to-dress/): what the kids wear today, drawn as paper-doll mannequins, from Montréal's weather between 8 h and 17 h. Only the `full` Layout (the size that fills the whole Device) is designed; the other Layouts hold a one-line placeholder.
+- [Mot du jour](plugins/mot-du-jour/): one French word a day for the kids, with its picture, syllables, a definition and an example, picked by the local date from a reserve per season. `full` Layout only.
 
 ## Commands
 
@@ -15,6 +16,7 @@ bin/trmnlp login               # once: saves the TRMNL API key in ~/.config/trmn
 bin/trmnlp new <slug>          # scaffold plugins/<slug>
 bin/trmnlp serve <slug>        # preview on http://localhost:4567 (PORT=4568 for a second one)
 bin/trmnlp lint <slug>
+bin/trmnlp test <slug>         # the Plugin's tests/*_spec.rb, rendered in Firefox
 bin/trmnlp push <slug>         # lints, then asks before overwriting the server copy
 ```
 
