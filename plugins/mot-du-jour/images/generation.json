@@ -1,0 +1,749 @@
+{
+  "tool": "built-in image_gen",
+  "style": "Use case: illustration-story. Asset type: one transparent PNG vocabulary illustration for children aged 3 to 9, shown at 400px square on a grayscale TRMNL e-ink display.\nStyle: warm friendly flat children's picture-book illustration, uniform solid black contours with rounded joins (12px at 1024 square; interior details 7px). Flat solid fills ONLY white #FFFFFF, light gray #D4D4D4, mid gray #9A9A9A, dark gray #555555 and black #000000. No gradients, texture, soft shading, drop shadows or glow. Simple unmistakable silhouette readable at 2 meters. Center the complete subject in a square, occupying about 80-85% with safe margins on all sides; nothing clipped. TRUE transparent background, opaque white inside white parts of the subject. No ground or scene unless essential to identify the word. No decorative sparkles. No text, letters, digits, labels, logos or watermark. Exactly one illustration, not a sheet or collage. Match How to dress's simple warm black-outlined grayscale illustrations.\nSubject: ",
+  "export": {
+    "size": [
+      1024,
+      1024
+    ],
+    "palette": [
+      "#000000",
+      "#555555",
+      "#9A9A9A",
+      "#D4D4D4",
+      "#FFFFFF"
+    ],
+    "alpha": "transparent outside subject; opaque flat fills",
+    "pipeline": "How to dress: normalize canvas and quantize grayscale, preserve raw generations"
+  },
+  "images": [
+    {
+      "word": "flocon",
+      "file": "flocon.png",
+      "subject": "A single large snowflake, exactly six symmetric branches with simple crystalline arms (flocon).",
+      "sha256": "60cbdb95f7c764d0d0304456707f47eaf544ff299e6ecdcf626f7655de247410"
+    },
+    {
+      "word": "tuque",
+      "file": "tuque.png",
+      "subject": "A knitted winter hat with a folded ribbed brim and a large pompom (tuque).",
+      "sha256": "3b8aaa8d47ebf34202a8dfe104c8822d7db44903920e55d909eb19a8ed677b25"
+    },
+    {
+      "word": "mitaine",
+      "file": "mitaine.png",
+      "subject": "One winter mitten, rounded hand pocket and separate thumb, ribbed cuff (mitaine).",
+      "sha256": "3d09ff29dbd2cb02de9a639d11bd3616daa72a3a9b4df3a4a618f0992206cc88"
+    },
+    {
+      "word": "bonhomme de neige",
+      "file": "bonhomme-de-neige.png",
+      "subject": "A friendly snowman of three snowballs, carrot-shaped nose, dotted eyes, scarf, two stick arms (bonhomme de neige).",
+      "sha256": "a301830381f2559b33f6ff36c1bf3ae5e2635c3b4aedc48eb57dcafdf916754b"
+    },
+    {
+      "word": "igloo",
+      "file": "igloo.png",
+      "subject": "A dome igloo built of visible large snow blocks, small arched entrance (igloo).",
+      "sha256": "fae076c2b37ab4db8957d813be676ce50f48536928eb7ffc7fc06c6f3c2ef092"
+    },
+    {
+      "word": "pelle",
+      "file": "pelle.png",
+      "subject": "One snow shovel, wide scoop, long straight handle and D-shaped grip (pelle).",
+      "sha256": "a6388524f631cc1328ed73dbbe42264447cd36152a45a2cf6bce10e2d360574d"
+    },
+    {
+      "word": "foyer",
+      "file": "foyer.png",
+      "subject": "A cozy masonry fireplace with visible hearth, two logs and simple flames, no room around it (foyer).",
+      "sha256": "cdde13173396ade4b682b7d7b05462fbe0c14dbe3f1766973b520ecbce13b4b4"
+    },
+    {
+      "word": "chocolat chaud",
+      "file": "chocolat-chaud.png",
+      "subject": "A mug filled with hot chocolate, two marshmallows on top and two simple steam curls (chocolat chaud).",
+      "sha256": "e17604567d4146acc968a2bfb16bd8427ae5389d43949a26b98a19e06dc47c78"
+    },
+    {
+      "word": "botte",
+      "file": "botte.png",
+      "subject": "One winter boot, thick sole and warm fluffy cuff, three-quarter view (botte).",
+      "sha256": "9762d7631072d73b279c036d6afd62dc8d2c28668493da9f6f693200069cc7cd"
+    },
+    {
+      "word": "ours",
+      "file": "ours.png",
+      "subject": "A friendly North American black bear standing on four paws, rounded ears, broad snout, medium-dark gray fur, not a polar bear (ours).",
+      "sha256": "e54008180ffb20a436a9dd8c3cffd31abf2ca78f55511e74b29f185b64a6c375"
+    },
+    {
+      "word": "patin",
+      "file": "patin.png",
+      "subject": "One ice skate with a lace-up boot and a clearly visible single metal blade below, no wheels (patin).",
+      "sha256": "e9b8808d40e026ec84c83a1980221d284515b8a4ced210624f1948be8946f868"
+    },
+    {
+      "word": "luge",
+      "file": "luge.png",
+      "subject": "A simple child sled with a molded shallow seat, raised front, short pull rope, no reindeer (luge).",
+      "sha256": "4eddccd783266380ee60a1022b492617d3a8c22a4e1193d59743e192e2fde9d5"
+    },
+    {
+      "word": "cœur",
+      "file": "coeur.png",
+      "subject": "One bold simple heart shape, light gray fill and black outline, the familiar love symbol, not anatomy (cœur).",
+      "sha256": "8019fe69d78ef265fcad91991f2dc7e74a5f37ecdc805e32a6fb05f2d95fcbeb",
+      "prompt_override": "Use case: precise-object-edit. Fix the attached heart vocabulary illustration. Preserve the familiar symmetrical Valentine heart OUTER silhouette, but replace the ENTIRE INTERIOR with ONE completely uniform solid opaque LIGHT GRAY #D4D4D4 fill. Add one strong clean uniform black outline around the OUTER edge. There must be NO hole, no transparency anywhere inside the heart, NO inner border, NO other heart shape inside, NO shading, gradient, shadow, highlight, texture or central marks. It must look like a simple filled flat heart cutout in a children's picture book. Keep the background outside the heart genuinely transparent. Centered square composition with safe margins. No face, eyes, mouth, lettering, symbols or embellishments. Precisely one solid light gray heart, thick black contour, transparent outside only."
+    },
+    {
+      "word": "renard",
+      "file": "renard.png",
+      "subject": "A red fox rendered in grayscale, pointed ears, long snout, large bushy tail with white tip, standing on four paws (renard).",
+      "sha256": "483d1b0edee80b89ed0527a0d16b4aa995b29d657b70575313d68585563081bf"
+    },
+    {
+      "word": "cache-cou",
+      "file": "cache-cou.png",
+      "subject": "A tubular fleece neck warmer standing upright as a soft hollow cylinder with folded rim, not a long scarf (cache-cou).",
+      "sha256": "ebe2b18ab5033aee893e917b919fe870127db0e86ee0faa8d88ec6a58d8157ec"
+    },
+    {
+      "word": "castor",
+      "file": "castor.png",
+      "subject": "A friendly beaver sitting up, broad flat oval tail with a few crosshatch lines, two large front teeth and small rounded ears (castor).",
+      "sha256": "6ce79616224778099fab2f90156cf14e8f1a84289fc6affce602e24d380a6698"
+    },
+    {
+      "word": "lièvre",
+      "file": "lievre.png",
+      "subject": "A snowshoe hare with very long ears, powerful big hind feet and short tail, white fur, sitting in profile (lièvre).",
+      "sha256": "7bd665df12ebbec7ec5709aa60ac7c3ad88b11e08ea059e58ddc037a84631dcf"
+    },
+    {
+      "word": "hibou",
+      "file": "hibou.png",
+      "subject": "A friendly horned owl on a short plain branch, large round eyes, ear tufts and patterned wings (hibou).",
+      "sha256": "22c7d9093ea68819bc057239da5ea1b2e702c66236202ec50eddcff5be2da8e6"
+    },
+    {
+      "word": "glace",
+      "file": "glace.png",
+      "subject": "Three clear angular ice cubes with simple flat gray facets, the solid frozen-water form, no cup or ice cream (glace).",
+      "sha256": "f4f7c0e3aac612564cbcb2d28f34c70323896c5d7fa24c4cbb57a252e41d8406"
+    },
+    {
+      "word": "raquette",
+      "file": "raquette.png",
+      "subject": "One traditional oval snowshoe, woven lattice and a visible foot binding centered on it, not a tennis racket (raquette).",
+      "sha256": "cba25718432d75f1f79f09b7adfb89c9f4cb2c76517313e06fe1e04923084474"
+    },
+    {
+      "word": "crêpe",
+      "file": "crepe.png",
+      "subject": "A thin French crêpe folded into a triangle on a simple plate, second folded edge visible, no syrup bottle (crêpe).",
+      "sha256": "a488381ae26c03e04fb085c1c19e0f3c5f13f6d994853233e195afe46384cc0e",
+      "prompt_override": "Use case: precise-object-edit. Replace the folded triangular French crepe on this plate with THREE ROUND PANCAKE-STYLE CREPES stacked neatly on a simple round plate, seen in three-quarter view. Round discs, slightly puffy but still breakfast pancakes, with a small flat dark-gray drizzle of maple syrup on top. ADD a small upright glass maple-syrup bottle immediately BESIDE the plate, fully visible, with a short neck, cap and a simple maple-leaf symbol on its front, no text or brand. Composition: plate and round pancakes on the left, bottle on the right, both together centered in a square with generous safe margins. Preserve the reference's warm children's picture-book style, bold rounded black outlines and flat grayscale palette ONLY white #FFFFFF, light gray #D4D4D4, mid gray #9A9A9A, dark gray #555555, black #000000. TRUE transparent background outside the plate and bottle, opaque flat fills inside. No faces, eyes or mouths on food or objects. No triangular folded crepe, no extra utensils, butter, fruit, scenery, labels, letters, gradients, shading, texture or watermark."
+    },
+    {
+      "word": "seau",
+      "file": "seau.png",
+      "subject": "One open pail with curved carry handle and broad base, empty, no trash or lid (seau).",
+      "sha256": "891553e68edd8bcf89ae098e9eabb25e7ee93d1403b0992da59df5641304733a"
+    },
+    {
+      "word": "goutte",
+      "file": "goutte.png",
+      "subject": "A single large water droplet, teardrop silhouette, opaque white with one light gray flat inner accent (goutte).",
+      "sha256": "4ac727ea0f47aca3946e0942edc561f56ad2603f3707e4edee362d5d3d6052f9"
+    },
+    {
+      "word": "flaque",
+      "file": "flaque.png",
+      "subject": "A shallow irregular puddle of water seen from slightly above, flat gray fill and two simple ripple rings (flaque).",
+      "sha256": "eaf343819633fa5c0b11c520f09669529f09a631459febcfc6ed0925a0d64333"
+    },
+    {
+      "word": "nuage",
+      "file": "nuage.png",
+      "subject": "One soft puffy cloud, simple rounded lobes, light gray fill, no rain or sun (nuage).",
+      "sha256": "0f6ba290e4e33ebdb31f7c3ff86d21547fbe4b41735000fa7ea55d877c321e8f"
+    },
+    {
+      "word": "vent",
+      "file": "vent.png",
+      "subject": "Two bold curling gust lines blowing three simple leaves sideways, illustrating wind (vent).",
+      "sha256": "91d49e88e94d0ea91e4df522f6f97ffdbda25ebdb602be43ab3be8f44d60cb26"
+    },
+    {
+      "word": "cerf-volant",
+      "file": "cerf-volant.png",
+      "subject": "A diamond-shaped kite with crossed spars, a long curling string and three bow ties on its tail (cerf-volant).",
+      "sha256": "de8197748f0071dd82f4ff0b27a4682b4cce4c111067ac1e3abf0f3b8f6a700e"
+    },
+    {
+      "word": "bourgeon",
+      "file": "bourgeon.png",
+      "subject": "A short twig with one big opening leaf bud, bud scales separating and two small new leaves emerging (bourgeon).",
+      "sha256": "5b4819125661283f730d59b75da4be29eb33da791860ef4a0e5d5f152ff4cdda"
+    },
+    {
+      "word": "oiseau",
+      "file": "oiseau.png",
+      "subject": "One small friendly songbird perched on a short twig, clear beak, wing and tail, profile view (oiseau).",
+      "sha256": "c31106851b1f2ca0fb47d60f79b650a7569db19071ab249aad46555078399f3c"
+    },
+    {
+      "word": "érable",
+      "file": "erable.png",
+      "subject": "A single sugar maple tree with a sturdy trunk and broad crown, several recognizable five-lobed maple leaves outlined in the crown, no bucket (érable).",
+      "sha256": "a9250c5bbef76e2c69df3c24f5840181ad4734bb8e8fdb773c605824d18a57e6"
+    },
+    {
+      "word": "lapin",
+      "file": "lapin.png",
+      "subject": "A friendly rabbit, long upright ears, rounded body, small cotton tail, sitting, clearly a rabbit (lapin).",
+      "sha256": "45f2ae597a560831a1def5b7935c7533850efc0c9468c668d3dac586e91d3bff"
+    },
+    {
+      "word": "œuf",
+      "file": "oeuf.png",
+      "subject": "One whole chicken egg, smooth oval silhouette, white fill with a simple light gray flat side accent (œuf).",
+      "sha256": "3dbdcd049f94eda628bcb5ceb1de071de04d0b6db163916309f4767ebb42ef92",
+      "prompt_override": "Use case: illustration-story. Asset type: one transparent PNG vocabulary illustration for children aged 3 to 9, shown at 400px square on a grayscale TRMNL e-ink display.\nStyle: warm friendly flat children's picture-book illustration, uniform solid black contours with rounded joins (12px at 1024 square; interior details 7px). Flat solid fills ONLY white #FFFFFF, light gray #D4D4D4, mid gray #9A9A9A, dark gray #555555 and black #000000. No gradients, texture, soft shading, drop shadows or glow. Simple unmistakable silhouette readable at 2 meters. Center the complete subject in a square, occupying about 80-85% with safe margins on all sides; nothing clipped. TRUE transparent background, opaque white inside white parts of the subject. No ground or scene unless essential to identify the word. No decorative sparkles. No text, letters, digits, labels, logos or watermark. Exactly one illustration, not a sheet or collage. Match How to dress's simple warm black-outlined grayscale illustrations.\nSubject: One single whole intact hen egg (œuf), upright oval shape slightly narrower at top, smooth uniform opaque pure white fill, one continuous clean black contour, no interior lines, no patches, no highlight, no shading, no transparency inside the shell. It must look like a simple whole white egg, not a cracked egg, egg slice, geode or frame. Transparent background outside the egg ONLY."
+    },
+    {
+      "word": "poussin",
+      "file": "poussin.png",
+      "subject": "One fluffy baby chick standing on two short feet, little beak, tiny wings, friendly eyes (poussin).",
+      "sha256": "a553999622253e80cf986684ce3821d50a3584db952aab91ac7d02b3fa0e74dc"
+    },
+    {
+      "word": "canard",
+      "file": "canard.png",
+      "subject": "One duck in profile, broad flat bill, rounded body, two webbed feet, small wing (canard).",
+      "sha256": "ae52ac297a89112a3521f925d05b36c0fd86a5dc3242f6c20354337ee0e0d75f"
+    },
+    {
+      "word": "pluie",
+      "file": "pluie.png",
+      "subject": "A rounded gray rain cloud with five large separate falling raindrops underneath, illustrating rain (pluie).",
+      "sha256": "56f1d09c028b36152cd9d6449bfe90e63ff7e46ad1e75c7d760c669c1428edd3"
+    },
+    {
+      "word": "arc-en-ciel",
+      "file": "arc-en-ciel.png",
+      "subject": "One rainbow arch with five distinct flat grayscale bands separated by fine black lines, small white clouds at its two ends, grayscale only (arc-en-ciel).",
+      "sha256": "7440365ecd9be60d1e375f10ab76062990658f728d1a1702b116494bf9f5e1da"
+    },
+    {
+      "word": "ver de terre",
+      "file": "ver-de-terre.png",
+      "subject": "One friendly earthworm curved in an S, simple ring segments and tiny dot eyes, no legs (ver de terre).",
+      "sha256": "063969f6534d524ecbba5795f16023563e84e45832f70e0a8145142a665e1173"
+    },
+    {
+      "word": "grenouille",
+      "file": "grenouille.png",
+      "subject": "A friendly frog squatting, large bulging eyes and visible long folded hind legs and webbed feet (grenouille).",
+      "sha256": "03a391419e6825b62c873fdbadb2779ae35d985f9df49b639a7c9d7a6b347cd6"
+    },
+    {
+      "word": "nid",
+      "file": "nid.png",
+      "subject": "A woven twig bird nest seen from slightly above holding three white eggs, no bird or tree (nid).",
+      "sha256": "4388df5be0ca64d227d4d75ecd6327173bafac97715935e65f72dfe9aebe8b19"
+    },
+    {
+      "word": "panier",
+      "file": "panier.png",
+      "subject": "An empty woven wicker basket with a large arched handle, simple broad weave pattern (panier).",
+      "sha256": "56653c2d4573a38c076f06beb1104c9c359ee2fd516ef8f592eb7afba79a9869"
+    },
+    {
+      "word": "tulipe",
+      "file": "tulipe.png",
+      "subject": "One tulip plant with a cup-shaped flower, straight stem and two broad pointed leaves (tulipe).",
+      "sha256": "a17ee2ea92ba5ead10cd7a765d5088265441b31eb4272f2708e7f54d02190e2b"
+    },
+    {
+      "word": "papillon",
+      "file": "papillon.png",
+      "subject": "One butterfly seen from above, two large upper and two smaller lower wings, simple symmetrical flat gray wing patterns and two antennae (papillon).",
+      "sha256": "902864780f10f1c5177ed06a4650f205de1f8c86ff518ca1a3c6004a1a0307dc"
+    },
+    {
+      "word": "coccinelle",
+      "file": "coccinelle.png",
+      "subject": "One ladybug seen from above, domed split wing covers with seven round dark spots, six legs and short antennae (coccinelle).",
+      "sha256": "c152fa94a1fe703f61ba323bcb7f2830d4bff907015e741c8e37c790069f1451"
+    },
+    {
+      "word": "escargot",
+      "file": "escargot.png",
+      "subject": "One friendly snail in profile, large spiral shell, extended soft foot, two long eye stalks (escargot).",
+      "sha256": "00c518bbd6ddc9104b14b227949f3b8057cc695ee5700a245bb4310d5f7330b7",
+      "prompt_override": "Use case: precise-object-edit. Correct the attached snail illustration. It currently has FOUR eyes, which is an anatomical error. KEEP ONLY the TWO eyes at the ends of its long upper tentacles. Completely REMOVE the pair of eyes and eyebrows drawn on its HEAD/FACE. The head below the tentacles must be plain light gray except for its existing friendly smiling mouth. Preserve the exact shell spiral, body silhouette, tentacles and their two eye tips, mouth, composition, rounded black outlines, grayscale fills and TRUE transparent background. Do not add any eyes, nostrils, eyebrows, marks, text, labels, accessories or other features to the face. Exactly two eyes total, both at the ends of the upper tentacles; zero eyes on the head itself."
+    },
+    {
+      "word": "vélo",
+      "file": "velo.png",
+      "subject": "One child bicycle in side view with two large spoked wheels, pedals, handlebar and seat, no training wheels or rider (vélo).",
+      "sha256": "3f9a2ceaf5a29546f414909a776ebef1903daa0b57abfe773f79c5974b57c3f2"
+    },
+    {
+      "word": "abeille",
+      "file": "abeille.png",
+      "subject": "One friendly honeybee with striped rounded abdomen, six short legs, two pairs of wings and antennae, fuzzy round thorax (abeille).",
+      "sha256": "47b3a3e26197a922e1b676cf5a84ceea229df8ffc1b9a9574e585c1321454ceb"
+    },
+    {
+      "word": "fleur",
+      "file": "fleur.png",
+      "subject": "One simple daisy-like flower with a round center, eight rounded petals, stem and two leaves (fleur).",
+      "sha256": "575992ed70ffa39d3eac9d60520c050af7819960ca4c049af255726cd1ecd2d2"
+    },
+    {
+      "word": "graine",
+      "file": "graine.png",
+      "subject": "One large bean seed split slightly open, showing the first tiny root and a short shoot emerging, close-up (graine).",
+      "sha256": "4f2c295f4225aa7d88d8d2ab465d1715df8ce14dc66c44fd55098cce591d5753"
+    },
+    {
+      "word": "arrosoir",
+      "file": "arrosoir.png",
+      "subject": "One garden watering can with top handle, long spout and round perforated sprinkler rose (arrosoir).",
+      "sha256": "32ef8e885c11a6955be1ce348468f515c93f6fc9c311fa9d81d60b08bce99119"
+    },
+    {
+      "word": "trottinette",
+      "file": "trottinette.png",
+      "subject": "One child kick scooter in side view, upright T handlebar, narrow foot deck and two small wheels, no motor (trottinette).",
+      "sha256": "960dbbada8e06d91ce5d013263403757e4338e521ca2c20a5a3b62df950adb3c"
+    },
+    {
+      "word": "fraise",
+      "file": "fraise.png",
+      "subject": "One ripe strawberry with a leafy crown, heartlike berry outline and small visible seeds (fraise).",
+      "sha256": "5a915e345f8d44f234db250d282d9dc3d93e5a392e3995c818e80e29372f3d6d"
+    },
+    {
+      "word": "soleil",
+      "file": "soleil.png",
+      "subject": "A single friendly sun with a plain round white disc and eight broad short rays, no face (soleil).",
+      "sha256": "7adbf6f9800bcd78c8eaa2bcb1d79e93206559d9148f4cddb1a0597c6d59ff23",
+      "prompt_override": "Use case: precise-object-edit. Fix the transparent hole inside this sun illustration. Keep the same outer silhouette: one round center disc and eight broad rounded rays, no face. Replace the ENTIRE circular CENTER with one SOLID COMPLETELY OPAQUE UNIFORM LIGHT GRAY #D4D4D4 fill, surrounded by its bold black outline. This must be a FILLED DISC, not a ring or frame. Fill every pixel within the disc, especially its very center; zero internal transparency, zero gradients, shadows, marks, texture or smudges. Keep rays simple opaque white or light gray with black outlines. True transparent background only OUTSIDE the sun and between the separate rays, never within the circular center or within rays. Flat grayscale children's picture-book icon, no face, eyes, smile, text or extra objects."
+    },
+    {
+      "word": "maringouin",
+      "file": "maringouin.png",
+      "subject": "One mosquito seen from side above, slender striped abdomen, long needle-like proboscis, two narrow wings and six long legs, not a bee (maringouin).",
+      "sha256": "e0fd25a2f5957d11e7d0f46b22369be5cd4e1aab9342818cbe7d37e9cb9593db"
+    },
+    {
+      "word": "luciole",
+      "file": "luciole.png",
+      "subject": "One firefly, beetle-shaped with two antennae and six legs, dark wing cases and a pale white luminous end segment; three short black rays signal light, no glow or dark background (luciole).",
+      "sha256": "459e46d58c5c36c1151964d98fceed667703d38f1e3e321b77cec683bf5b77f2"
+    },
+    {
+      "word": "balançoire",
+      "file": "balancoire.png",
+      "subject": "One simple playground swing, two ropes holding a curved seat suspended from a minimal A-frame support (balançoire).",
+      "sha256": "7706b0383f3f62a9029994084da1804b5a9be52069846e9322b2173da7543804"
+    },
+    {
+      "word": "glissade",
+      "file": "glissade.png",
+      "subject": "One playground slide with a short ladder on one side, smooth sloping slide and safety rail on the platform, three-quarter view (glissade).",
+      "sha256": "6bbd16c8343ff4bb5dcd2fbf6b02369dc8f2f620ae1f0d92d989fabbcd9465c8"
+    },
+    {
+      "word": "parc",
+      "file": "parc.png",
+      "subject": "A small public park vignette: one bench beside a short curving path and two leafy trees, simple contained scene, transparent outside (parc).",
+      "sha256": "3ddef47a668edc78d9fd43f2dba674a71500a2ddfcafe6316f8e1a0e19c2a62c"
+    },
+    {
+      "word": "cerise",
+      "file": "cerise.png",
+      "subject": "Two cherries joined by their slender stems with one leaf (cerise).",
+      "sha256": "d71e78ca019637a2cf698932fd9393dbae7e665a33ef0a560392f9bc248a0aab"
+    },
+    {
+      "word": "pique-nique",
+      "file": "pique-nique.png",
+      "subject": "A picnic: a simple checked blanket with an open basket, one sandwich and an apple, contained composition, no people (pique-nique).",
+      "sha256": "66a6f1fd7da39398cb1395431554c31f437576c8b420d4b0cb6f4b5df9950fca"
+    },
+    {
+      "word": "casquette",
+      "file": "casquette.png",
+      "subject": "One baseball cap, domed crown and broad curved front brim, three-quarter view, no lettering or logo (casquette).",
+      "sha256": "deb0a4d2998e9c7036c2db6e40cf900c7c2475b465f012145f808fed633b9f13"
+    },
+    {
+      "word": "plage",
+      "file": "plage.png",
+      "subject": "A small beach vignette, crescent of sand by three flat wave lines and a beach umbrella planted in sand, transparent outside (plage).",
+      "sha256": "565988d483a760e8eb4188378e834686014262c0193a1718f6e3967837646424"
+    },
+    {
+      "word": "piscine",
+      "file": "piscine.png",
+      "subject": "An outdoor rectangular swimming pool seen from above in perspective, flat light gray water, two wave lines and a ladder at one edge (piscine).",
+      "sha256": "bec3204834d282847d4efca7322938ebf32aca605245f822d8719141d4adc8b9"
+    },
+    {
+      "word": "tente",
+      "file": "tente.png",
+      "subject": "One camping tent, simple triangular entrance with open flap and visible side panel, no scenery (tente).",
+      "sha256": "15fb1c7ab3cd3bd5f8d5a33c058f217baa30e3510328c35312e5c2ed5cb6d6aa"
+    },
+    {
+      "word": "crème glacée",
+      "file": "creme-glacee.png",
+      "subject": "One waffle ice-cream cone topped with a round scoop, white ice cream and light gray cone, no chocolate bar (crème glacée).",
+      "sha256": "d7e62590ffa1f135a7b0fb83702ed5fc7038126a8fb8b1e08c366b4991c6cda2"
+    },
+    {
+      "word": "costume de bain",
+      "file": "costume-de-bain.png",
+      "subject": "One child one-piece swimsuit, simple shoulder straps, broad leg openings, a single flat stripe, no person (costume de bain).",
+      "sha256": "a82d8ade97d93c6b6faf2013d0e5d58d39acaf1afb2c648522134407ff51707a"
+    },
+    {
+      "word": "château de sable",
+      "file": "chateau-de-sable.png",
+      "subject": "A small mound of sand with a simple sandcastle made of two cylindrical towers and a bucket-shaped middle, visibly sandy granular edge but no texture noise (château de sable).",
+      "sha256": "4b3d77182451c9c8ae71fd80291b9af57f2e3a78865e8128830664b1c4463852"
+    },
+    {
+      "word": "feu d’artifice",
+      "file": "feu-d-artifice.png",
+      "subject": "A single fireworks burst, bold radial curved lines and a few black star-shaped sparks, no night sky, no background (feu d’artifice).",
+      "sha256": "2b0900e5ffa7b00562858e206b54a27a2d59de46893dacc037b771cc293349e6"
+    },
+    {
+      "word": "bateau",
+      "file": "bateau.png",
+      "subject": "One small sailboat with a visible curved hull, mast and two triangular sails, three-quarter side view, two short wave strokes (bateau).",
+      "sha256": "c3172b58dcac04a1860e80fa1b039200b49c7e4e296cace11c65c396e1fcf3a6"
+    },
+    {
+      "word": "canot",
+      "file": "canot.png",
+      "subject": "One open Canadian canoe with pointed raised ends, two bench seats visible and one paddle resting diagonally across the gunwales (canot).",
+      "sha256": "4831cbf7b461dd354a5d5ccd19b8a3941150aba76787c3f87deac3f1e7644cf7"
+    },
+    {
+      "word": "poisson",
+      "file": "poisson.png",
+      "subject": "One friendly freshwater fish seen in profile with fins, scales suggested by three short curves and a fan-shaped tail (poisson).",
+      "sha256": "ca405baf614bfb42354f2d80eab795a611124815061721b997e5b744389218f4"
+    },
+    {
+      "word": "bleuet",
+      "file": "bleuet.png",
+      "subject": "A small cluster of three wild blueberries with their distinctive five-pointed crown at the top and two small leaves, grayscale (bleuet).",
+      "sha256": "7b5e6314f54a99754c0acc593cbda7cbe3b2bf70158f5614747eb14c233c680a"
+    },
+    {
+      "word": "blé d’Inde",
+      "file": "ble-d-inde.png",
+      "subject": "One corn cob with orderly rows of kernels and two peeled-back husk leaves, Quebec sweet corn (blé d’Inde).",
+      "sha256": "5625f45537c33dddc85a1fb20e01f055adaf6cc623c0c098ba8920016081fdf7"
+    },
+    {
+      "word": "tomate",
+      "file": "tomate.png",
+      "subject": "One round tomato with star-shaped leafy calyx and short stem, gray fill (tomate).",
+      "sha256": "405508f49c1b657f04ece14c770f741779fb2bf567497bffc6dbcbd8a5555c93"
+    },
+    {
+      "word": "melon d’eau",
+      "file": "melon-d-eau.png",
+      "subject": "One triangular watermelon slice with pale rind and dark oval seeds, no whole melon (melon d’eau).",
+      "sha256": "59441f5df15afefced5d046cea39ef0be136ca2bd24c668889c02c0372510140"
+    },
+    {
+      "word": "guêpe",
+      "file": "guepe.png",
+      "subject": "One wasp with a clearly narrow waist, sleek striped abdomen, two pairs of wings, six legs and long antennae, no fuzzy bee body (guêpe).",
+      "sha256": "63346fab114b16b455fedfea29b3bbe8d18d1a01160e5e0d707d92a8b6b03ca6"
+    },
+    {
+      "word": "feu de camp",
+      "file": "feu-de-camp.png",
+      "subject": "One campfire, three crossed logs under simple bold white and light-gray flames, no scenery or smoke (feu de camp).",
+      "sha256": "cf1ad10122b66c2b97b91f4747763dee64ff058420d4c0340ae26da1d64fd839"
+    },
+    {
+      "word": "guimauve",
+      "file": "guimauve.png",
+      "subject": "One soft cylindrical marshmallow, white fill, rounded corners, slight three-quarter angle, no skewer or fire (guimauve).",
+      "sha256": "f3dacdc68f0a3d9376fb14bba1841c1186f3db97401c31b51b4deb176f2ceade",
+      "prompt_override": "Use case: precise-object-edit. Edit this marshmallow vocabulary illustration. REMOVE the entire cartoon face: remove both eyes, both eyebrows, the mouth and both cheek circles. The front circular end must be completely plain opaque white with NO marks. Keep the same single soft cylindrical marshmallow, viewing angle, black exterior contour and curved boundary between the side and front, simple flat white and light gray fills, composition and true transparent background. Also remove the faint irregular gray smudge on the top/side. It is an ordinary piece of food, never a character. No eyes, face, mouth, cheeks, eyebrows, smile, lettering, texture, gradients or extra objects. Only the blank white marshmallow with rounded black outlines and a small flat gray side accent."
+    },
+    {
+      "word": "lune",
+      "file": "lune.png",
+      "subject": "One large crescent moon with a rounded outer arc, small craters on its lit portion, no face, no stars, no background (lune).",
+      "sha256": "8db069e080f96c1ac721bad210660b67626fd0a02fc12311b15b32b9fe0dc154"
+    },
+    {
+      "word": "grillon",
+      "file": "grillon.png",
+      "subject": "One cricket in side view, six legs with two especially large bent jumping hind legs, long antennae, short folded wings (grillon).",
+      "sha256": "c4d49afeb5ffed70232326b950514eb2e0a27047b1c17c7f3e5d93e71c605e7f"
+    },
+    {
+      "word": "hamac",
+      "file": "hamac.png",
+      "subject": "One fabric hammock suspended between two short plain posts, curved sling and visible ropes, no people or scenery (hamac).",
+      "sha256": "e0d006c6d35f261aa55645f2df462d83e689f4850d424b60032e0713c82be244"
+    },
+    {
+      "word": "école",
+      "file": "ecole.png",
+      "subject": "One friendly elementary school building with front doors, windows, a simple pitched roof and small round clock without numerals, no signs or text (école).",
+      "sha256": "4d693b3eb8d20fe268f93087afdb9b9412eb59b8a655e62445b562345cd65dca"
+    },
+    {
+      "word": "sac à dos",
+      "file": "sac-a-dos.png",
+      "subject": "One school backpack, top loop, two shoulder straps visible, main zip compartment and front pocket, no logo (sac à dos).",
+      "sha256": "d178af8b036b4ab3b5e97249dff520f84086117bf199c5482fb5f6534368215d"
+    },
+    {
+      "word": "crayon",
+      "file": "crayon.png",
+      "subject": "One large sharpened wooden pencil diagonally centered, clearly visible graphite tip and little eraser at the opposite end, no text (crayon).",
+      "sha256": "37b88930c485e5181f7e3e5645398fe85a8cf8b8f87b803f85f3d59ebba95ccd"
+    },
+    {
+      "word": "livre",
+      "file": "livre.png",
+      "subject": "One open book seen from above at slight angle, clearly curved blank pages and cover, no marks or writing (livre).",
+      "sha256": "49bba27799683423ac7b312daee16a5f5348926d273ab49e65867a66b8cb03fa"
+    },
+    {
+      "word": "autobus",
+      "file": "autobus.png",
+      "subject": "One Quebec school bus, three-quarter view with windows, large wheels, front hood and accordion door, no text, no letters or digits (autobus).",
+      "sha256": "c8fe6c0f3bfd07306064437b3bde281c049b758057b9b82d927b06ea83fd2446"
+    },
+    {
+      "word": "efface",
+      "file": "efface.png",
+      "subject": "One rectangular school eraser, beveled rounded corners, two-tone gray ends, no label (efface).",
+      "sha256": "e2fc3a5ff2cc69bea955def829e5bf5cabd35dc891b0ae2f28d31512ca9dae0f"
+    },
+    {
+      "word": "pomme",
+      "file": "pomme.png",
+      "subject": "One apple with curved stem and a single leaf, familiar rounded outline (pomme).",
+      "sha256": "ac30af33078abbc31b7918fac899600c283e7bd6aee0ef24d19908dd12353e9f"
+    },
+    {
+      "word": "écureuil",
+      "file": "ecureuil.png",
+      "subject": "One friendly squirrel seated in three-quarter view, large bushy curled tail, small paws holding one acorn (écureuil).",
+      "sha256": "932ec6cb249f5cc480f46cfb96d29932611d867bcd0857193b4aa811ad7110bd",
+      "prompt_override": "Use case: illustration-story. Asset type: a single transparent PNG vocabulary illustration for children aged 3 to 9 on a grayscale TRMNL e-ink display. Subject: one friendly squirrel (écureuil), seated in three-quarter view, large bushy curled tail, small paws holding one acorn. Warm flat children's picture-book illustration. Uniform solid black outline with rounded joins, about 12px wide on a 1024x1024 square, interior lines 7px. Flat fills ONLY white #FFFFFF, light gray #D4D4D4, mid gray #9A9A9A, dark gray #555555 and black #000000. Simple unmistakable silhouette, centered complete subject occupying about 85% of square with generous safe margins. TRUE transparent background outside subject, opaque white fills inside. No gradients, shading, texture, drop shadows, ground, frame, labels, letters, text, numbers, logos or watermark. Exactly one illustration, not a sheet. Matches the friendly How to dress illustration style."
+    },
+    {
+      "word": "gland",
+      "file": "gland.png",
+      "subject": "One oak acorn with a clearly textured cap and tiny stem, light-gray nut, no squirrel (gland).",
+      "sha256": "5e441c01903ea1ed3078e99a0ab7f814638f0dfa2b5d1bddfc9de5e90400fab0"
+    },
+    {
+      "word": "règle",
+      "file": "regle.png",
+      "subject": "One straight school ruler seen diagonally with clearly spaced short and long tick marks along one edge, no numerals, letters or text (règle).",
+      "sha256": "7dbbccf22bf90ee97052cfaac7daaf40bbd2ddc9e370ebf21fb9c7c0f23b1e60"
+    },
+    {
+      "word": "citrouille",
+      "file": "citrouille.png",
+      "subject": "One big round pumpkin with broad curved ribs and a short curling stem, whole uncarved vegetable, no jack-o-lantern face (citrouille).",
+      "sha256": "24b58358ef55bf466a20c908f05ea91a5f5f22d5c2796db495733891cd391d51",
+      "prompt_override": "Use case: precise-object-edit. Clean up this pumpkin illustration. Preserve its same whole round uncarved pumpkin silhouette, broad curved rib lines, curved stem, square composition and bold rounded black outlines. Replace ALL interior fills with completely SOLID OPAQUE FLAT grayscale: central wide rib uniform mid gray #9A9A9A, the adjacent ribs light gray #D4D4D4, outer ribs dark gray #555555, stem mid gray. Remove every shadow, smudge, gradient, grain and hole, especially the irregular mark in the CENTER of the central rib. The pumpkin must have absolutely NO transparent or white patch inside its body and NO face or carved features. Genuine transparent background ONLY OUTSIDE the silhouette. No text or extra objects. Flat children's picture-book art, clean filled shapes."
+    },
+    {
+      "word": "feuille",
+      "file": "feuille.png",
+      "subject": "One large fallen maple leaf with five pointed lobes and bold branching veins, short stem (feuille).",
+      "sha256": "d27f32ce10a2e9c013cdcb7aee3d119faf0301e7fed65b903326476962dffa20"
+    },
+    {
+      "word": "champignon",
+      "file": "champignon.png",
+      "subject": "One forest mushroom with a broad round cap, short thick stalk and visible gills under one edge, no face (champignon).",
+      "sha256": "ea989816549411f8de72de237c4b40401040a6723e403a3933d01698eaf0031d"
+    },
+    {
+      "word": "chauve-souris",
+      "file": "chauve-souris.png",
+      "subject": "One friendly bat flying with wings fully spread, clearly jointed scalloped wings, large ears and little body, no scenery (chauve-souris).",
+      "sha256": "7be5503e7b07b3cb551c9f556518a5445221ab7c3926c6f4994c6fe63802a9f1"
+    },
+    {
+      "word": "fantôme",
+      "file": "fantome.png",
+      "subject": "One friendly cartoon ghost like a floating white sheet, two black oval eyes, tiny round mouth, two lifted corners and wavy lower edge, not frightening (fantôme).",
+      "sha256": "8e3f53c63824b50483524edc71fc1957af3eeabe6f6b636922133d186b3b72d8"
+    },
+    {
+      "word": "sorcière",
+      "file": "sorciere.png",
+      "subject": "One friendly storybook witch, pointed hat, long cloak, seated on a flying broom, smiling face, whole figure visible (sorcière).",
+      "sha256": "2fbe33633e102794973a07cc3b0d7eeeef2976d92ef08b0dc96a9659bab92185"
+    },
+    {
+      "word": "araignée",
+      "file": "araignee.png",
+      "subject": "One friendly spider with exactly eight distinct legs, round abdomen and smaller head with two eyes, no web to obscure the leg count (araignée).",
+      "sha256": "c3dba2cca31e245c987a8e10c40524668c7bfe1a84d328a66392a985c476d895"
+    },
+    {
+      "word": "bonbon",
+      "file": "bonbon.png",
+      "subject": "One round wrapped candy with twisted wrapper ends on both sides, simple white and gray stripes, no text (bonbon).",
+      "sha256": "47c097261517fdb9a2cc2bc5b0da3d9e6544251614493edd3a8f1c6af3e507eb"
+    },
+    {
+      "word": "costume",
+      "file": "costume.png",
+      "subject": "A child wearing a simple dragon Halloween costume with a hood, rounded dorsal spikes, two small wings and a long tail, full body, friendly smiling face (costume).",
+      "sha256": "b07d7ad9100c2b0654a269a50a59137a02e160d6a58a9329abcdf2887d11f7d7"
+    },
+    {
+      "word": "épouvantail",
+      "file": "epouvantail.png",
+      "subject": "One friendly scarecrow on a wooden crosspost, straw hat, patched shirt, straw tufts at cuffs and boots, full figure (épouvantail).",
+      "sha256": "2a6f27a2e4844b537434916c636ab973164e319ca2623804fb0cc414ac16c64b"
+    },
+    {
+      "word": "parapluie",
+      "file": "parapluie.png",
+      "subject": "One open umbrella with clearly segmented canopy, straight shaft and hooked handle, no rain cloud (parapluie).",
+      "sha256": "e21cf8a71ceb52e7c4218f43c96b0967459a187da4c97849c6acc3d9bb114c13"
+    },
+    {
+      "word": "râteau",
+      "file": "rateau.png",
+      "subject": "One garden leaf rake, long straight wooden handle and broad fan of curved tines, whole tool visible (râteau).",
+      "sha256": "d92c972a4186110a8126288ef7cd366eac1d93ac52145a4c72f02299080926a4"
+    },
+    {
+      "word": "imperméable",
+      "file": "impermeable.png",
+      "subject": "One hooded raincoat, front view, sleeves at sides, central zipper and two pockets, hem at mid-thigh, no person (imperméable).",
+      "sha256": "e3ae11004d3208987acef10b24b410048fedb549cbf0b64a16355709d861ce6d"
+    },
+    {
+      "word": "soupe",
+      "file": "soupe.png",
+      "subject": "One bowl of vegetable soup with simple carrot circles and peas, a spoon resting inside, two simple steam curls (soupe).",
+      "sha256": "7cdcd8cd3e7f8de9d982670a7c2a58093ebbea6ef4448652dd2e908930383358"
+    },
+    {
+      "word": "brouillard",
+      "file": "brouillard.png",
+      "subject": "A compact fog vignette: one simple house and two tree silhouettes partly hidden behind three opaque light-gray horizontal bands of low fog; no sky, transparent outside vignette (brouillard).",
+      "sha256": "234587bf200c141d657c244f26c4b073fe5ab2118fe5a00cb3a9edc0c74a0372"
+    },
+    {
+      "word": "raton laveur",
+      "file": "raton-laveur.png",
+      "subject": "One friendly raccoon sitting, distinctive black eye mask, ringed bushy tail and small front paws (raton laveur).",
+      "sha256": "f1b1b38a23cb09ab212ba75f1497673b7b0f6ba342d26dcabd5eab86b472f76f"
+    },
+    {
+      "word": "chevreuil",
+      "file": "chevreuil.png",
+      "subject": "One white-tailed deer standing in profile, slender legs, large ears, small forked antlers and white underside of tail, not a moose (chevreuil).",
+      "sha256": "5ba83cbab085a9dc79d85f071f1cd4d033777fc7bb5e9d3a9acf4d19dc9a9af5"
+    },
+    {
+      "word": "cocotte de pin",
+      "file": "cocotte-de-pin.png",
+      "subject": "One large pine cone with clear overlapping woody scales, oval tapering form and tiny stem (cocotte de pin).",
+      "sha256": "b55c9f6f6c3a182bc530f458f3accfb653c9f8f44e5b60990204cade1c166fa3"
+    },
+    {
+      "word": "couverture",
+      "file": "couverture.png",
+      "subject": "One warm folded blanket with a draped corner showing its soft thickness and a few fringes, simple broad gray stripes (couverture).",
+      "sha256": "d99a437b2dfcb37cccb5f6d757dc35afb5b8afab239e4b4c6ac19aa1d066ea01"
+    },
+    {
+      "word": "chandelle",
+      "file": "chandelle.png",
+      "subject": "One wax candle with a burning wick, simple teardrop flame and a few clear wax drips, on a small plain saucer, no glow (chandelle).",
+      "sha256": "10349d0757d1d28ac97a4603a656c91e62dd841a44698bd05c484d5166f5f34a"
+    },
+    {
+      "word": "sapin",
+      "file": "sapin.png",
+      "subject": "One natural fir tree with a trunk and layered evergreen needle branches, simple full silhouette, no Christmas decorations (sapin).",
+      "sha256": "a638b802ea1ebd4448422cd44e0e3022f35fbf6f67c8abaedc6ce85a1b97eb42"
+    },
+    {
+      "word": "cadeau",
+      "file": "cadeau.png",
+      "subject": "One wrapped gift box with a broad ribbon crossing its front and a large bow on top, three-quarter view (cadeau).",
+      "sha256": "ded0d0ac4de3fd3bd0d3b5f5d51acb5046673371fc168d28d84003bde4cb821b"
+    },
+    {
+      "word": "père Noël",
+      "file": "pere-noel.png",
+      "subject": "One friendly Santa Claus, full body, white beard, pompom hat, belted dark-gray coat, boots and a small sack over one shoulder, no text (père Noël).",
+      "sha256": "84060a8d689ece929f2efb14ba23661ac74d50ee986ae21ea8106430f4d4a2bc"
+    },
+    {
+      "word": "étoile",
+      "file": "etoile.png",
+      "subject": "One bold five-point star, white fill and thick black contour, small simple flat light-gray inset facet, no face or background (étoile).",
+      "sha256": "436ea5d761eaeb77045bf0a23ed03cafd9596c841280b17bfbc3df26a4835fdd"
+    },
+    {
+      "word": "renne",
+      "file": "renne.png",
+      "subject": "One reindeer standing, broad branching antlers, sturdy neck, hooves and simple harness, full body, no sleigh or Santa (renne).",
+      "sha256": "0b66b89cca31f06517c243579107ea806f1fc0c32493f2cc8082a2d8d40499f6"
+    },
+    {
+      "word": "lutin",
+      "file": "lutin.png",
+      "subject": "One friendly Christmas elf with pointed hat, pointed ears, belted tunic and curled boots, holding a small toy wooden train, full body (lutin).",
+      "sha256": "52eebd007c340e9177f91d7f7ac9dfb7f5b27471f274d73aedaa07b61a57464d"
+    },
+    {
+      "word": "biscuit",
+      "file": "biscuit.png",
+      "subject": "One round cookie with a slightly uneven baked edge and several dark chocolate chips, no bite taken out (biscuit).",
+      "sha256": "ef2833aecf472682dc72457e6b740f6cf0035cf82666a6281316b8fe5ae7deac"
+    },
+    {
+      "word": "cloche",
+      "file": "cloche.png",
+      "subject": "One metal bell with a flared rim, visible clapper and small loop on top, white and gray flat fills (cloche).",
+      "sha256": "ac5c11cb1d1863f025c1c4a22653e15805962ee4ba68559007c76a3f061f7924"
+    },
+    {
+      "word": "bas de Noël",
+      "file": "bas-de-noel.png",
+      "subject": "One large Christmas stocking hanging by its loop, fluffy folded cuff, curved foot and a simple star patch, empty (bas de Noël).",
+      "sha256": "b53c06b1d5bfe915a5a60eb8004ca8ad8178ea5a2fa24ac3bd1ae4bc5cba4baf"
+    },
+    {
+      "word": "traîneau",
+      "file": "traineau.png",
+      "subject": "One traditional Santa sleigh with two long curved runners, deep seat and curled front, side three-quarter view, no reindeer or Santa (traîneau).",
+      "sha256": "50710675acb460f96c172f0730e64798ced0d51002d068dc8b8295e5a1c42162"
+    }
+  ]
+}

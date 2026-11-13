@@ -23,9 +23,9 @@ const unmark = text => text.replace(/[()]/g, '');
 
 test('each entry has its word, silent letters, article, syllables, picture, definition and example', () => {
   for (const entry of entries) {
-    assert.deepEqual(Object.keys(entry).sort(), ['article', 'definition', 'example', 'picto', 'silent', 'syllables', 'word'], entry.word);
+    assert.deepEqual(Object.keys(entry).sort(), ['article', 'definition', 'example', 'image', 'silent', 'syllables', 'word'], entry.word);
     assert.ok(['un', 'une', 'le', 'la'].includes(entry.article), `${entry.word}: article ${entry.article}`);
-    assert.ok(Number.isInteger(entry.picto) && entry.picto > 0, `${entry.word}: ARASAAC id ${entry.picto}`);
+    assert.match(entry.image, /^images\/[a-z0-9-]+\.png$/, `${entry.word}: local image path`);
     assert.match(entry.definition, /^\p{Lu}.*\.$/u, `${entry.word}: the definition is one sentence`);
     assert.match(entry.example, /^\p{Lu}.*[.!?]$/u, `${entry.word}: the example is one sentence`);
   }
@@ -67,4 +67,25 @@ test('the example marks the word, once, between asterisks', () => {
 test('no word shows twice', () => {
   const seen = entries.map(e => e.word);
   assert.deepEqual(seen, [...new Set(seen)]);
+});
+
+test('all 120 words have distinct transparent square PNGs in the repo', () => {
+  const files = entries.map(entry => entry.image);
+  assert.equal(new Set(files).size, 120);
+  const available = fs.readdirSync(path.join(__dirname, '..', 'images')).filter(file => file.endsWith('.png'));
+  assert.deepEqual(available.sort(), files.map(file => path.basename(file)).sort());
+  for (const entry of entries) {
+    const png = fs.readFileSync(path.join(__dirname, '..', entry.image));
+    assert.deepEqual(png.subarray(0, 8), Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), entry.word);
+    assert.equal(png.readUInt32BE(16), 1024, `${entry.word}: width`);
+    assert.equal(png.readUInt32BE(20), 1024, `${entry.word}: height`);
+    assert.equal(png[25], 6, `${entry.word}: RGBA PNG with alpha`);
+  }
+});
+
+test('the Layout loads our images from an immutable image commit', () => {
+  const liquid = fs.readFileSync(path.join(__dirname, '..', 'src', 'full.liquid'), 'utf8');
+  assert.match(liquid, /assign image_base = "https:\/\/raw\.githubusercontent\.com\/apare\/trmnl\/[a-f0-9]{40}\/plugins\/mot-du-jour\/"/);
+  assert.match(liquid, /src="{{ image_base }}{{ entry.image }}"/);
+  assert(!liquid.includes('arasaac') && !liquid.includes('entry.picto'));
 });
