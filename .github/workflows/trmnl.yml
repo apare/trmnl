@@ -1,4 +1,5 @@
-# Lints and tests every Plugin, then pushes the changed ones to the TRMNL account.
+# Pushes the changed Plugins to the TRMNL account. Lint and tests run locally
+# (README), not here.
 #
 # A push to main pushes each Plugin whose plugins/<slug>/src/ changed since the
 # previous push; a manual run on main pushes them all. A Plugin with no `id:` in
@@ -9,7 +10,6 @@
 name: TRMNL
 
 on:
-  pull_request:
   push:
     branches: [main]
   workflow_dispatch:
@@ -21,32 +21,8 @@ concurrency:
   group: trmnl-${{ github.ref }}
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-      - name: Lint and test each Plugin
-        run: |
-          for config in plugins/*/.trmnlp.yml; do
-            slug="$(basename "$(dirname "$config")")"
-            echo "::group::$slug"
-            bin/trmnlp lint "$slug"
-            if compgen -G "plugins/$slug/test/*.test.js" >/dev/null; then
-              node --test "plugins/$slug"/test/*.test.js
-            fi
-            # trmnlp's own tests render the Plugin in Firefox, inside the image.
-            if compgen -G "plugins/$slug/tests/*_spec.rb" >/dev/null; then
-              bin/trmnlp test "$slug" </dev/null
-            fi
-            echo "::endgroup::"
-          done
-
   push:
-    needs: check
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

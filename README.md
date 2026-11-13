@@ -26,10 +26,10 @@ After the first push of a Plugin, commit its `src/settings.yml`: it now holds th
 
 ## CI
 
-[`.github/workflows/trmnl.yml`](.github/workflows/trmnl.yml) lints and tests every Plugin on each pull request and push to `main`. On `main`, it then pushes each Plugin whose `src/` changed, with `--force`: a push overwrites the Plugin's settings on trmnl.com but leaves the Playlist (the schedule of Plugins the Device cycles through) alone. A manual run (Run workflow) pushes them all.
+[`.github/workflows/trmnl.yml`](.github/workflows/trmnl.yml) runs on each push to `main` and pushes each Plugin whose `src/` changed, with `--force`: a push overwrites the Plugin's settings on trmnl.com but leaves the Playlist (the schedule of Plugins the Device cycles through) alone. A manual run (Run workflow) pushes them all.
 
 - The first push of a new Plugin stays local (above): the workflow refuses a Plugin with no `id:`.
-- The `TRMNL_API_KEY` repository secret holds a `trmnl_` key with the content capability: `pbpaste | gh secret set TRMNL_API_KEY --repo <owner>/trmnl`. Pull requests from forks never receive it.
+- The `TRMNL_API_KEY` repository secret holds a `trmnl_` key with the content capability: `pbpaste | gh secret set TRMNL_API_KEY --repo <owner>/trmnl`.
 
 ## Use it on your own TRMNL
 
