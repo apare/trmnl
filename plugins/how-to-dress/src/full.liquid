@@ -5,38 +5,16 @@
   .htd-dashboard svg text { font-family: inherit; }
   .htd-dashboard .halo { paint-order: stroke; stroke: #fff; stroke-width: 5px; stroke-linejoin: round; }
 
-
-
-  .htd-dashboard .fr { font-weight: 800; line-height: 1.14; }
-  .htd-dashboard .fr span { display: block; white-space: nowrap; }
-  .htd-dashboard .added .it { white-space: nowrap; }
-  .htd-dashboard .stage-m { display: flex; flex-direction: column; align-items: center; }
-  .htd-dashboard .mrow { display: flex; align-items: flex-end; gap: 8px; }
-  .htd-dashboard .st { font-weight: 800; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-  .htd-dashboard .st .n { background: #000; color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
-  .htd-dashboard .added { text-align: center; font-weight: 600; line-height: 1.2; }
-  .htd-dashboard .alt { border: 3px dashed #000; border-radius: 14px; padding: 4px 6px; display: flex; flex-direction: column; align-items: center; background: #fff; }
-  .htd-dashboard .alt b { font-size: calc(20px * var(--htd-scale)); }
-  .htd-dashboard .alt .lbl, .htd-dashboard .extra .lbl { font-size: calc(14px * var(--htd-scale)); font-weight: 600; text-align: center; }
-  .htd-dashboard .extra { display: flex; flex-direction: column; align-items: center; background: #fff; border-radius: 10px; padding: 2px 4px; }
-  .htd-dashboard .arrow { font-weight: 800; align-self: center; }
-
-  .htd-dashboard .top { height: 86px; flex: none; padding: 10px 22px 0; box-sizing: border-box; }
-  .htd-dashboard .fr { font-size: calc(31px * var(--htd-scale)); }
-  .htd-dashboard .main { height: 452px; flex: none; display: flex; gap: 14px; padding: 0 16px; }
+  .htd-dashboard .main { height: 522px; margin-top: 16px; flex: none; display: flex; gap: 14px; padding: 0 16px; }
   .htd-dashboard .scene { position: relative; width: 622px; flex: none; box-sizing: border-box; border: 2px solid #000; border-radius: 14px; overflow: hidden; }
   .htd-dashboard .scene > .layers { position: absolute; inset: 0; }
+  .htd-dashboard .kids, .htd-dashboard .kids > svg { position: absolute; inset: 0; }
+  .htd-dashboard .mq { position: absolute; }
   .htd-dashboard .mq > img, .htd-dashboard .layers > img { position: absolute; }
-  .htd-dashboard .mans { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: flex-end; gap: 4px; }
-  .htd-dashboard .st { font-size: calc(21px * var(--htd-scale)); margin-top: 8px; height: 28px; }
-  .htd-dashboard .st .n { width: 28px; height: 28px; font-size: calc(17px * var(--htd-scale)); }
-  .htd-dashboard .added { font-size: calc(14px * var(--htd-scale)); max-width: 182px; height: 66px; }
-  .htd-dashboard .arrow { font-size: calc(36px * var(--htd-scale)); }
-  .htd-dashboard .alt, .htd-dashboard .extra { margin-bottom: 2px; }
   .htd-dashboard .bottom { flex: 1; padding: 2px 20px 0; }
-  .htd-dashboard .cards { width: 372px; flex: none; display: flex; flex-direction: column; gap: 8px; }
+  .htd-dashboard .cards { width: 372px; flex: none; display: flex; flex-direction: column; gap: 10px; }
   .htd-dashboard .line { display: flex; gap: 10px; align-items: center; }
-  .htd-dashboard .card { border: 2px solid #000; border-radius: 12px; padding: 6px 10px; display: flex; flex-direction: column; }
+  .htd-dashboard .card { border: 2px solid #000; border-radius: 12px; padding: 6px 10px; display: flex; flex-direction: column; flex: 1; justify-content: center; }
   .htd-dashboard .card h3 { margin: 0; font-size: calc(15px * var(--htd-scale)); text-transform: uppercase; letter-spacing: 1px; }
   .htd-dashboard .two { display: flex; gap: 8px; }
   .htd-dashboard .two > div { flex: 1; display: flex; align-items: center; gap: 6px; }
@@ -55,9 +33,8 @@
 {% else %}
 <div class="htd-dashboard">
   <div class="page">
-    <div class="top"><div class="fr">{% for line in dashboard.friendlyLines %}<span>{{ line | escape }}</span>{% endfor %}</div></div>
     <div class="main">
-      <div class="scene">{{ dashboard.scene }}<div class="mans">{{ dashboard.mannequins }}</div></div>
+      <div class="scene">{{ dashboard.scene }}{{ dashboard.kids }}</div>
       <div class="cards">{{ dashboard.cards }}</div>
     </div>
     <div class="bottom">{{ dashboard.chart }}</div>

@@ -18,8 +18,8 @@ const AFTERNOON_HOUR = 15; // hour quoted as "cet après-midi"
 const SHOW_FEELS_LIKE_GAP = 3; // quote the ressenti when it differs this much
 const STRONG_WIND_KMH = 30; // mean wind that is "strong"
 const STRONG_GUST_KMH = 50; // gusts that are "strong"
-const BIG_COLD = -15; // coldest feels-like for the "grand froid" friendly line
-const HEAT_WAVE = 28; // warmest feels-like for the "canicule" friendly line
+const BIG_COLD = -15; // coldest feels-like that shows the "grand froid" sky
+const HEAT_WAVE = 28; // warmest feels-like that shows the "canicule" sky
 
 // Base clothes by the warmest feels-like (W). `alt` is the Girls' alternative.
 const BASE_RULES = [
@@ -53,39 +53,6 @@ const LABELS = {
   casquette: 'casquette', tuque: 'tuque', gants: 'gants', mitaines: 'mitaines',
   cachecou: 'cache-cou', souliers: 'souliers', bottesPluie: 'bottes de pluie',
   bottesHiver: "bottes d'hiver", creme: 'crème solaire',
-};
-
-// Friendly lines: the first matching type wins; the line rotates by date.
-const FRIENDLY = {
-  grandFroid: [
-    'Grand froid ! On s\u{2019}habille comme un bonhomme de neige.',
-    'Brrr ! Même les pingouins mettent leur tuque aujourd\u{2019}hui.',
-    'Il fait très très froid : on cache bien son nez.',
-  ],
-  neige: [
-    'Il neige ! C\u{2019}est le temps de faire un bonhomme de neige.',
-    'Des flocons partout ! On sort les bottes d\u{2019}hiver.',
-    'Neige au menu : attrape un flocon avec ta langue !',
-  ],
-  pluie: [
-    'Les flaques t\u{2019}attendent ! Saute dedans avec tes bottes.',
-    'Il pleut ! Les vers de terre vont sortir.',
-    'Jour de pluie : l\u{2019}imperméable est ton super-héros.',
-  ],
-  canicule: [
-    'Il fait chaud chaud chaud ! Bois beaucoup d\u{2019}eau.',
-    'Grosse chaleur : reste à l\u{2019}ombre quand tu peux.',
-    'Il fait aussi chaud qu\u{2019}en vacances ! N\u{2019}oublie pas ta gourde.',
-  ],
-  soleil: [
-    'Grand soleil ! Une belle journée pour jouer dehors.',
-    'Le soleil brille : casquette et crème, et c\u{2019}est parti !',
-  ],
-  tranquille: [
-    'Bonne journée ! Tu vas briller comme une étoile.',
-    'Une journée tranquille : amuse-toi bien !',
-    'C\u{2019}est l\u{2019}heure de l\u{2019}école : on s\u{2019}habille et on y va !',
-  ],
 };
 
 const DAYS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
@@ -174,15 +141,6 @@ function pickOutfit(day) {
   return { outfit, alt: base.alt };
 }
 
-function friendlyType(day) {
-  if (day.coldest < BIG_COLD) return 'grandFroid';
-  if (day.snow) return 'neige';
-  if (day.rain) return 'pluie';
-  if (day.warmest >= HEAT_WAVE) return 'canicule';
-  if (day.uv >= SUNSCREEN_UV) return 'soleil';
-  return 'tranquille';
-}
-
 // ---------- Text ----------
 
 const degrees = n => `${Math.round(n) < 0 ? '\u{2212}' : ''}${Math.abs(Math.round(n))}\u{a0}°C`;
@@ -237,39 +195,28 @@ function pieces(items) {
   return DRAW_ORDER.filter(slot => items[slot]).map(slot => ({ key: items[slot] }));
 }
 
-const names = keys => keys.filter(Boolean).map(k => LABELS[k]).join(' · ');
+// The Girls' alternative replaces the base clothes it names.
+function withAlt(items, alt) {
+  const out = { ...items };
+  if (!alt) return out;
+  if (alt.includes('robe')) { out.top = 'robe'; out.bottom = null; }
+  if (alt.includes('jupe')) out.bottom = 'jupe';
+  if (alt.includes('collants')) out.legs = 'collants';
+  return out;
+}
 
-// One mannequin per dressing step: under-clothes, then the warm layer, then what goes outside.
-function stagesOf(outfit, alt) {
-  const base = { top: outfit.top, bottom: outfit.bottom, legs: outfit.legs };
-  const hasWarm = !!outfit.warm;
-  const hasOutside = !!(outfit.coat || outfit.pants);
-  const accessories = ['head', 'neck', 'hands', 'feet'].map(s => outfit[s]);
-  let stages;
-  if (!hasWarm && !hasOutside) {
-    stages = [{ title: 'Aujourd\u{2019}hui', items: outfit, added: names([outfit.top, outfit.bottom, outfit.legs, ...accessories]) }];
-  } else {
-    stages = [{ title: 'En dessous', items: base, added: names([outfit.top, outfit.bottom, outfit.legs]) }];
-    if (hasWarm) {
-      stages.push(hasOutside
-        ? { title: `Le ${LABELS[outfit.warm]}`, items: { ...base, warm: outfit.warm }, added: '' }
-        : { title: `Le ${LABELS[outfit.warm]}`, items: outfit, added: names(accessories) });
-    }
-    if (hasOutside) {
-      stages.push({ title: 'Pour sortir', items: outfit, added: names([outfit.coat, outfit.pants, ...accessories]) });
-    }
-  }
-  return stages.map((stage, i) => {
-    const out = { number: stages.length > 1 ? i + 1 : null, title: stage.title, added: stage.added, pieces: pieces(stage.items) };
-    if (i === 0 && alt) {
-      const altItems = { ...stage.items };
-      if (alt.includes('robe')) { altItems.top = 'robe'; altItems.bottom = null; }
-      if (alt.includes('jupe')) altItems.bottom = 'jupe';
-      if (alt.includes('collants')) altItems.legs = 'collants';
-      out.alt = { added: names(alt), pieces: pieces(altItems) };
-    }
-    if (i === stages.length - 1 && outfit.extra) out.extra = { key: outfit.extra, label: LABELS[outfit.extra] };
-    return out;
+// Two kids, a boy and a girl: on the left the one dressed for inside (everything that
+// stays on under the coat), on the right the one dressed to go outside (the whole
+// Outfit). They swap places every day; the girl wears the Girls' alternative.
+function kidsOf(outfit, alt, dayOfYear) {
+  const girlOutside = dayOfYear % 2 === 1;
+  const inside = { top: outfit.top, bottom: outfit.bottom, legs: outfit.legs, warm: outfit.warm };
+  return [['inside', inside], ['outside', outfit]].map(([place, items]) => {
+    const character = (place === 'outside') === girlOutside ? 'long' : 'short';
+    const worn = character === 'long' ? withAlt(items, alt) : items;
+    const kid = { place, character, pieces: pieces(worn) };
+    if (place === 'outside' && outfit.extra) kid.extra = outfit.extra;
+    return kid;
   });
 }
 
@@ -286,17 +233,15 @@ function run(input) {
   const day = summarize(hours);
   const { outfit, alt } = pickOutfit(day);
   const date = localDate(hourly.time[0]);
-  const lines = FRIENDLY[friendlyType(day)];
 
   const result = {
     date: date.text,
-    friendly: lines[date.dayOfYear % lines.length],
     sentence: weatherSentence(hours, day),
     chart: chartOf(hours),
     outfit,
     alt,
     mannequin: MANNEQUIN,
-    stages: stagesOf(outfit, alt),
+    kids: kidsOf(outfit, alt, date.dayOfYear),
   };
   result.dashboard = dashboardOf(input, result);
   return result;
@@ -340,30 +285,75 @@ function dashboardOf(input, out) {
     if (worn.includes('gants')) add('gants'); else if (worn.includes('mitaines')) add('mitaines');
     return out;
   }
-  function mannequin(pieces, character, h) {
-    const s = h / (620 * MQ.k);
-    const box = `style="left:${f(-MQ.x * s)}px;top:${f(-MQ.y * s)}px" width="${f(MQ.w * s)}" height="${f(MQ.h * s)}"`;
-    const layers = mannequinLayers(pieces, character).map(l => `<img src="${src(l.name)}" ${box} alt="">`).join('');
-    return `<div class="mq" data-character="${character}" style="position:relative;flex:none;width:${f(280 * MQ.k * s)}px;height:${h}px">${layers}</div>`;
+  // Where a label's line lands on each piece, in mannequin image pixels: [y, left x, right x].
+  const ANCHORS = {
+    tuque: [200, 392, 630], casquette: [225, 385, 638], creme: [360, 385, 640], cachecou: [540, 442, 583],
+    tshirt: [640, 330, 693], manches: [760, 300, 722], chandail: [680, 308, 716], robe: [800, 390, 635],
+    hiver: [720, 300, 724], misaison: [720, 300, 724], impermeable: [720, 300, 724],
+    gants: [975, 240, 784], mitaines: [975, 240, 784],
+    short: [1000, 390, 634], jupe: [1060, 350, 674], pantalon: [1150, 380, 645], pluie: [1150, 380, 645],
+    neige: [1150, 382, 643], collants: [1260, 368, 656],
+    souliers: [1415, 315, 710], bottesPluie: [1340, 355, 668], bottesHiver: [1340, 355, 668],
+  };
+  const VISIBLE = { left: 216, right: 807, feet: 1474 }; // drawn part of the mannequin images
+  // At most two lines when it fits, cut where the longer line is shortest: "bottes / de pluie".
+  function wrap(text, max) {
+    const words = text.split(' ');
+    if (text.length <= max || words.length === 1) return [text];
+    const cuts = words.slice(1).map((_, i) => [words.slice(0, i + 1).join(' '), words.slice(i + 1).join(' ')]);
+    return cuts.reduce((best, c) => Math.max(...c.map(x => x.length)) < Math.max(...best.map(x => x.length)) ? c : best);
   }
-  const extraIcon = (key, h) => `<img src="${src('icones/' + key)}" width="${h}" height="${h}" alt="">`;
-  function stagesRow(d, h, opts = {}) {
-    return d.out.stages.map(s => {
-      const alt = s.alt ? `<div class="alt"><b>ou</b>${mannequin(s.alt.pieces, 'long', Math.round(h * 0.55))}<span class="lbl">${s.alt.added}</span></div>` : '';
-      const extra = s.extra ? `<div class="extra">${extraIcon(s.extra.key, Math.round(h * 0.22))}<span class="lbl">${s.extra.label}</span></div>` : '';
-      return `<div class="stage-m"><div class="mrow">${mannequin(s.pieces, 'short', h)}${alt}${extra}</div>
-        <div class="st">${s.number ? `<span class="n">${s.number}</span>` : ''}${s.title}</div>
-        <div class="added">${s.added.split(' \u{b7} ').map(x => `<span class="it">${x}</span>`).join(' \u{b7} ')}</div></div>`;
-    }).join(`<div class="arrow"${opts.arrowLift ? ` style="align-self:flex-end;margin-bottom:${Math.round(opts.arrowLift)}px"` : ''}>\u{2192}</div>`);
+  // Spreads a column's labels apart, each as close as it can to the height of its piece.
+  function relax(labels, minY, maxY) {
+    labels.sort((a, b) => a.ty - b.ty);
+    let y = minY;
+    labels.forEach(l => { l.y = Math.max(l.ty - l.h / 2, y); y = l.y + l.h + 8; });
+    let bottom = maxY;
+    for (let i = labels.length - 1; i >= 0; i--) { labels[i].y = Math.min(labels[i].y, bottom - labels[i].h); bottom = labels[i].y - 8; }
   }
-  function twoLines(text) {
-    const t = text.replace(/ !/g, '\u{a0}!').replace(/ \?/g, '\u{a0}?').replace(/ :/g, '\u{a0}:');
-    const m = t.match(/^(.+?[!?:.])[ ]+(\S.*)$/);
-    if (m) return [m[1], m[2]];
-    const words = t.split(' ');
-    let best = 1, diff = Infinity;
-    for (let i = 1; i < words.length; i++) { const dd = Math.abs(words.slice(0, i).join(' ').length - words.slice(i).join(' ').length); if (dd < diff) { diff = dd; best = i; } }
-    return [words.slice(0, best).join(' '), words.slice(best).join(' ')];
+  // The two kids standing low on the ground, each with its clothes named on both sides.
+  function kidsHTML(d, w, h) {
+    const H = 340, s = H / (MQ.h - 2 * MQ.y), O = 92, G = 8, LINE = 17, FONT = 15, CHARS = 10;
+    const vw = (VISIBLE.right - VISIBLE.left) * s;
+    const top = h - 22 - (VISIBLE.feet - MQ.y) * s;
+    const mid = w - 2 * 4 - 2 * O - 4 * G - 2 * vw;
+    const vLeft = [4 + O + G, 4 + O + G + vw + G + mid + G];
+    const left = vLeft.map(v => v - (VISIBLE.left - MQ.x) * s);
+    const columns = { outer0: [], middle: [], outer1: [] };
+    const figures = d.out.kids.map((kid, i) => {
+      const layers = mannequinLayers(kid.pieces, kid.character);
+      const box = `style="left:${f(-MQ.x * s)}px;top:${f(-MQ.y * s)}px" width="${f(MQ.w * s)}" height="${f(MQ.h * s)}"`;
+      const img = layers.map(l => `<img src="${src(l.name)}" ${box} alt="">`).join('');
+      const at = (px, py) => [left[i] + (px - MQ.x) * s, top + (py - MQ.y) * s];
+      const drawn = new Set(layers.map(l => l.name.slice('mannequin/'.length)));
+      const worn = kid.pieces.map(p => p.key);
+      const insideKeys = new Set(d.out.kids.find(k => k.place === 'inside').pieces.map(p => p.key));
+      // Inside: everything worn, even under the sweater. Outside: what shows and is added.
+      const keys = kid.place === 'inside' ? worn : worn.filter(k => drawn.has(k) && !insideKeys.has(k));
+      if (kid.extra) keys.push(kid.extra);
+      keys.sort((a, b) => ANCHORS[a][0] - ANCHORS[b][0]).forEach((key, n) => {
+        const side = (n + i) % 2 === 0 ? 'left' : 'right';
+        const [py, lx, rx] = ANCHORS[key];
+        const lines = wrap(LABELS[key], CHARS);
+        const [ax, ay] = at(side === 'left' ? lx : rx, py);
+        const column = side === 'left' ? (i === 0 ? 'outer0' : 'middle') : (i === 0 ? 'middle' : 'outer1');
+        const x = side === 'left' ? vLeft[i] - 6 : vLeft[i] + vw + 6;
+        columns[column].push({ lines, ax, ay, x, side, ty: ay, h: lines.length * LINE });
+      });
+      return `<div class="mq" data-place="${kid.place}" data-character="${kid.character}" style="left:${f(left[i])}px;top:${f(top)}px;width:${f(280 * MQ.k * s)}px;height:${H}px">${img}</div>`;
+    });
+    let svg = svgOpen(w, h);
+    Object.values(columns).forEach(labels => {
+      relax(labels, 10, h - 10);
+      labels.forEach(l => {
+        const ly = l.y + l.h / 2, lx = l.side === 'left' ? l.x + 4 : l.x - 4;
+        svg += `<path d="M${f(lx)} ${f(ly)}L${f(l.ax)} ${f(l.ay)}" stroke="${W}" stroke-width="6"/><path d="M${f(lx)} ${f(ly)}L${f(l.ax)} ${f(l.ay)}" stroke-width="2.2"/>`;
+        svg += `<circle cx="${f(l.ax)}" cy="${f(l.ay)}" r="4" fill="${K}" stroke="${W}" stroke-width="1.5"/>`;
+        svg += `<text x="${f(l.x)}" y="${f(l.y + FONT - 2)}" font-size="${FONT}" font-weight="800" text-anchor="${l.side === 'left' ? 'end' : 'start'}" fill="${K}" class="halo">`
+          + l.lines.map((t, n) => `<tspan x="${f(l.x)}" dy="${n ? LINE : 0}">${t}</tspan>`).join('') + '</text>';
+      });
+    });
+    return `<div class="kids">${figures.join('')}${svg}</svg></div>`;
   }
   const SEASONS = {
     1: { arbres: ['nu', 'sapin'], sol: 'terre', decor: ['bonhomme', 'banc'], air: [] },
@@ -540,12 +530,9 @@ function dashboardOf(input, out) {
               <div><div style="font-size:20px;font-weight:800">${d.moon.name}</div><div class="small">${d.moon.idx === 0 ? 'On ne la voit presque pas.' : d.moon.idx === 4 ? 'Elle est toute ronde.' : d.moon.growing ? 'Elle grossit chaque soir.' : 'Elle rapetisse chaque soir.'}</div><div class="small">${d.moon.fullText}</div></div></div>
             ${phases}</div>`;
   }
-  const n = out.stages.length, alt = out.stages.some(s => s.alt);
-  const height = n >= 3 && alt ? 236 : n >= 3 ? 262 : 282;
   return {
-    friendlyLines: twoLines(out.friendly),
-    scene: sceneStack(d, 618, 448, 340),
-    mannequins: stagesRow(d, height, { arrowLift: 102 + height * .42 }),
+    scene: sceneStack(d, 618, 518, 395),
+    kids: kidsHTML(d, 618, 518),
     cards: cardsHTML(d), chart: curve24(d, 1000, 196),
     sun, moon: d.moon, sceneLayers: sceneLayers(d),
   };

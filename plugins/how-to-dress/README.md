@@ -1,6 +1,6 @@
 # How to dress
 
-Each morning, what the kids (3 to 9) wear today, from Montréal's weather between 8 h and 17 h: one mannequin per Dressing step, the Girls' alternative beside the first, a friendly line on two lines, and the approved D dashboard: the weather scene beside Sky/Sun/Moon cards, with a 24-hour temperature curve and daylight strip.
+Each morning, what the kids (3 to 9) wear today, from Montréal's weather between 8 h and 17 h: an Inside kid and an Outside kid (the boy and the girl swap every day, the girl in the Girls' alternative), each piece named beside them with a line to it, in the approved D dashboard: the weather scene beside Sky/Sun/Moon cards, with a 24-hour temperature curve and daylight strip.
 
 - `src/transform.js`: TRMNL runs `run(input)` on the polled Open-Meteo forecast. Clothing uses only 8 h–17 h; the dashboard uses the full local day, cloud cover, sunrise and sunset. The dashboard markup is computed server-side, including image layer order and chart coordinates.
 - `src/full.liquid`: the full D Layout for TRMNL X (1040×780 CSS pixels), using the dashboard returned by the transform.

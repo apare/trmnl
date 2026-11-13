@@ -11,14 +11,17 @@ const sample = name => JSON.parse(fs.readFileSync(path.join(root, 'samples', nam
 const layers = html => [...html.matchAll(/\/images\/(mannequin\/[^" ]+)\.png/g)].map(m => m[1]);
 const figures = html => [...html.matchAll(/<div class="mq"[^>]*>(.*?)<\/div>/gs)].map(m => layers(m[1]));
 
+const labels = html => [...html.matchAll(/<text[^>]*>(.*?)<\/text>/g)].map(m => m[1].replace(/<[^>]+>/g, ' ').replace(/ +/g, ' ').trim());
+
 test('D keeps covered shirts and pants hidden, rain hood in front, base clothes visible', () => {
-  const winter = figures(run(sample('grand-froid')).dashboard.mannequins);
-  assert(winter[0].includes('mannequin/manches'));
+  const winter = figures(run(sample('grand-froid')).dashboard.kids);
+  assert.equal(winter.length, 2);
+  assert(winter[0].includes('mannequin/chandail') && winter[0].includes('mannequin/pantalon'));
   const outside = winter.at(-1);
   for (const key of ['manches', 'pantalon', 'chandail']) assert(!outside.includes('mannequin/' + key));
   assert(outside.indexOf('mannequin/neige') < outside.indexOf('mannequin/bottesHiver'));
   assert(outside.indexOf('mannequin/hiver') < outside.indexOf('mannequin/cachecou'));
-  const rain = figures(run(sample('pluie')).dashboard.mannequins).at(-1);
+  const rain = figures(run(sample('pluie')).dashboard.kids).at(-1);
   assert(rain.indexOf('mannequin/tete-courte') < rain.indexOf('mannequin/impermeable-capuchon-devant'));
   assert(!rain.includes('mannequin/cheveux-longs-derriere'));
 });
@@ -32,7 +35,7 @@ test('D requests only the 84 approved immutable images across twelve months, sno
       const input = sample(name);
       input.hourly.time = input.hourly.time.map(t => '2026-' + String(month).padStart(2, '0') + '-12' + t.slice(10));
       const result = run(input).dashboard;
-      const html = result.scene + result.mannequins + result.cards + result.chart;
+      const html = result.scene + result.kids + result.cards + result.chart;
       assert(!html.includes('undefined') && !html.includes('NaN'), name + ': invalid render');
       for (const match of html.matchAll(/(?:src|href)="(https:[^"]+)"/g)) {
         const url = new URL(match[1]);
@@ -42,10 +45,19 @@ test('D requests only the 84 approved immutable images across twelve months, sno
       }
       assert(result.sceneLayers.includes('scene/mois-' + String(month).padStart(2, '0') +
         (['neige', 'grand-froid', 'neige-au-sol'].includes(name) && [1, 2, 3, 4, 10, 11, 12].includes(month) ? '-neige' : '')));
-      assert.equal(result.friendlyLines.length, 2);
-      assert(result.friendlyLines.every(Boolean));
+      assert.equal(figures(result.kids).length, 2, name + ': two kids');
     }
   }
+});
+
+test('D names each kid\u{2019}s clothes beside it, with a line to the piece', () => {
+  const winter = run(sample('grand-froid')).dashboard.kids;
+  assert.deepEqual(labels(winter).sort(), ['bottes d\'hiver', 'cache-cou', 'chandail', 'manches longues', 'manteau d\'hiver',
+    'mitaines', 'pantalon', 'pantalon de neige', 'tuque'].sort());
+  assert.equal((winter.match(/<circle/g) || []).length, 9);
+  const summer = labels(run(sample('canicule')).dashboard.kids);
+  assert(summer.includes('crème solaire') && summer.includes('robe') && summer.includes('souliers'));
+  assert(!summer.includes('t-shirt short'));
 });
 
 test('D uses actual local sunrise, sunset and cloud cover, including the morning night icon', () => {
