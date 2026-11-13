@@ -22,9 +22,6 @@
   .htd-dashboard .small { font-size: calc(14px * var(--htd-scale)); font-weight: 600; }
   .htd-dashboard .two .small { white-space: nowrap; }
   .htd-dashboard .page { position: absolute; inset: 0; display: flex; flex-direction: column; }
-  .htd-dashboard .tbar { height: 44px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 20px; border-top: 2px solid #000; font-size: calc(19px * var(--htd-scale)); }
-  .htd-dashboard .tbar b { font-weight: 800; }
-  .htd-dashboard .sp { flex: 1; }
 </style>
 
 {% if error %}
@@ -38,7 +35,6 @@
       <div class="cards">{{ dashboard.cards }}</div>
     </div>
     <div class="bottom">{{ dashboard.chart }}</div>
-    <div class="tbar"><b>Comment s'habiller</b><span class="sp"></span><span>{{ date | escape }} · Montréal</span></div>
   </div>
 </div>
 {% endif %}

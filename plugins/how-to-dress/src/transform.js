@@ -532,7 +532,7 @@ function dashboardOf(input, out) {
   return {
     scene: sceneStack(d, 618, 518, 395),
     kids: kidsHTML(d, 618, 518),
-    cards: cardsHTML(d), chart: hourBars(d, 1000, 196),
+    cards: cardsHTML(d), chart: hourBars(d, 1000, 236),
     sun, moon: d.moon, sceneLayers: sceneLayers(d),
   };
 }

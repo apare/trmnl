@@ -1,6 +1,6 @@
 # How to dress
 
-Each morning, what the kids (3 to 9) wear today, from Montréal's weather between 8 h and 17 h: an Inside kid and an Outside kid (the boy and the girl swap every day, the girl in the Girls' alternative), each piece named beside them with a line to it, in the approved D dashboard: the weather scene beside Sky/Sun/Moon cards, with a 24-hour temperature curve and daylight strip.
+Each morning, what the kids (3 to 9) wear today, from Montréal's weather between 8 h and 17 h: an Inside kid and an Outside kid (the boy and the girl swap every day, the girl in the Girls' alternative), each piece named beside them with a line to it, in the approved D dashboard: the weather scene beside Sky/Sun/Moon cards, with one temperature pill per hour over 24 hours and a daylight strip, and no title bar.
 
 - `src/transform.js`: TRMNL runs `run(input)` on the polled Open-Meteo forecast. Clothing uses only 8 h–17 h; the dashboard uses the full local day, cloud cover, sunrise and sunset. The dashboard markup is computed server-side, including image layer order and chart coordinates.
 - `src/full.liquid`: the full D Layout for TRMNL X (1040×780 CSS pixels), using the dashboard returned by the transform.
@@ -25,4 +25,4 @@ Check real Liquid with `node plugins/how-to-dress/illustrations/render-samples.c
 
 ## Another city
 
-The forecast comes from [Open-Meteo](https://open-meteo.com), which needs no API key. To use another city, change `latitude` and `longitude` in `src/settings.yml`, update location/time zone in `dashboardOf` in `src/transform.js`, replace "Montréal" in `src/full.liquid`, and update `time_zone` in `.trmnlp.yml` for the local preview.
+The forecast comes from [Open-Meteo](https://open-meteo.com), which needs no API key. To use another city, change `latitude` and `longitude` in `src/settings.yml`, update location/time zone in `dashboardOf` in `src/transform.js`, and update `time_zone` in `.trmnlp.yml` for the local preview.
