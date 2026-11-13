@@ -462,46 +462,40 @@ function dashboardOf(input, out) {
     moon: moonOf(dateStr),
     daylight: `${Math.floor((sun.set - sun.rise) / 60)}\u{a0}h\u{a0}${String((sun.set - sun.rise) % 60).padStart(2, '0')} de clart\u{e9}`,
   };
-  const xOf = (hr, w) => f(hr / 24 * w);
-  function smooth(pts) {
-    let d = `M${pts[0][0]} ${pts[0][1]}`;
-    for (let i = 0; i < pts.length - 1; i++) {
-      const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
-      d += `C${f(p1[0] + (p2[0] - p0[0]) / 6)} ${f(p1[1] + (p2[1] - p0[1]) / 6)} ${f(p2[0] - (p3[0] - p1[0]) / 6)} ${f(p2[1] - (p3[1] - p1[1]) / 6)} ${f(p2[0])} ${f(p2[1])}`;
-    }
-    return d;
-  }
-  const extremes = temps => { const r = temps.map(Math.round); return { min: Math.min(...r), max: Math.max(...r), iMin: r.indexOf(Math.min(...r)), iMax: r.indexOf(Math.max(...r)) }; };
-  function curve24(d, w, h) {
-    const plotTop = 30, plotBot = h - 58, stripY = h - 48, stripH = 24, cw = w / 24;
-    const temps = d.hours.map(x => x.temp); const e = extremes(temps);
-    const yOf = t => e.max === e.min ? (plotTop + plotBot) / 2 : plotBot - 10 - (t - e.min) / (e.max - e.min) * (plotBot - plotTop - 30);
-    const pts = d.hours.map((hr, i) => [f(hr.hour * cw + cw / 2), f(yOf(hr.temp))]);
-    let s = svgOpen(w, h);
-    s += `<rect x="${xOf(8, w)}" y="${plotTop - 26}" width="${f(cw * 10)}" height="${plotBot - plotTop + 26}" fill="#ececec" stroke="none"/>`;
-    s += `<text x="${f(xOf(18, w) - 6)}" y="${plotBot - 6}" font-size="14" font-weight="700" text-anchor="end" fill="${K}" class="halo">dehors, 8 h \u{e0} 17 h</text>`;
-    d.hours.forEach((hr, i) => {
-      const x = hr.hour * cw + cw / 2, y = plotTop - 12;
-      if (hr.wet === 'rain') s += iconAt('icones/goutte', x - 6.6, y - 8.3, 13.2);
-      if (hr.wet === 'snow') s += iconAt('icones/flocon', x - 8.75, y - 8.75, 17.5);
+  // One dotted pill per outdoor hour, 8 h to 17 h: from the lower to the higher of the
+  // temperature and the feels-like. The sky icon tops the first pill and each pill whose
+  // sky differs from the hour before. Then the light band and the hours.
+  function hourBars(d, w, h) {
+    const { first, last } = OUTDOOR_WINDOW;
+    const bars = d.hours.filter(x => x.hour >= first && x.hour <= last).map(x => ({
+      hour: x.hour, hi: Math.round(Math.max(x.temp, x.feels)), lo: Math.round(Math.min(x.temp, x.feels)),
+      icon: meteoName(d.skyOf(x.hour, x.hour + 1), d.nightAt(x.hour + .5)),
+    }));
+    bars.forEach((b, i) => { b.showIcon = i === 0 || b.icon !== bars[i - 1].icon; });
+    const cw = w / (last - first + 1), pw = 72, ICON = 48, head = 34 + ICON, foot = 30;
+    const stripY = h - 46, stripH = 22, plotBot = stripY - 6;
+    const gHi = Math.max(...bars.map(b => b.hi)), gLo = Math.min(...bars.map(b => b.lo));
+    const yOf = t => gHi === gLo ? (head + plotBot - foot) / 2 : head + (gHi - t) / (gHi - gLo) * (plotBot - foot - head);
+    const xOfMin = min => (min / 60 - first) * cw;
+    let s = svgOpen(w, h) + `<defs><pattern id="htd-dots" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="1.2" height="1.2" fill="${K}" stroke="none"/></pattern></defs>`;
+    bars.forEach((b, i) => {
+      // The max's baseline sits at yOf(hi); the pill grows upward to hold the icon when there is one.
+      const cx = i * cw + cw / 2, hiY = yOf(b.hi), bot = yOf(b.lo) + foot;
+      const top = hiY - 34 - (b.showIcon ? ICON : 0);
+      s += `<rect x="${f(cx - pw / 2)}" y="${f(top)}" width="${pw}" height="${f(bot - top)}" rx="${pw / 2}" fill="url(#htd-dots)" stroke="none"/>`;
+      if (b.showIcon) s += iconAt(b.icon, cx - 30, top + 4, 60);
+      s += `<text x="${f(cx)}" y="${f(hiY)}" font-size="24" font-weight="800" text-anchor="middle" fill="${K}" class="halo">${deg(b.hi)}</text>`;
+      s += `<text x="${f(cx)}" y="${f(bot - 8)}" font-size="24" font-weight="800" text-anchor="middle" fill="${K}" class="halo">${deg(b.lo)}</text>`;
+      s += `<text x="${f(cx)}" y="${h - 4}" font-size="15" font-weight="700" text-anchor="middle" fill="${K}" stroke="none">${b.hour} h</text>`;
     });
-    s += `<line x1="0" y1="${plotBot}" x2="${w}" y2="${plotBot}" stroke-width="2"/>`;
-    s += `<path d="${smooth(pts)}" stroke-width="4"/>`;
-    d.hours.forEach((hr, i) => {
-      if (i % 3 === 0 || i === e.iMax || i === e.iMin) {
-        const big = i === e.iMax || i === e.iMin;
-        s += `<circle cx="${pts[i][0]}" cy="${pts[i][1]}" r="${big ? 6 : 4}" fill="${big ? K : W}" stroke-width="2"/>`;
-        s += `<text x="${pts[i][0]}" y="${f(pts[i][1] - 11)}" font-size="${big ? 18 : 15}" font-weight="800" text-anchor="middle" fill="${K}" class="halo">${deg(hr.temp)}</text>`;
-      }
-    });
-    for (let i = 0; i < 144; i++) s += `<rect x="${f(i * w / 144)}" y="${stripY}" width="${f(w / 144 + .6)}" height="${stripH}" fill="${gray(d.light10[i])}" stroke="none"/>`;
+    for (let i = first * 6; i < (last + 1) * 6; i++) s += `<rect x="${f(xOfMin(i * 10))}" y="${stripY}" width="${f(cw / 6 + .6)}" height="${stripH}" fill="${gray(d.light10[i])}" stroke="none"/>`;
     s += `<rect x="0" y="${stripY}" width="${w}" height="${stripH}" stroke-width="2"/>`;
     [[d.sun.rise, '\u{2191}'], [d.sun.set, '\u{2193}']].forEach(([m, a]) => {
-      const x = +xOf(m / 60, w);
-      s += `<rect x="${f(x - 46)}" y="${stripY + 2}" width="92" height="${stripH - 4}" rx="10" fill="${W}" stroke-width="1.5"/>`;
-      s += `<text x="${f(x)}" y="${stripY + 17}" font-size="14" font-weight="800" text-anchor="middle" fill="${K}" stroke="none">\u{2600}${a} ${hm(m)}</text>`;
+      if (m < first * 60 || m > (last + 1) * 60) return;
+      const x = Math.max(48, Math.min(w - 48, xOfMin(m)));
+      s += `<rect x="${f(x - 46)}" y="${stripY + 2}" width="92" height="${stripH - 4}" rx="9" fill="${W}" stroke-width="1.5"/>`;
+      s += `<text x="${f(x)}" y="${stripY + 16}" font-size="14" font-weight="800" text-anchor="middle" fill="${K}" stroke="none">\u{2600}${a} ${hm(m)}</text>`;
     });
-    for (let hr = 0; hr <= 24; hr += 3) s += `<text x="${xOf(hr, w)}" y="${h - 4}" font-size="14" text-anchor="${hr === 0 ? 'start' : hr === 24 ? 'end' : 'middle'}" fill="${K}" stroke="none">${hr} h</text>`;
     return s + '</svg>';
   }
   function cardsHTML(d) {
@@ -533,7 +527,7 @@ function dashboardOf(input, out) {
   return {
     scene: sceneStack(d, 618, 518, 395),
     kids: kidsHTML(d, 618, 518),
-    cards: cardsHTML(d), chart: curve24(d, 1000, 196),
+    cards: cardsHTML(d), chart: hourBars(d, 1000, 196),
     sun, moon: d.moon, sceneLayers: sceneLayers(d),
   };
 }
