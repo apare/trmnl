@@ -8,7 +8,7 @@
       {"word":"igloo","silent":"igloo","article":"un","syllables":["i","gloo"],"picto":8137,"definition":"Une maison ronde construite avec des blocs de neige.","example":"Nous avons fait un petit *igloo* dans la cour."},
       {"word":"pelle","silent":"pell(e)","article":"une","syllables":["pell(e)"],"picto":2867,"definition":"Un outil à long manche pour creuser ou enlever la neige.","example":"Papa pellette l’entrée avec une grosse *pelle*."},
       {"word":"foyer","silent":"foyer","article":"un","syllables":["fo","yer"],"picto":8072,"definition":"L’endroit de la maison où brûle un feu de bois pour nous réchauffer.","example":"On se réchauffe les pieds devant le *foyer*."},
-      {"word":"chocolat chaud","silent":"chocola(t) chau(d)","article":"un","syllables":["cho","co","la(t)","chau(d)"],"picto":6448,"definition":"Une boisson chaude et sucrée faite avec du lait et du chocolat.","example":"Après la glissade, on boit un *chocolat chaud*."},
+      {"word":"chocolat chaud","silent":"chocola(t) chau(d)","article":"un","syllables":["cho","co","la(t)","chau(d)"],"picto":6448,"definition":"Une boisson chaude et sucrée faite avec du lait et du chocolat.","example":"Après avoir joué dehors, on boit un *chocolat chaud*."},
       {"word":"botte","silent":"bott(e)","article":"une","syllables":["bott(e)"],"picto":2287,"definition":"Une grosse chaussure haute qui garde les pieds au chaud et au sec.","example":"Je mets mes *bottes* avant de sortir dans la neige."},
       {"word":"ours","silent":"ours","article":"un","syllables":["ours"],"picto":2488,"definition":"Un gros animal poilu qui dort presque tout l’hiver dans sa tanière.","example":"Au printemps, l’*ours* se réveille avec une grosse faim."}
     ],
@@ -73,7 +73,7 @@
       {"word":"casquette","silent":"casquett(e)","article":"une","syllables":["cas","quett(e)"],"picto":2411,"definition":"Un chapeau avec une visière pour protéger les yeux du soleil.","example":"Je mets ma *casquette* pour aller jouer dehors."}
     ],
     "juillet": [
-      {"word":"plage","silent":"plag(e)","article":"une","syllables":["plag(e)"],"picto":30518,"definition":"Le bord d’un lac ou de la mer, couvert de sable.","example":"On fait des châteaux de sable à la *plage*."},
+      {"word":"plage","silent":"plag(e)","article":"une","syllables":["plag(e)"],"picto":30518,"definition":"Le bord d’un lac ou de la mer, couvert de sable.","example":"À la *plage*, on se baigne dans le lac."},
       {"word":"piscine","silent":"piscin(e)","article":"une","syllables":["pis","cin(e)"],"picto":3142,"definition":"Un grand bassin plein d’eau pour se baigner.","example":"Quand il fait chaud, on se baigne dans la *piscine*."},
       {"word":"tente","silent":"tent(e)","article":"une","syllables":["tent(e)"],"picto":4756,"definition":"Une petite maison en tissu qu’on monte pour dormir dehors.","example":"Cet été, on dort sous la *tente* au camping."},
       {"word":"crème glacée","silent":"crèm(e) glacé(e)","article":"une","syllables":["crèm(e)","gla","cé(e)"],"picto":2420,"definition":"Un dessert froid et sucré qu’on mange en cornet.","example":"Ma *crème glacée* fond au soleil !"},
