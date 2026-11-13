@@ -1,25 +1,18 @@
 Generate exactly two images with your built-in image generation tool, one call per image, and save them as PNG files in this folder:
 
-- `raw/ordures.png`
-- `raw/recyclage.png`
+- `raw-dessin/ordures.png`
+- `raw-dessin/recyclage.png`
 
-Both images are for a 16-gray e-ink display that a family with young kids reads from across the room. They must look like a matching pair: same bin model, same camera, same scale, same position.
+Use the attached reference images:
+- `raw/ordures.png` and `raw/recyclage.png`: the exact bins to draw. Keep their pose, proportions and content: pure side view, the handle and the single big wheel at the back (right), a small foot at the front (left), the lid hinged on the handle side. Ordures: dark bin, overfull, a tied black bag lifting the lid. Recyclage: light bin, lid open, cardboard box, plastic bottle and tin can sticking out, recycling arrows on the side.
+- `refs/style-how-to-dress*.png`: the drawing style to match. A friendly hand-drawn illustration for kids: thick, smooth black outlines (about 3 % of the image width), rounded shapes, flat fills, no photo texture.
 
-Shared requirements for both images:
-- Photorealistic product-style render of a residential wheelie bin (a ~240 L city wheeled cart, like the ones in Montréal), seen exactly from the side (pure profile, no perspective tilt).
-- The handle and the two wheels are on the RIGHT side only (the handle side). On the left (the front), the bin rests on a small molded foot, no wheels there. The lid is hinged on the handle side.
+Style requirements for both images:
+- Illustration, not a photo: thick black outlines around every shape, clean flat areas of gray.
+- Grayscale only, made for a 16-gray e-ink display: use several distinct flat grays for shading (light side, shadow side, highlights), from white to near black, never smooth photographic gradients, no noise, no grain.
 - Square 1024×1024 canvas, pure white background (#FFFFFF), no floor, no cast shadow, no text, no logo, no watermark.
-- The bin is centered and fills about 90 % of the canvas height.
-- Rendered in grayscale only, with strong contrast and clear edges so it stays readable on e-ink.
-
-Image 1, `raw/ordures.png` (garbage):
-- The bin plastic is dark charcoal gray.
-- The bin is overfull: a tied black garbage bag bulges out of the top and lifts the front of the lid, which stays hinged at the handle side.
-
-Image 2, `raw/recyclage.png` (recycling):
-- The bin plastic is light gray (a green recycling bin rendered in light gray).
-- The lid is fully open, swung back over the handle side.
-- A flattened cardboard box, a plastic bottle and a tin can stick out of the top.
-- A large recycling symbol (three chasing arrows) is molded on the side of the bin.
+- The bin is centered and fills about 90 % of the canvas height. Both images are a matching pair: same bin shape, same scale, same position.
+- Ordures: the bin is dark gray; the black bag is near black with a few light-gray highlight shapes. Add one or two small cartoon flies above it.
+- Recyclage: the bin is light gray; the recycling symbol is a darker gray molded on the side.
 
 When both files exist, reply with their paths and nothing else.
