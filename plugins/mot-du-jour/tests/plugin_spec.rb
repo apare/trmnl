@@ -2,6 +2,7 @@
 
 require 'date'
 require 'json'
+require 'fileutils'
 
 # Mot du jour on the TRMNL X, run with `bin/trmnlp test mot-du-jour`.
 # The clock is frozen at each `now:`; the day follows .trmnlp.yml's time_zone (America/Toronto, Montréal's).
@@ -10,8 +11,11 @@ RSpec.describe 'Mot du jour' do
   WORDS = JSON.parse(File.read(File.expand_path('../words.json', __dir__)))
   MONTHS = WORDS['months']
 
+  IMAGE_BASE = File.read(File.expand_path('../src/full.liquid', __dir__))[/assign image_base = "([^"]+)"/, 1]
+  LOCAL_IMAGES = File.expand_path('..', __dir__)
+
   # data: stands for the polled words.json, so the tests read this branch's list, not main's.
-  def render_at(now) = trmnl.render(device: DEVICE, now:, data: WORDS)
+  def render_at(now) = trmnl.render(device: DEVICE, now:, data: WORDS, asset_overrides: { IMAGE_BASE => LOCAL_IMAGES })
   def word_at(now) = render_at(now).find('[data-word]')['data-word']
   def words_of(month) = MONTHS.fetch(month).map { it['word'] }
 
@@ -52,7 +56,15 @@ RSpec.describe 'Mot du jour' do
         screen = render_at("#{first + offset}T12:00:00-05:00")
         expect(screen.overflowing).to be_empty
         word = screen.find('[data-word]')['data-word']
-        expect_reading_aids(screen, MONTHS.fetch(month).find { it['word'] == word })
+        entry = MONTHS.fetch(month).find { it['word'] == word }
+        expect_reading_aids(screen, entry)
+        expect(screen.html).to include(IMAGE_BASE + entry.fetch('image'))
+        expect(screen.evaluate('document.querySelector("img.mdj-picture").naturalWidth')).to eq(1024)
+        expect(screen.problems).to be_empty
+        if ENV['MDJ_PREVIEWS']
+          FileUtils.mkdir_p(ENV.fetch('MDJ_PREVIEWS'))
+          FileUtils.cp(screen.png_path, File.join(ENV.fetch('MDJ_PREVIEWS'), File.basename(entry.fetch('image'))))
+        end
         word
       end
       expect(words).to match_array(words_of(month))
