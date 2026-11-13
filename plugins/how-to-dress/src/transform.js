@@ -343,6 +343,13 @@ function dashboardOf(input, out) {
       return `<div class="mq" data-place="${kid.place}" data-character="${kid.character}" style="left:${f(left[i])}px;top:${f(top)}px;width:${f(280 * MQ.k * s)}px;height:${H}px">${img}</div>`;
     });
     let svg = svgOpen(w, h);
+    // A pill above each kid's head says where that Outfit is worn.
+    d.out.kids.forEach((kid, i) => {
+      const text = kid.place === 'inside' ? 'Int\u{e9}rieur' : 'Ext\u{e9}rieur', pw = 112, ph = 28;
+      const cx = vLeft[i] + vw / 2, y = top - ph - 8;
+      svg += `<rect x="${f(cx - pw / 2)}" y="${f(y)}" width="${pw}" height="${ph}" rx="${ph / 2}" fill="${W}" stroke-width="2.5"/>`;
+      svg += `<text x="${f(cx)}" y="${f(y + 20)}" font-size="17" font-weight="800" text-anchor="middle" fill="${K}" stroke="none">${text}</text>`;
+    });
     Object.values(columns).forEach(labels => {
       relax(labels, 10, h - 10);
       labels.forEach(l => {

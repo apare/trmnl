@@ -52,7 +52,9 @@ test('D requests only the 84 approved immutable images across twelve months, sno
 
 test('D names each kid\u{2019}s clothes beside it, with a line to the piece', () => {
   const winter = run(sample('grand-froid')).dashboard.kids;
-  assert.deepEqual(labels(winter).sort(), ['bottes d\'hiver', 'cache-cou', 'chandail', 'manches longues', 'manteau d\'hiver',
+  const places = ['Int\u{e9}rieur', 'Ext\u{e9}rieur'];
+  assert.deepEqual(labels(winter).filter(t => places.includes(t)).sort(), places.sort());
+  assert.deepEqual(labels(winter).filter(t => !places.includes(t)).sort(), ['bottes d\'hiver', 'cache-cou', 'chandail', 'manches longues', 'manteau d\'hiver',
     'mitaines', 'pantalon', 'pantalon de neige', 'tuque'].sort());
   assert.equal((winter.match(/<circle/g) || []).length, 9);
   const summer = labels(run(sample('canicule')).dashboard.kids);
