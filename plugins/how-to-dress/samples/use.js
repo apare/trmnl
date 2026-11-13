@@ -12,9 +12,10 @@ if (!name || (name !== 'live' && !samples.includes(name))) {
   process.exit(1);
 }
 
-// The sample's `hourly` replaces the polled one (trmnlp deep-merges `variables`).
+// The sample's `hourly` replaces the polled forecast's, the first of the two polling URLs
+// (trmnlp deep-merges `variables`); the air quality stays live.
 const variables = name === 'live' ? {}
-  : { hourly: JSON.parse(fs.readFileSync(path.join(__dirname, `${name}.json`), 'utf8')).hourly };
+  : { IDX_0: { hourly: JSON.parse(fs.readFileSync(path.join(__dirname, `${name}.json`), 'utf8')).hourly } };
 const text = fs.readFileSync(config, 'utf8')
   .replace(/^# sample: .*$/m, `# sample: ${name}`)
   .replace(/^variables: .*$/m, `variables: ${JSON.stringify(variables)}`);

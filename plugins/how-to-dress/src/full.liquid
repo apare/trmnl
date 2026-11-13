@@ -1,70 +1,44 @@
 <style>
-  /* Only what the Framework has no class for: the mannequin drawings and the chart bars. */
-  .htd-mannequin { display: block; width: calc(167px * var(--content-scale, 1)); height: calc(370px * var(--content-scale, 1)); }
-  .htd-mannequin.small { width: calc(90px * var(--content-scale, 1)); height: calc(200px * var(--content-scale, 1)); }
-  .htd-ico { display: block; width: calc(70px * var(--content-scale, 1)); height: calc(70px * var(--content-scale, 1)); }
-  .htd-alt { border: 3px dashed #000; }
-  .htd-number { width: calc(36px * var(--content-scale, 1)); height: calc(36px * var(--content-scale, 1)); display: inline-flex; align-items: center; justify-content: center; }
-  .htd-bottom { border-top: 2px solid #000; }
-  .htd-bar { width: 64%; }
-  .htd-wet { width: 22px; height: 22px; }
+  /* Approved D geometry for the full Layout on the 1040x780 TRMNL X. */
+  .htd-dashboard { --htd-scale: 1; position: absolute; inset: 0; width: 1040px; height: 780px; color: #000; font-family: Inter, "Helvetica Neue", sans-serif; line-height: normal; }
+  .htd-dashboard svg { display: block; overflow: visible; }
+  .htd-dashboard svg text { font-family: inherit; }
+  .htd-dashboard .halo { paint-order: stroke; stroke: #fff; stroke-width: 5px; stroke-linejoin: round; }
+
+  .htd-dashboard .main { height: 522px; margin-top: 16px; flex: none; display: flex; gap: 14px; padding: 0 16px; }
+  .htd-dashboard .scene { position: relative; width: 622px; flex: none; box-sizing: border-box; border: 2px solid #000; border-radius: 14px; overflow: hidden; }
+  .htd-dashboard .scene > .layers { position: absolute; inset: 0; }
+  .htd-dashboard .kids, .htd-dashboard .kids > svg { position: absolute; inset: 0; }
+  .htd-dashboard .mq { position: absolute; }
+  .htd-dashboard .mq > img, .htd-dashboard .layers > img { position: absolute; }
+  .htd-dashboard .bottom { flex: 1; padding: 2px 20px 0; }
+  .htd-dashboard .cards { width: 372px; flex: none; display: flex; flex-direction: column; gap: 10px; }
+  .htd-dashboard .line { display: flex; gap: 10px; align-items: center; }
+  .htd-dashboard .card { border: 2px solid #000; border-radius: 12px; padding: 6px 10px; display: flex; flex-direction: column; flex: 1; justify-content: center; }
+  .htd-dashboard .card h3 { margin: 0; font-size: calc(15px * var(--htd-scale)); text-transform: uppercase; letter-spacing: 1px; }
+  .htd-dashboard .two { display: flex; gap: 8px; }
+  .htd-dashboard .two > div { flex: 1; display: flex; align-items: center; gap: 6px; }
+  .htd-dashboard .big { font-size: calc(40px * var(--htd-scale)); font-weight: 800; line-height: 1; }
+  .htd-dashboard .small { font-size: calc(14px * var(--htd-scale)); font-weight: 600; }
+  .htd-dashboard .two .small { white-space: nowrap; }
+  .htd-dashboard .two .wrap { white-space: normal; }
+  .htd-dashboard .two.tops > div { align-items: flex-start; }
+  .htd-dashboard .mid { font-size: calc(20px * var(--htd-scale)); font-weight: 800; }
+  .htd-dashboard .storm { margin-top: 4px; }
+  .htd-dashboard .page { position: absolute; inset: 0; display: flex; flex-direction: column; }
 </style>
 
-<div class="layout layout--col layout--stretch gap--small">
-  {% if error %}
-    <span class="title title--xlarge">{{ error }}</span>
-  {% else %}
-  <span class="title title--large text--bold">{{ friendly }}</span>
-
-  <div class="flex flex--row flex--center-x flex--top gap--xsmall grow">
-    {% for stage in stages %}
-      {% unless forloop.first %}<span class="value value--large flex flex--center-y h--96">→</span>{% endunless %}
-      <div class="flex flex--col flex--center-x gap--xsmall">
-        <div class="flex flex--row flex--bottom gap--small">
-          {% render 'mannequin', pieces: stage.pieces, size: '', uid: forloop.index, suffix: 'main', character: 'short' %}
-          {% if stage.alt %}
-            <div class="htd-alt flex flex--col flex--center-x rounded--large p--1 mb--5">
-              <span class="title title--small">ou</span>
-              {% render 'mannequin', pieces: stage.alt.pieces, size: 'small', uid: forloop.index, suffix: 'alt', character: 'long' %}
-              <span class="description text--center">{{ stage.alt.added }}</span>
-            </div>
-          {% endif %}
-          {% if stage.extra %}
-            <div class="flex flex--col flex--center-x mb--5">
-              <svg class="htd-ico" viewBox="303 459 55 106" fill="none" stroke="#000" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round">{% render 'icon', key: stage.extra.key %}</svg>
-              <span class="description text--center">{{ stage.extra.label }}</span>
-            </div>
-          {% endif %}
-        </div>
-        <span class="title text--bold flex flex--row flex--center-y gap--xsmall">
-          {% if stage.number %}<span class="htd-number rounded--full bg--black"><span class="title text--white">{{ stage.number }}</span></span>{% endif %}
-          {{ stage.title }}
-        </span>
-        <span class="description description--large text--center w--max-80">{{ stage.added }}</span>
-      </div>
-    {% endfor %}
-  </div>
-
-  <div class="htd-bottom flex flex--row flex--bottom gap--large pt--2">
-    <span class="title w--96 flex-none">{{ sentence }}</span>
-    <div class="flex flex--row flex--bottom gap--xsmall grow">
-      {% for h in chart %}
-        <div class="flex flex--col flex--center-x flex--bottom grow">
-          <span class="value value--xxsmall">{{ h.temp }}</span>
-          <div class="htd-bar {% if h.wet %}bg--gray-4{% else %}bg--black{% endif %}" style="height: calc({{ h.height | times: 0.7 }}px * var(--content-scale, 1))"></div>
-          <span class="description">{{ h.hour }} h</span>
-          <svg class="htd-wet" viewBox="0 0 22 22">
-            {% if h.wet == 'rain' %}<path d="M11 2 Q18 13 11 18 Q4 13 11 2Z" fill="#fff" stroke="#000" stroke-width="2.5"/>{% endif %}
-            {% if h.wet == 'snow' %}<g stroke="#000" stroke-width="2.5"><line x1="3" y1="11" x2="19" y2="11"/><line x1="7" y1="4" x2="15" y2="18"/><line x1="7" y1="18" x2="15" y2="4"/></g>{% endif %}
-          </svg>
-        </div>
-      {% endfor %}
+{% if error %}
+<div class="layout"><span class="title title--large">{{ error }}</span></div>
+<div class="title_bar"><span class="title">Comment s'habiller</span></div>
+{% else %}
+<div class="htd-dashboard">
+  <div class="page">
+    <div class="main">
+      <div class="scene">{{ dashboard.scene }}{{ dashboard.kids }}</div>
+      <div class="cards">{{ dashboard.cards }}</div>
     </div>
+    <div class="bottom">{{ dashboard.chart }}</div>
   </div>
-  {% endif %}
 </div>
-
-<div class="title_bar">
-  <span class="title">Comment s'habiller</span>
-  <span class="instance">{{ date }} · Montréal</span>
-</div>
+{% endif %}

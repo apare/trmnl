@@ -69,9 +69,9 @@ A Slot that comes off or goes on during the day (Warm layer, Coat, Outdoor pants
 _Avoid_: Outerwear, gear
 
 **Girls' alternative**:
-A second pick for Bottom and Legs (robe, or jupe + collants) shown beside the regular pick on days they differ; each kid takes the one that fits them.
+A second pick for Bottom and Legs (robe, or jupe + collants) that the girl kid wears on the How to dress page on days it exists; each real kid takes the one that fits them.
 _Avoid_: Girl mode, variant
 
-**Dressing step**:
-One mannequin on the How to dress page, wearing what is on so far: "En dessous" (Base clothes), "Le chandail" (with the Warm layer), "Pour sortir" (with the Coat or Outdoor pants); a day with no Layer has a single "Aujourd'hui" step. In the code, a stage.
-_Avoid_: Panel, frame, card
+**Inside kid / Outside kid**:
+The two mannequins on the How to dress page, a boy and a girl standing on the ground of the scene: on the left the Inside kid, wearing what stays on indoors (Base clothes and the Warm layer); on the right the Outside kid, wearing the whole Outfit. The boy and the girl swap every day. Each piece is named beside the kid, with a line to it. In the code, `kids`.
+_Avoid_: Dressing step, stage, panel

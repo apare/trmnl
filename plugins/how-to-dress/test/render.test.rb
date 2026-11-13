@@ -2,11 +2,13 @@
 require 'json'
 require 'fileutils'
 require 'trmnl/liquid'
+require 'nokogiri'
 
 root = File.expand_path('..', __dir__)
 shared = File.read(File.join(root, 'src/shared.liquid'))
 full = File.read(File.join(root, 'src/full.liquid'))
 samples = JSON.parse(File.read(File.join(root, '_build/sample-inputs.json')))
+samples['missing-weather'] = { 'error' => 'Pas de météo pour le moment.' }
 directory = File.join(root, '_build/illustrations')
 FileUtils.mkdir_p(directory)
 
@@ -14,29 +16,22 @@ samples.each do |name, data|
   environment = TRMNL::Liquid.new
   html = Liquid::Template.parse(shared + full, environment: environment).render!(data)
   raise "#{name}: Liquid error" if html.include?('Liquid error:')
-  figures = html.scan(/<svg class="htd-mannequin.*?<\/svg>/m)
-  expected = data['stages'].sum { |stage| stage['alt'] ? 2 : 1 }
-  raise "#{name}: #{figures.length} mannequins, expected #{expected}" unless figures.length == expected
-  ids = html.scan(/<clipPath id="([^"]+)"/).flatten
-  raise "#{name}: duplicate clipping IDs" unless ids.uniq.length == ids.length
-  refs = html.scan(/clip-path="url\(#([^\)]+)\)"/).flatten
-  raise "#{name}: missing clipping shape" unless (refs - ids).empty?
-  figures.each_with_index do |figure, i|
-    %w[gants mitaines bottesHiver bottesPluie souliers].each do |key|
-      raise "#{name}: duplicated #{key}" if figure.scan(/data-item="#{key}"/).length > 1
+  document = Nokogiri::HTML.fragment(html)
+  if data['error']
+    raise 'Missing error message' unless document.text.include?(data['error'])
+    raise 'Error renders dashboard' unless document.css('.htd-dashboard').empty?
+  else
+    raise "#{name}: must show two kids" unless document.css('.kids .mq').length == 2
+    raise "#{name}: top phrase is back" unless document.css('.fr, .top').empty?
+    raise "#{name}: missing clothing labels" if document.css('.kids svg text').empty?
+    raise "#{name}: missing cards" unless document.css('.cards h3').map(&:text) == ['UV et air', 'Précipitations', 'La lune ce soir']
+    raise "#{name}: missing chart" unless document.at_css('.bottom svg')
+    raise "#{name}: SVG illustration fallback" unless document.css('.mq svg, .layers svg').empty?
+    document.css('img').each do |image|
+      file = image['src'].split('/images/').last
+      raise "#{name}: missing #{file}" unless File.file?(File.join(root, 'images', file))
     end
-    if figure.include?('data-item="gants"') || figure.include?('data-item="mitaines"')
-      raise "#{name}: bare hands under gloves" if figure.include?('data-layer="bare-hands"')
-    end
-    if figure.include?('data-item="impermeable"')
-      raise "#{name}: hair behind rain hood" if figure.include?('data-layer="hair-back"')
-      raise "#{name}: missing front of hood" unless figure.include?('data-side="headFront"')
-    end
-    if figure.include?('data-item="neige"') && figure.include?('data-item="bottesHiver"')
-      raise "#{name}: pants over boots" unless figure.index('data-item="neige"') < figure.index('data-item="bottesHiver"')
-    end
-    File.write(File.join(directory, "#{name}-#{i + 1}.svg"), figure.sub('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" '))
   end
   File.write(File.join(directory, "#{name}.html"), html)
-  puts "PASS #{name}: #{figures.length} mannequins, valid clipping and layer order"
+  puts "PASS #{name}: real Liquid render"
 end
