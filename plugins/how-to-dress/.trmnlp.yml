@@ -11,7 +11,9 @@ time_zone: America/Toronto
 ignored_lint_rules:
   - author_contact_method
 
-custom_fields: {}
+# The Lieu form field, as filled in on trmnl.com: "latitude,longitude" (here Québec).
+custom_fields:
+  lat_lon: 46.81,-71.21
 
 # The weather the preview shows. `node plugins/how-to-dress/samples/use.js <name>`
 # swaps in a sample day (grand-froid, neige, neige-au-sol, pluie, doux-venteux,

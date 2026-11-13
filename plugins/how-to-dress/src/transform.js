@@ -267,7 +267,8 @@ function dashboardOf(input, out, air) {
   const IMAGE_BASE = 'https://raw.githubusercontent.com/apare/trmnl/f3dfe4d600e2ef7a49c9a2d8e3ff6af2e870be49/plugins/how-to-dress/images/';
   const src = name => IMAGE_BASE + name + '.png';
   const W = '#ffffff', K = '#000000';
-  const TZ = 'America/Toronto', LAT = 45.50, LON = -73.57;
+  // The place is the Lieu form field, sent to Open-Meteo, which echoes it back with the local time zone.
+  const TZ = input.timezone, LAT = input.latitude, LON = input.longitude;
   const ROOT = 'fill="none" stroke="#000" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"';
   const f = n => Math.round(n * 10) / 10;
   const f3 = n => Math.round(n * 1000) / 1000;
@@ -446,7 +447,7 @@ function dashboardOf(input, out, air) {
   const MOON_NAMES = ['Nouvelle lune', 'Premier croissant', 'Premier quartier', 'Lune gibbeuse croissante', 'Pleine lune', 'Lune gibbeuse d\u{e9}croissante', 'Dernier quartier', 'Dernier croissant'];
   function moonOf(dateStr) {
     const [y, m, d] = dateStr.split('-').map(Number);
-    const jd = Date.UTC(y, m - 1, d, 25) / 864e5 + 2440587.5; // mean phase near this evening in Montreal
+    const jd = Date.UTC(y, m - 1, d, 25) / 864e5 + 2440587.5; // mean phase near 21 h this evening, Eastern time
     const age = (((jd - 2451550.1) / SYNODIC) % 1 + 1) % 1;
     const idx = Math.floor(age * 8 + 0.5) % 8;
     const toFull = ((0.5 - age + 1) % 1) * SYNODIC;

@@ -8,8 +8,8 @@ framework_version: latest
 serverless_language: node
 refresh_interval_floor:
 polling_url: |-
-  https://api.open-meteo.com/v1/forecast?latitude=45.50&longitude=-73.57&timezone=auto&forecast_days=1&hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,snowfall,snow_depth,weather_code,wind_speed_10m,wind_gusts_10m,uv_index,cloud_cover,cape&daily=sunrise,sunset
-  https://air-quality-api.open-meteo.com/v1/air-quality?latitude=45.50&longitude=-73.57&timezone=auto&forecast_days=1&hourly=us_aqi
+  https://api.open-meteo.com/v1/forecast?latitude={{ lat_lon | split: ',' | first | strip }}&longitude={{ lat_lon | split: ',' | last | strip }}&timezone=auto&forecast_days=1&hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,snowfall,snow_depth,weather_code,wind_speed_10m,wind_gusts_10m,uv_index,cloud_cover,cape&daily=sunrise,sunset
+  https://air-quality-api.open-meteo.com/v1/air-quality?latitude={{ lat_lon | split: ',' | first | strip }}&longitude={{ lat_lon | split: ',' | last | strip }}&timezone=auto&forecast_days=1&hourly=us_aqi
 polling_headers:
 polling_body:
 id: 538569
@@ -18,3 +18,8 @@ oauth_pkce_enabled: 'no'
 name: How to dress
 description: Quoi porter selon la météo
 refresh_interval: 60
+custom_fields:
+- keyname: lat_lon
+  field_type: lat_lon
+  name: Lieu
+  description: Cherchez une ville ou un code postal, ou entrez « latitude,longitude » (ex. 46.81,-71.21 pour Québec).
