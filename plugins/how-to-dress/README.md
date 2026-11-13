@@ -1,6 +1,6 @@
 # How to dress
 
-Each morning, what the kids (3 to 9) wear today, from Montréal's weather between 8 h and 17 h: an Inside kid and an Outside kid (the boy and the girl swap every day, the girl in the Girls' alternative), each piece named beside them with a line to it, in the approved D dashboard: the weather scene beside UV and air, Precipitation and Moon cards, with one temperature pill per hour over 24 hours and a daylight strip, and no title bar.
+Each morning, what the kids (3 to 9) wear today, from the weather at the Plugin's Lieu between 8 h and 17 h: an Inside kid and an Outside kid (the boy and the girl swap every day, the girl in the Girls' alternative), each piece named beside them with a line to it, in the approved D dashboard: the weather scene beside UV and air, Precipitation and Moon cards, with one temperature pill per hour over 24 hours and a daylight strip, and no title bar.
 
 - `src/settings.yml`: two polling URLs, one per line: the Open-Meteo forecast, then its air quality (US AQI). With two URLs, TRMNL hands the transform `{ IDX_0: forecast, IDX_1: air quality }`.
 - `src/transform.js`: TRMNL runs `run(input)` on the polled data (it also takes the forecast alone, as in the samples). Clothing uses only 8 h–17 h; the dashboard uses the full local day, cloud cover, CAPE, sunrise and sunset. The dashboard markup is computed server-side, including image layer order and chart coordinates.
@@ -24,6 +24,6 @@ The UV and air card shows the day's max UV, rounded down, with its WHO word and 
 
 Check real Liquid with `node plugins/how-to-dress/illustrations/render-samples.cjs`, then run `test/render.test.rb` inside the pinned trmnlp image. The TRMNL X capture size is 1872×1404, composed on a 1040×780 canvas.
 
-## Another city
+## Location
 
-The forecast comes from [Open-Meteo](https://open-meteo.com), which needs no API key. To use another city, change `latitude` and `longitude` in both URLs of `src/settings.yml`, update location/time zone in `dashboardOf` in `src/transform.js`, and update `time_zone` in `.trmnlp.yml` for the local preview.
+The forecast comes from [Open-Meteo](https://open-meteo.com), which needs no API key. The place is the Plugin's required Lieu form field (`lat_lon`), set on trmnl.com: a searched city or postal code, or `latitude,longitude` typed in. Both polling URLs split it into `latitude` and `longitude`; until it is filled in, TRMNL doesn't poll. The transform reads the position and time zone back from Open-Meteo's response (`timezone=auto`). For the local preview, set `custom_fields.lat_lon` and `time_zone` in `.trmnlp.yml`.

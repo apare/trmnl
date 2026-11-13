@@ -23,7 +23,7 @@ RSpec.describe 'Mot du jour' do
     screen = render_at('2026-11-13T08:00:00-05:00')
     expect(words_of('novembre')).to include(screen.find('[data-word]')['data-word'])
     expect(screen).to have_text('vendredi 13 novembre')
-    expect(screen).to have_text(' · nom')
+    expect(screen).not_to have_text(' · nom')
     expect(screen).not_to have_text('ARASAAC')
     expect(screen.problems).to be_empty
   end
@@ -48,6 +48,10 @@ RSpec.describe 'Mot du jour' do
     expect(screen).not_to have_text('*')
   end
 
+  # The word's height in heights of its first letter's box: under 2 when it stays on one line.
+  WORD_LINES = "(() => { const height = (selector) => document.querySelector(selector).getBoundingClientRect().height; " \
+               "return height('.mdj-word') / height('.mdj-initial'); })()"
+
   # Ten days from the 1st of each month: each of its words shows once, with its reading aids, and none runs off the Device.
   MONTHS.each_key.with_index(1) do |month, number|
     it "shows every word of #{month} once over 10 days, inside the Device" do
@@ -55,6 +59,7 @@ RSpec.describe 'Mot du jour' do
       words = 10.times.map do |offset|
         screen = render_at("#{first + offset}T12:00:00-05:00")
         expect(screen.overflowing).to be_empty
+        expect(screen.evaluate(WORD_LINES)).to be < 1.8
         word = screen.find('[data-word]')['data-word']
         entry = MONTHS.fetch(month).find { it['word'] == word }
         expect_reading_aids(screen, entry)
