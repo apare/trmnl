@@ -68,8 +68,7 @@ test('D uses actual local sunrise, sunset and cloud cover, including the morning
   input.hourly.cloud_cover = input.hourly.time.map(() => 0);
   let dashboard = run(input).dashboard;
   assert.deepEqual(dashboard.sun, { rise: 540, set: 972 });
-  assert.match(dashboard.cards, /meteo-lune\.png/);
-  assert(dashboard.cards.includes('7\u{a0}h\u{a0}12 de clarté'));
+  assert.match(dashboard.chart, /meteo-lune\.png/);
   input.hourly.cloud_cover.fill(100);
   dashboard = run(input).dashboard;
   assert(dashboard.sceneLayers.includes('scene/ciel-couvert'));
@@ -109,6 +108,50 @@ test('D moon phase, sun and chart do not depend on the runtime clock', () => {
   assert.deepEqual(JSON.parse(JSON.stringify(other.run(input))).dashboard, first);
   assert(first.moon.idx >= 0 && first.moon.idx < 8);
   const settings = fs.readFileSync(path.join(root, 'src/settings.yml'), 'utf8');
-  assert.match(settings, /uv_index,cloud_cover&daily=sunrise,sunset/);
+  assert.match(settings, /uv_index,cloud_cover,cape&daily=sunrise,sunset\n/);
+  assert.match(settings, /\n  https:\/\/air-quality-api\.open-meteo\.com\/v1\/air-quality\?.*&hourly=us_aqi\n/);
   assert.match(settings, /^id: 538569$/m);
+});
+
+const cardText = html => html.replace(/<svg.*?<\/svg>/gs, ' ').replace(/<[^>]+>/g, ' ').replace(/[ \t\n]+/g, ' ').trim(); // keeps the no-break spaces
+const atHour = (input, hour) => input.hourly.time.findIndex(t => t.endsWith('T' + String(hour).padStart(2, '0') + ':00'));
+
+test('UV et air: the day\u{2019}s max UV with its word and sunscreen hours, and the worst US AQI', () => {
+  const input = sample('canicule');
+  input.hourly.uv_index = input.hourly.time.map(t => { const h = Number(t.slice(11, 13)); return h >= 10 && h <= 15 ? 6.2 : 1; });
+  const aqi = Array.from({ length: 24 }, (_, h) => h === 17 ? 120 : 40);
+  aqi[3] = null;
+  const text = cardText(run({ IDX_0: input, IDX_1: { hourly: { us_aqi: aqi } } }).dashboard.cards);
+  assert.match(text, /UV et air Indice UV 6 \u{c9}lev\u{e9} cr\u{e8}me 10\u{a0}h\u{2013}16\u{a0}h Qualit\u{e9} de l\u{2019}air 120 Mauvais pour les sensibles/u);
+  // One polling URL, or the air quality fetch failed: the forecast still renders.
+  assert.match(cardText(run(input).dashboard.cards), /Qualit\u{e9} de l\u{2019}air \u{2013} Pas de donn\u{e9}es/u);
+  assert.match(cardText(run({ IDX_0: input, IDX_1: {} }).dashboard.cards), /Pas de donn\u{e9}es/u);
+  // 2.6 is below the sunscreen threshold of the Outfit: the card says 2, not 3, and no crème.
+  input.hourly.uv_index = input.hourly.uv_index.map(v => v > 1 ? 2.6 : v);
+  assert.match(cardText(run(input).dashboard.cards), /Indice UV 2 Faible Qualit/u);
+});
+
+test('Pr\u{e9}cipitations: Wet-hour stretches over 24 hours with their amount, then the storm risk', () => {
+  const input = sample('canicule');
+  const wet = (hour, mm, code = 63) => {
+    const i = atHour(input, hour);
+    input.hourly.precipitation_probability[i] = 80;
+    input.hourly.precipitation[i] = mm;
+    input.hourly.weather_code[i] = code;
+  };
+  assert.match(cardText(run(input).dashboard.cards), /Pr\u{e9}cipitations Pas de pluie ni de neige Pas d\u{2019}orage/u);
+  wet(10, 1.2); wet(11, 0.8); wet(23, 0.5);
+  input.hourly.cape = input.hourly.time.map(() => 0);
+  let text = cardText(run(input).dashboard.cards);
+  assert.match(text, /Pluie de 10\u{a0}h \u{e0} 12\u{a0}h 2\u{a0}mm puis pluie de 23\u{a0}h \u{e0} minuit \(0,5\u{a0}mm\) Pas d\u{2019}orage/u);
+  input.hourly.cape[atHour(input, 11)] = 1500;
+  assert.match(cardText(run(input).dashboard.cards), /Orage possible vers 11\u{a0}h/u);
+  input.hourly.cape[atHour(input, 15)] = 3000; // unstable but dry: no storm there
+  input.hourly.weather_code[atHour(input, 23)] = 95;
+  assert.match(cardText(run(input).dashboard.cards), /Orage pr\u{e9}vu vers 23\u{a0}h/u);
+});
+
+test('Pr\u{e9}cipitations: a snow stretch counts centimetres of snowfall', () => {
+  const text = cardText(run(sample('neige')).dashboard.cards);
+  assert.match(text, /Neige de \d+\u{a0}h \u{e0} (\d+\u{a0}h|minuit) \d+(,\d)?\u{a0}cm/u);
 });

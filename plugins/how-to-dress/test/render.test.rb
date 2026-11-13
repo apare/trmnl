@@ -24,7 +24,7 @@ samples.each do |name, data|
     raise "#{name}: must show two kids" unless document.css('.kids .mq').length == 2
     raise "#{name}: top phrase is back" unless document.css('.fr, .top').empty?
     raise "#{name}: missing clothing labels" if document.css('.kids svg text').empty?
-    raise "#{name}: missing cards" unless document.css('.cards h3').map(&:text) == ['Le ciel', 'Le soleil', 'La lune ce soir']
+    raise "#{name}: missing cards" unless document.css('.cards h3').map(&:text) == ['UV et air', 'Précipitations', 'La lune ce soir']
     raise "#{name}: missing chart" unless document.at_css('.bottom svg')
     raise "#{name}: SVG illustration fallback" unless document.css('.mq svg, .layers svg').empty?
     document.css('img').each do |image|

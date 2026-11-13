@@ -20,6 +20,13 @@ const STRONG_WIND_KMH = 30; // mean wind that is "strong"
 const STRONG_GUST_KMH = 50; // gusts that are "strong"
 const BIG_COLD = -15; // coldest feels-like that shows the "grand froid" sky
 const HEAT_WAVE = 28; // warmest feels-like that shows the "canicule" sky
+const STORM_CAPE = 1000; // CAPE (J/kg) that, with precipitation, makes a storm possible
+const STORM_CODES = [95, 96, 99]; // WMO thunderstorm codes: a storm is forecast
+
+// WHO UV index words, by the day's max UV.
+const UV_WORDS = [[11, 'Extr\u{ea}me'], [8, 'Tr\u{e8}s \u{e9}lev\u{e9}'], [6, '\u{c9}lev\u{e9}'], [3, 'Mod\u{e9}r\u{e9}'], [0, 'Faible']];
+// US AQI words, by the day's worst AQI.
+const AQI_WORDS = [[301, 'Dangereux'], [201, 'Tr\u{e8}s mauvais'], [151, 'Mauvais'], [101, 'Mauvais pour les sensibles'], [51, 'Mod\u{e9}r\u{e9}'], [0, 'Bon']];
 
 // Base clothes by the warmest feels-like (W). `alt` is the Girls' alternative.
 const BASE_RULES = [
@@ -91,6 +98,10 @@ function hoursOfWindow(hourly, first = OUTDOOR_WINDOW.first, last = OUTDOOR_WIND
       temp: hourly.temperature_2m[i],
       feels: hourly.apparent_temperature[i],
       wet,
+      code,
+      precipitation,
+      snowfall,
+      cape: hourly.cape ? hourly.cape[i] : 0,
       snowDepth: hourly.snow_depth ? hourly.snow_depth[i] : 0,
       uv: hourly.uv_index ? hourly.uv_index[i] : 0,
       wind: hourly.wind_speed_10m ? hourly.wind_speed_10m[i] : 0,
@@ -222,7 +233,11 @@ function kidsOf(outfit, alt, dayOfYear) {
 
 // ---------- Entry point ----------
 
-function run(input) {
+// With two polling URLs, TRMNL hands over { IDX_0: forecast, IDX_1: air quality };
+// with one (old local samples), the forecast itself.
+function run(polled) {
+  const input = polled && polled.IDX_0 ? polled.IDX_0 : polled;
+  const air = polled && polled.IDX_1 && polled.IDX_1.hourly ? polled.IDX_1.hourly : null;
   const hourly = input && input.hourly;
   if (!hourly || !Array.isArray(hourly.time) || hourly.time.length === 0) {
     return { error: 'Pas de météo pour le moment.' };
@@ -243,12 +258,12 @@ function run(input) {
     mannequin: MANNEQUIN,
     kids: kidsOf(outfit, alt, date.dayOfYear),
   };
-  result.dashboard = dashboardOf(input, result);
+  result.dashboard = dashboardOf(input, result, air);
   return result;
 }
 
 // The approved D dashboard, rendered on the server: no browser JavaScript or SVG illustration fallback.
-function dashboardOf(input, out) {
+function dashboardOf(input, out, air) {
   const IMAGE_BASE = 'https://raw.githubusercontent.com/apare/trmnl/f3dfe4d600e2ef7a49c9a2d8e3ff6af2e870be49/plugins/how-to-dress/images/';
   const src = name => IMAGE_BASE + name + '.png';
   const W = '#ffffff', K = '#000000';
@@ -462,12 +477,11 @@ function dashboardOf(input, out) {
   const day = summarize(hoursOfWindow(hy));
   const d = {
     out, month, hours, sun, light10, skyOf,
-    at: hour => hours.find(h => h.hour === hour),
     nightAt: hour => lightAt(hour * 60, sun, 0, null) < 0.2,
     scene: { ciel: skyOf(8, 18), sol: day.snow || day.snowOnGround ? 'neige' : day.rain ? 'flaques' : SEASONS[month].sol,
       vent: day.windy, chaud: day.warmest >= HEAT_WAVE, grandFroid: day.coldest < BIG_COLD },
     moon: moonOf(dateStr),
-    daylight: `${Math.floor((sun.set - sun.rise) / 60)}\u{a0}h\u{a0}${String((sun.set - sun.rise) % 60).padStart(2, '0')} de clart\u{e9}`,
+    aqi: air && Array.isArray(air.us_aqi) ? air.us_aqi.filter(v => typeof v === 'number') : [],
   };
   // One dotted pill per hour, 0 h to 23 h: from the lower to the higher of the temperature
   // and the feels-like. The sky icon sits above the first pill and each pill whose sky
@@ -503,27 +517,58 @@ function dashboardOf(input, out) {
     });
     return s + '</svg>';
   }
+  const hourText = h => h >= 24 ? 'minuit' : `${h}\u{a0}h`;
+  const decimal = n => String(Math.round(n * 10) / 10).replace('.', ',');
+  const wordFor = (scale, n) => scale.find(([min]) => n >= min)[1];
+  // Back-to-back Wet hours, 0 h to 23 h, each stretch ending the hour after its last one.
+  // A stretch with any snow is snow, counted in cm of snowfall; rain in mm of precipitation.
+  function wetStretches(hours) {
+    const stretches = [];
+    hours.filter(h => h.wet).forEach(h => {
+      const last = stretches[stretches.length - 1];
+      if (last && last.to === h.hour) { last.hours.push(h); last.to = h.hour + 1; }
+      else stretches.push({ from: h.hour, to: h.hour + 1, hours: [h] });
+    });
+    return stretches.map(s => {
+      const snow = s.hours.some(h => h.wet === 'snow');
+      const amount = s.hours.reduce((a, h) => a + ((snow ? h.snowfall : h.precipitation) || 0), 0);
+      return { kind: snow ? 'snow' : 'rain', from: s.from, to: s.to, amount: `${decimal(amount)}\u{a0}${snow ? 'cm' : 'mm'}` };
+    });
+  }
+  // A thunderstorm code wins; else an unstable hour (high CAPE) that also gets precipitation.
+  function stormOf(hours) {
+    const coded = hours.find(h => STORM_CODES.includes(h.code));
+    if (coded) return `Orage pr\u{e9}vu vers ${hourText(coded.hour)}`;
+    const unstable = hours.find(h => h.cape >= STORM_CAPE && (h.wet || h.precipitation > 0));
+    if (unstable) return `Orage possible vers ${hourText(unstable.hour)}`;
+    return 'Pas d\u{2019}orage';
+  }
   function cardsHTML(d) {
-    const mini = (label, hour) => {
-      const h = d.at(hour); if (!h) return '';
-      const kind = d.skyOf(hour, hour + 1);
-      return `<div>${svgOpen(62, 62)}${iconAt(meteoName(kind, d.nightAt(hour + .5)), 31 - 38.9, 30 - 38.9, 77.8)}</svg>
-        <div><div class="small">${label}</div><div class="big">${deg(h.temp)}</div><div class="small">ressenti ${deg(h.feels)}</div></div></div>`;
-    };
-    // Arc du soleil : position \u{e0} 8 h, quand on part.
-    const p = (8 * 60 - d.sun.rise) / (d.sun.set - d.sun.rise);
-    const th = Math.PI * (1 - Math.max(-0.08, Math.min(1, p)));
-    let arc = svgOpen(350, 104) + `<path d="M40 86A135 72 0 0 1 310 86" stroke-dasharray="6 6" stroke-width="2"/><line x1="10" y1="86" x2="340" y2="86" stroke-width="2.5"/>`;
-    const sx = 175 + 135 * Math.cos(th), sy = 86 - 72 * Math.sin(th);
-    arc += iconAt('icones/soleil', sx - 24.5, sy - 24.5, 49);
-    arc += `<text x="${f(175 + 135 * Math.cos(th))}" y="${f(86 - 72 * Math.sin(th) - 26)}" font-size="13" font-weight="800" text-anchor="middle" fill="${K}" class="halo">\u{e0} 8 h</text>`;
-    arc += `<text x="40" y="103" font-size="15" font-weight="800" text-anchor="middle" fill="${K}" stroke="none">${hm(d.sun.rise)}</text><text x="310" y="103" font-size="15" font-weight="800" text-anchor="middle" fill="${K}" stroke="none">${hm(d.sun.set)}</text>`;
-    arc += `<text x="175" y="72" font-size="15" font-weight="700" text-anchor="middle" fill="${K}" stroke="none">${d.daylight}</text></svg>`;
+    const icon = name => `${svgOpen(62, 62)}${iconAt(name, 31 - 38.9, 30 - 38.9, 77.8)}</svg>`;
+    // UV: the day's max, its WHO word, and the sunscreen hours (UV 3 or more). Rounded
+    // down, so 2.6 reads "2 Faible" like the Outfit, which adds sunscreen from 3.
+    const uvMax = Math.floor(Math.max(0, ...d.hours.map(h => h.uv || 0)));
+    const sunny = d.hours.filter(h => h.uv >= SUNSCREEN_UV);
+    const cream = sunny.length ? `<div class="small">cr\u{e8}me ${hourText(sunny[0].hour)}\u{2013}${hourText(sunny[sunny.length - 1].hour + 1)}</div>` : '';
+    const uv = `<div><div><div class="small">Indice UV</div><div class="big">${uvMax}</div><div class="small">${wordFor(UV_WORDS, uvMax)}</div>${cream}</div></div>`;
+    // Air: the day's worst US AQI.
+    const aqiMax = d.aqi.length ? Math.max(...d.aqi) : null;
+    const air = `<div><div><div class="small">Qualit\u{e9} de l\u{2019}air</div><div class="big">${aqiMax === null ? '\u{2013}' : Math.round(aqiMax)}</div>`
+      + `<div class="small wrap">${aqiMax === null ? 'Pas de donn\u{e9}es' : wordFor(AQI_WORDS, Math.round(aqiMax))}</div></div></div>`;
+    // Precipitation: the first stretch, then the second one if any, then the storm risk.
+    const [first, second] = wetStretches(d.hours);
+    const word = s => s.kind === 'snow' ? 'Neige' : 'Pluie';
+    const wet = first
+      ? `<div class="mid">${word(first)} de ${hourText(first.from)} \u{e0} ${hourText(first.to)}</div><div class="small">${first.amount}</div>`
+        + (second ? `<div class="small">puis ${word(second).toLowerCase()} de ${hourText(second.from)} \u{e0} ${hourText(second.to)} (${second.amount})</div>` : '')
+      : '<div class="mid">Pas de pluie ni de neige</div>';
+    const wetIcon = meteoName(first ? first.kind : d.skyOf(8, 18), false);
     let phases = svgOpen(340, 30);
     for (let i = 0; i < 8; i++) { phases += iconAt(`icones/lune-${i}`, 22 + i * 42 - 11.1, 3.9, 22.2); if (i === d.moon.idx) phases += `<circle cx="${22 + i * 42}" cy="15" r="15" stroke-width="2.5"/>`; }
     phases += '</svg>';
-    return `<div class="card"><h3>Le ciel</h3><div class="two">${mini('Ce matin', 8)}${mini('Cet apr\u{e8}s-midi', 15)}</div></div>
-          <div class="card"><h3>Le soleil</h3>${arc}</div>
+    return `<div class="card"><h3>UV et air</h3><div class="two tops">${uv}${air}</div></div>
+          <div class="card"><h3>Pr\u{e9}cipitations</h3>
+            <div class="line">${icon(wetIcon)}<div>${wet}<div class="small storm">${stormOf(d.hours)}</div></div></div></div>
           <div class="card"><h3>La lune ce soir</h3>
             <div class="line">${svgOpen(84, 84)}${iconAt(`icones/lune-${d.moon.idx}`, 0, 0, 84)}</svg>
               <div><div style="font-size:20px;font-weight:800">${d.moon.name}</div><div class="small">${d.moon.idx === 0 ? 'On ne la voit presque pas.' : d.moon.idx === 4 ? 'Elle est toute ronde.' : d.moon.growing ? 'Elle grossit chaque soir.' : 'Elle rapetisse chaque soir.'}</div><div class="small">${d.moon.fullText}</div></div></div>
