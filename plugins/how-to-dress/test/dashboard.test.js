@@ -74,25 +74,25 @@ test('D uses actual local sunrise, sunset and cloud cover, including the morning
   assert.match(dashboard.cards, /meteo-nuage\.png/);
 });
 
-test('D shows one pill per hour from 8 h to 17 h, with a sky icon only when the sky changes', () => {
+test('D shows one pill per hour over 24 hours, with a sky icon only when the sky changes', () => {
   const input = sample('canicule');
   input.hourly.cloud_cover = input.hourly.time.map(() => 0);
   const icons = chart => [...chart.matchAll(/icones\/(meteo-[a-z-]+)\.png/g)].map(m => m[1]);
-  const sunny = run(input).dashboard.chart;
-  assert.deepEqual(labels(sunny).filter(t => / h$/.test(t)), [8, 9, 10, 11, 12, 13, 14, 15, 16, 17].map(h => h + ' h'));
-  assert.equal((sunny.match(/fill="url\(#htd-dots\)"/g) || []).length, 10);
-  assert.deepEqual(icons(sunny), ['meteo-soleil']);
+  const clear = run(input).dashboard.chart;
+  assert.deepEqual(labels(clear).filter(t => / h$/.test(t)), Array.from({ length: 24 }, (_, h) => h + ' h'));
+  assert.equal((clear.match(/fill="url\(#htd-dots\)"/g) || []).length, 24);
+  assert.deepEqual(icons(clear), ['meteo-lune', 'meteo-soleil', 'meteo-lune']);
   for (const hour of ['T10:00', 'T11:00']) {
     const i = input.hourly.time.findIndex(t => t.endsWith(hour));
     input.hourly.precipitation_probability[i] = 100;
     input.hourly.weather_code[i] = 63;
   }
-  assert.deepEqual(icons(run(input).dashboard.chart), ['meteo-soleil', 'meteo-pluie', 'meteo-soleil']);
+  assert.deepEqual(icons(run(input).dashboard.chart), ['meteo-lune', 'meteo-soleil', 'meteo-pluie', 'meteo-soleil', 'meteo-lune']);
 });
 
 test('D pills run from the lower to the higher of the temperature and the feels-like', () => {
   const input = sample('grand-froid');
-  const i = input.hourly.time.findIndex(t => t.endsWith('T08:00'));
+  const i = input.hourly.time.findIndex(t => t.endsWith('T00:00'));
   input.hourly.temperature_2m[i] = -12.2;
   input.hourly.apparent_temperature[i] = -19.6;
   const texts = labels(run(input).dashboard.chart);

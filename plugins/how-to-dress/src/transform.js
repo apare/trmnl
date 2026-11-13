@@ -462,36 +462,34 @@ function dashboardOf(input, out) {
     moon: moonOf(dateStr),
     daylight: `${Math.floor((sun.set - sun.rise) / 60)}\u{a0}h\u{a0}${String((sun.set - sun.rise) % 60).padStart(2, '0')} de clart\u{e9}`,
   };
-  // One dotted pill per outdoor hour, 8 h to 17 h: from the lower to the higher of the
-  // temperature and the feels-like. The sky icon tops the first pill and each pill whose
-  // sky differs from the hour before. Then the light band and the hours.
+  // One dotted pill per hour, 0 h to 23 h: from the lower to the higher of the temperature
+  // and the feels-like. The sky icon sits above the first pill and each pill whose sky
+  // differs from the hour before. Then the light band and the hours.
   function hourBars(d, w, h) {
-    const { first, last } = OUTDOOR_WINDOW;
-    const bars = d.hours.filter(x => x.hour >= first && x.hour <= last).map(x => ({
+    const bars = d.hours.map(x => ({
       hour: x.hour, hi: Math.round(Math.max(x.temp, x.feels)), lo: Math.round(Math.min(x.temp, x.feels)),
       icon: meteoName(d.skyOf(x.hour, x.hour + 1), d.nightAt(x.hour + .5)),
     }));
     bars.forEach((b, i) => { b.showIcon = i === 0 || b.icon !== bars[i - 1].icon; });
-    const cw = w / (last - first + 1), pw = 72, ICON = 48, head = 34 + ICON, foot = 30;
-    const stripY = h - 46, stripH = 22, plotBot = stripY - 6;
+    const cw = w / 24, pw = 38, FONT = 16, NUM = 21, ICON = 38, head = NUM + ICON, foot = 24;
+    const stripY = h - 44, stripH = 22, plotBot = stripY - 5;
     const gHi = Math.max(...bars.map(b => b.hi)), gLo = Math.min(...bars.map(b => b.lo));
     const yOf = t => gHi === gLo ? (head + plotBot - foot) / 2 : head + (gHi - t) / (gHi - gLo) * (plotBot - foot - head);
-    const xOfMin = min => (min / 60 - first) * cw;
+    const xOfMin = min => min / 60 * cw;
     let s = svgOpen(w, h) + `<defs><pattern id="htd-dots" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="1.2" height="1.2" fill="${K}" stroke="none"/></pattern></defs>`;
-    bars.forEach((b, i) => {
-      // The max's baseline sits at yOf(hi); the pill grows upward to hold the icon when there is one.
-      const cx = i * cw + cw / 2, hiY = yOf(b.hi), bot = yOf(b.lo) + foot;
-      const top = hiY - 34 - (b.showIcon ? ICON : 0);
-      s += `<rect x="${f(cx - pw / 2)}" y="${f(top)}" width="${pw}" height="${f(bot - top)}" rx="${pw / 2}" fill="url(#htd-dots)" stroke="none"/>`;
-      if (b.showIcon) s += iconAt(b.icon, cx - 30, top + 4, 60);
-      s += `<text x="${f(cx)}" y="${f(hiY)}" font-size="24" font-weight="800" text-anchor="middle" fill="${K}" class="halo">${deg(b.hi)}</text>`;
-      s += `<text x="${f(cx)}" y="${f(bot - 8)}" font-size="24" font-weight="800" text-anchor="middle" fill="${K}" class="halo">${deg(b.lo)}</text>`;
-      s += `<text x="${f(cx)}" y="${h - 4}" font-size="15" font-weight="700" text-anchor="middle" fill="${K}" stroke="none">${b.hour} h</text>`;
+    bars.forEach(b => {
+      // The max's baseline sits at yOf(hi); the icon, when there is one, sits just above the pill.
+      const cx = b.hour * cw + cw / 2, hiY = yOf(b.hi), bot = yOf(b.lo) + foot;
+      const top = hiY - NUM;
+      s += `<rect x="${f(cx - pw / 2)}" y="${f(top)}" width="${pw}" height="${f(bot - top)}" rx="${pw / 2}" fill="url(#htd-dots)" stroke-width="2"/>`;
+      if (b.showIcon) s += iconAt(b.icon, cx - 20, top - ICON - 1, 40);
+      s += `<text x="${f(cx)}" y="${f(hiY)}" font-size="${FONT}" font-weight="800" text-anchor="middle" fill="${K}" class="halo">${deg(b.hi)}</text>`;
+      s += `<text x="${f(cx)}" y="${f(bot - 7)}" font-size="${FONT}" font-weight="800" text-anchor="middle" fill="${K}" class="halo">${deg(b.lo)}</text>`;
+      s += `<text x="${f(cx)}" y="${h - 4}" font-size="13" font-weight="700" text-anchor="middle" fill="${K}" stroke="none">${b.hour} h</text>`;
     });
-    for (let i = first * 6; i < (last + 1) * 6; i++) s += `<rect x="${f(xOfMin(i * 10))}" y="${stripY}" width="${f(cw / 6 + .6)}" height="${stripH}" fill="${gray(d.light10[i])}" stroke="none"/>`;
+    for (let i = 0; i < 144; i++) s += `<rect x="${f(xOfMin(i * 10))}" y="${stripY}" width="${f(cw / 6 + .6)}" height="${stripH}" fill="${gray(d.light10[i])}" stroke="none"/>`;
     s += `<rect x="0" y="${stripY}" width="${w}" height="${stripH}" stroke-width="2"/>`;
     [[d.sun.rise, '\u{2191}'], [d.sun.set, '\u{2193}']].forEach(([m, a]) => {
-      if (m < first * 60 || m > (last + 1) * 60) return;
       const x = Math.max(48, Math.min(w - 48, xOfMin(m)));
       s += `<rect x="${f(x - 46)}" y="${stripY + 2}" width="92" height="${stripH - 4}" rx="9" fill="${W}" stroke-width="1.5"/>`;
       s += `<text x="${f(x)}" y="${stripY + 16}" font-size="14" font-weight="800" text-anchor="middle" fill="${K}" stroke="none">\u{2600}${a} ${hm(m)}</text>`;
