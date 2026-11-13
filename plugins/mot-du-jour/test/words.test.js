@@ -1,17 +1,20 @@
-// Checks words.json, the list of Mot du jour, and that settings.yml carries the same list.
+// Checks words.json, the list Mot du jour polls from this repo's main branch.
 // Run: node --test plugins/mot-du-jour/test/
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const path = require('node:path');
 const { test } = require('node:test');
-const { staticDataLine, readWords, settingsPath } = require('../sync-words.cjs');
 
-const words = readWords();
-const entries = Object.values(words.seasons).flat();
+const words = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'words.json'), 'utf8'));
+const entries = Object.values(words.months).flat();
 
-test('each season has a reserve of words', () => {
-  assert.deepEqual(Object.keys(words.seasons).sort(), ['autumn', 'spring', 'summer', 'winter']);
-  for (const [season, reserve] of Object.entries(words.seasons)) {
-    assert.ok(reserve.length > 0, `${season} is empty`);
+// The Liquid looks the month up by its French name, as l_date writes it.
+const MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+
+test('each month has its reserve of 10 words', () => {
+  assert.deepEqual(Object.keys(words.months), MONTHS);
+  for (const [month, reserve] of Object.entries(words.months)) {
+    assert.equal(reserve.length, 10, month);
   }
 });
 
@@ -34,9 +37,4 @@ test('the syllables spell the word', () => {
 test('no word shows twice', () => {
   const seen = entries.map(e => e.word);
   assert.deepEqual(seen, [...new Set(seen)]);
-});
-
-test('settings.yml carries words.json (run sync-words.cjs after an edit)', () => {
-  const settings = fs.readFileSync(settingsPath, 'utf8');
-  assert.ok(settings.includes(`${staticDataLine(words)}\n`), 'static_data differs from words.json');
 });

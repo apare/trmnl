@@ -7,18 +7,20 @@ require 'json'
 # The clock is frozen at each `now:`; the day follows .trmnlp.yml's time_zone (America/Toronto, Montréal's).
 RSpec.describe 'Mot du jour' do
   DEVICE = 'v2' # TRMNL X, 1040×780, 16 grays
-  SEASONS = JSON.parse(File.read(File.expand_path('../words.json', __dir__)))['seasons']
+  WORDS = JSON.parse(File.read(File.expand_path('../words.json', __dir__)))
+  MONTHS = WORDS['months']
 
-  def render_at(now) = trmnl.render(device: DEVICE, now:)
+  # data: stands for the polled words.json, so the tests read this branch's list, not main's.
+  def render_at(now) = trmnl.render(device: DEVICE, now:, data: WORDS)
   def word_at(now) = render_at(now).find('[data-word]')['data-word']
+  def words_of(month) = MONTHS.fetch(month).map { it['word'] }
 
-  it 'shows the day, the word, its syllables, its picture and the credit' do
+  it 'shows the day, the word and its picture, with no credit line' do
     screen = render_at('2026-11-13T08:00:00-05:00')
-    word = screen.find('[data-word]')['data-word']
-    expect(SEASONS['autumn'].map { it['word'] }).to include(word)
+    expect(words_of('novembre')).to include(screen.find('[data-word]')['data-word'])
     expect(screen).to have_text('vendredi 13 novembre')
     expect(screen).to have_text(' · nom')
-    expect(screen).to have_text('Pictogramme : Sergio Palao, ARASAAC (CC BY-NC-SA)')
+    expect(screen).not_to have_text('ARASAAC')
     expect(screen.problems).to be_empty
   end
 
@@ -30,26 +32,20 @@ RSpec.describe 'Mot du jour' do
     expect(word_at('2026-11-13T00:05:00-05:00')).not_to eq(word_at('2026-11-12T23:55:00-05:00'))
   end
 
-  {
-    '2026-12-01' => 'winter', '2027-02-28' => 'winter', '2027-03-01' => 'spring', '2027-05-31' => 'spring',
-    '2027-06-01' => 'summer', '2027-08-31' => 'summer', '2027-09-01' => 'autumn', '2027-11-30' => 'autumn'
-  }.each do |date, season|
-    it "takes the word of #{date} from the #{season} reserve" do
-      expect(SEASONS[season].map { it['word'] }).to include(word_at("#{date}T12:00:00-05:00"))
-    end
+  it 'takes the word of the last evening of a month from that month, not the next' do
+    expect(words_of('octobre')).to include(word_at('2026-10-31T21:00:00-04:00'))
   end
 
-  # One day in each month whose season starts there, then as many days as the reserve has words:
-  # each word shows once, and none runs off the Device.
-  { 'winter' => '2026-12-01', 'spring' => '2027-03-01', 'summer' => '2027-06-01', 'autumn' => '2026-09-01' }
-    .each do |season, first|
-    it "shows every #{season} word once over #{SEASONS[season].size} days, inside the Device" do
-      words = SEASONS[season].size.times.map do |offset|
-        screen = render_at("#{Date.parse(first) + offset}T12:00:00-05:00")
+  # Ten days from the 1st of each month: each of its words shows once, and none runs off the Device.
+  MONTHS.each_key.with_index(1) do |month, number|
+    it "shows every word of #{month} once over 10 days, inside the Device" do
+      first = Date.new(2027, number, 1)
+      words = 10.times.map do |offset|
+        screen = render_at("#{first + offset}T12:00:00-05:00")
         expect(screen.overflowing).to be_empty
         screen.find('[data-word]')['data-word']
       end
-      expect(words).to match_array(SEASONS[season].map { it['word'] })
+      expect(words).to match_array(words_of(month))
     end
   end
 end

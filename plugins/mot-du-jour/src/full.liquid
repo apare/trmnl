@@ -1,27 +1,22 @@
 <style>
-  /* Only what the Framework has no class for: the picture's box, the giant word and the example's rule. */
+  /* Only what the Framework has no class for: the picture's box, the giant word, its first letter and the example's rule. */
   .mdj-picture { display: block; width: calc(400px * var(--content-scale, 1)); height: calc(400px * var(--content-scale, 1)); object-fit: contain; }
-  .mdj-word { font-size: calc(120px * var(--content-scale, 1)); line-height: 1.05; }
+  .mdj-word { font-size: calc(120px * var(--content-scale, 1)); line-height: 1.05; padding-bottom: calc(10px * var(--content-scale, 1)); }
   .mdj-word.long { font-size: calc(88px * var(--content-scale, 1)); }
   .mdj-word.longer { font-size: calc(68px * var(--content-scale, 1)); }
+  .mdj-initial { text-decoration: underline; text-decoration-thickness: calc(9px * var(--content-scale, 1)); text-underline-offset: calc(12px * var(--content-scale, 1)); text-decoration-skip-ink: none; }
   .mdj-example { border-left: 6px solid #000; }
 </style>
 
 {% comment %}
   The word of the day. The day is the account's local date, not UTC's: in UTC, the word would
-  change around 19 h in Montréal. The month picks the season's reserve (static_data, from
-  words.json), and the day number since 1970 picks the word in it, so it changes every day and
-  comes back once the reserve has gone round.
+  change around 19 h in Montréal. The month (its French name, as in words.json, polled from the
+  repo) picks its reserve, and the day number since 1970 picks the word in it, so it changes every
+  day and comes back once the reserve has gone round.
 {% endcomment %}
 {% assign today = 0 | days_ago: trmnl.user.time_zone_iana %}
-{% assign month = today | date: "%m" | plus: 0 %}
-{% case month %}
-  {% when 12, 1, 2 %}{% assign season = "winter" %}
-  {% when 3, 4, 5 %}{% assign season = "spring" %}
-  {% when 6, 7, 8 %}{% assign season = "summer" %}
-  {% else %}{% assign season = "autumn" %}
-{% endcase %}
-{% assign reserve = seasons[season] %}
+{% assign month = today | date: "%Y-%m-%d" | l_date: "%B", "fr" %}
+{% assign reserve = months[month] %}
 {% assign day = today | date: "%s" | divided_by: 86400 %}
 {% if reserve.size > 0 %}
   {% assign index = day | modulo: reserve.size %}
@@ -37,18 +32,21 @@
     </div>
     <div class="flex flex--col flex--left flex--center-y gap--medium grow" data-word="{{ entry.word }}">
       <div class="flex flex--col flex--left gap--xsmall">
-        <span class="mdj-word {{ word_size }} title text--bold">{{ entry.word }}</span>
-        <span class="title title--xlarge">
-          {% for syllable in entry.syllables %}<span class="text--bold">{{ syllable }}</span>{% unless forloop.last %} · {% endunless %}{% endfor %}
-        </span>
+        {% comment %} The first letter underlined in black, the rest of the word in dark gray. {% endcomment %}
+        <span class="mdj-word {{ word_size }} title text--bold"><span class="mdj-initial">{{ entry.word | slice: 0 }}</span><span class="text--gray-2">{{ entry.word | slice: 1, 100 }}</span></span>
+        {% comment %} A one-syllable word would only repeat itself. {% endcomment %}
+        {% if entry.syllables.size > 1 %}
+          <span class="title title--xlarge">
+            {% for syllable in entry.syllables %}<span class="text--bold">{{ syllable }}</span>{% unless forloop.last %} · {% endunless %}{% endfor %}
+          </span>
+        {% endif %}
         <span class="description description--large">{{ entry.article }} {{ entry.word }} · nom</span>
       </div>
       <span class="title title--xlarge">{{ entry.definition }}</span>
       <span class="mdj-example title title--large pl--4">{{ entry.example }}</span>
-      <span class="description">Pictogramme : Sergio Palao, ARASAAC (CC BY-NC-SA)</span>
     </div>
   {% else %}
-    <span class="title title--xlarge">Aucun mot pour la saison « {{ season }} ».</span>
+    <span class="title title--xlarge">Aucun mot pour le mois de {{ month }}.</span>
   {% endif %}
 </div>
 

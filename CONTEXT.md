@@ -83,5 +83,5 @@ One word of `words.json` with everything the page shows for it: the word, its ar
 _Avoid_: Card, item
 
 **Reserve**:
-The Entries of one season (winter, spring, summer, autumn); the local date's month picks the Reserve, and the day number picks the Entry in it.
-_Avoid_: Pool, bucket, list (the list is all four Reserves)
+The 10 Entries of one month; the local date's month picks the Reserve, and the day number picks the Entry in it.
+_Avoid_: Pool, bucket, list (the list is all twelve Reserves)

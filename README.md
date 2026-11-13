@@ -5,7 +5,7 @@ Private Plugins for my [TRMNL X](https://trmnl.com), a 10.3" e-ink Device with 1
 ## Plugins
 
 - [How to dress](plugins/how-to-dress/): what the kids wear today, drawn as paper-doll mannequins, from Montréal's weather between 8 h and 17 h. Only the `full` Layout (the size that fills the whole Device) is designed; the other Layouts hold a one-line placeholder.
-- [Mot du jour](plugins/mot-du-jour/): one French word a day for the kids, with its picture, syllables, a definition and an example, picked by the local date from a reserve per season. `full` Layout only.
+- [Mot du jour](plugins/mot-du-jour/): one French word a day for the kids, with its picture, syllables, a definition and an example, picked by the local date from 10 words per month, polled from this repo. `full` Layout only.
 
 ## Commands
 
