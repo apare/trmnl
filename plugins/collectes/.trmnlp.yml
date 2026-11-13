@@ -1,0 +1,18 @@
+# trmnlp configuration for Collectes (local preview only, never uploaded).
+---
+watch:
+  - .trmnlp.yml
+  - src
+
+time_zone: America/Toronto
+
+# author_contact_method asks a public recipe for a way to reach its author;
+# Collectes is a Private Plugin, never published as a recipe.
+ignored_lint_rules:
+  - author_contact_method
+
+# Values of the custom fields in src/settings.yml; empty means their defaults.
+custom_fields: {}
+
+variables:
+  trmnl: {}

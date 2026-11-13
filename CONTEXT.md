@@ -75,3 +75,17 @@ _Avoid_: Girl mode, variant
 **Inside kid / Outside kid**:
 The two mannequins on the How to dress page, a boy and a girl standing on the ground of the scene: on the left the Inside kid, wearing what stays on indoors (Base clothes and the Warm layer); on the right the Outside kid, wearing the whole Outfit. The boy and the girl swap every day. Each piece is named beside the kid, with a line to it. In the code, `kids`.
 _Avoid_: Dressing step, stage, panel
+
+### Collectes
+
+**Collecte**:
+One pass of a city truck that empties one or more Matières from the curb, on a given date.
+_Avoid_: Pickup, collection day
+
+**Matière**:
+What a bin holds and which truck takes it (ordures, recyclage); each Matière has its own schedule in the Plugin's settings.
+_Avoid_: Bin type, waste stream
+
+**Eve**:
+The evening before a Collecte, from 15 h, when the page says to put the bin out; the order stays until 8 h on the Collecte day.
+_Avoid_: Night before, veille (in code)

@@ -5,6 +5,7 @@ Private Plugins for my [TRMNL X](https://trmnl.com), a 10.3" e-ink Device with 1
 ## Plugins
 
 - [How to dress](plugins/how-to-dress/): what the kids wear today, drawn as paper-doll mannequins, from Montréal's weather between 8 h and 17 h. Only the `full` Layout (the size that fills the whole Device) is designed; the other Layouts hold a one-line placeholder.
+- [Collectes](plugins/collectes/): on the eve of a Collecte, the bin to put out at the curb and "Sors les poubelles !", from a schedule set in the Plugin's settings. `full` Layout only.
 
 ## Commands
 
@@ -34,6 +35,6 @@ After the first push of a Plugin, commit its `src/settings.yml`: it now holds th
 Private Plugins need the Developer Edition add-on on your TRMNL account.
 
 1. Fork this repo, then delete the `id:` line from each `plugins/<slug>/src/settings.yml`: those are my Plugins' ids, and without one the first push creates your own Plugin.
-2. For How to dress, set your city's coordinates in `src/settings.yml` (see [its README](plugins/how-to-dress/README.md)). Its text is in French.
+2. For How to dress, set your city's coordinates in `src/settings.yml` (see [its README](plugins/how-to-dress/README.md)). Its text is in French. For Collectes, set your own dates in the Plugin's settings in the TRMNL app.
 3. Run `bin/trmnlp login` with your TRMNL API key, then `bin/trmnlp push <slug>`, and commit the `settings.yml` that now holds your Plugin's id.
 4. To push from the Action, add the `TRMNL_API_KEY` secret to your fork (above) and enable Actions in its Actions tab.

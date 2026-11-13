@@ -1,0 +1,40 @@
+---
+strategy: polling
+no_screen_padding: 'yes'
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+framework_version: latest
+serverless_language: node
+polling_url: ''
+polling_headers: ''
+name: Collectes
+description: Quel bac sortir au chemin ce soir
+refresh_interval: 60
+custom_fields:
+- keyname: ordures_date
+  field_type: date
+  name: Ordures, une date de collecte
+  description: N'importe quel jour où le camion des ordures passe. Le jour de la semaine et l'alternance en découlent.
+  default: '2026-11-12'
+- keyname: ordures_frequence
+  field_type: select
+  name: Ordures, fréquence
+  options:
+  - Aux deux semaines: deux_semaines
+  - Chaque semaine: semaine
+  - Pas de collecte: aucune
+  default: deux_semaines
+- keyname: recyclage_date
+  field_type: date
+  name: Recyclage, une date de collecte
+  description: N'importe quel jour où le camion du recyclage passe. Le jour de la semaine et l'alternance en découlent.
+  default: '2026-11-19'
+- keyname: recyclage_frequence
+  field_type: select
+  name: Recyclage, fréquence
+  options:
+  - Aux deux semaines: deux_semaines
+  - Chaque semaine: semaine
+  - Pas de collecte: aucune
+  default: deux_semaines
