@@ -100,6 +100,26 @@ test('D pills run from the lower to the higher of the temperature and the feels-
   assert.deepEqual(texts.slice(0, 2), ['\u{2212}12°', '\u{2212}20°']);
 });
 
+test('D pills set the temperature in bold and the feels-like small, once when equal, with a legend', () => {
+  const input = sample('grand-froid');
+  const at = hour => input.hourly.time.findIndex(t => t.endsWith(hour));
+  input.hourly.temperature_2m[at('T00:00')] = -12.2;
+  input.hourly.apparent_temperature[at('T00:00')] = -19.6;
+  input.hourly.temperature_2m[at('T01:00')] = -5;
+  input.hourly.apparent_temperature[at('T01:00')] = -5;
+  input.hourly.temperature_2m[at('T02:00')] = -3;
+  input.hourly.apparent_temperature[at('T02:00')] = 2;
+  const chart = run(input).dashboard.chart;
+  const pill = text => chart.match(new RegExp(`<text[^>]*>${text}</text>`, 'g'));
+  // "\u{2212}12°" is too wide for the pill at 16 px; the feels-like is small wherever it sits.
+  assert.match(pill('\u{2212}12°')[0], /font-size="16" font-weight="800" textLength="32"/);
+  assert.match(pill('\u{2212}20°')[0], /font-size="13" font-weight="600"/);
+  assert.equal(pill('\u{2212}5°').length, 1);
+  assert.match(pill('2°')[0], /font-size="13" font-weight="600"/);
+  assert.match(pill('\u{2212}3°')[0], /font-size="16" font-weight="800" text-anchor/);
+  assert(labels(chart).includes('gras\u{a0}: température · petit\u{a0}: ressenti'));
+});
+
 test('D moon phase, sun and chart do not depend on the runtime clock', () => {
   const input = sample('neige');
   const first = run(input).dashboard;
@@ -149,6 +169,11 @@ test('Pr\u{e9}cipitations: Wet-hour stretches over 24 hours with their amount, t
   input.hourly.cape[atHour(input, 15)] = 3000; // unstable but dry: no storm there
   input.hourly.weather_code[atHour(input, 23)] = 95;
   assert.match(cardText(run(input).dashboard.cards), /Orage pr\u{e9}vu vers 23\u{a0}h/u);
+});
+
+test('Pr\u{e9}cipitations: strong wind is said under the storm risk, only on a windy day', () => {
+  assert.match(cardText(run(sample('doux-venteux')).dashboard.cards), /Pas d\u{2019}orage Beaucoup de vent La lune/u);
+  assert.doesNotMatch(cardText(run(sample('canicule')).dashboard.cards), /vent/);
 });
 
 test('Pr\u{e9}cipitations: a snow stretch counts centimetres of snowfall', () => {

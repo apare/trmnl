@@ -41,6 +41,15 @@ test('neige: snow hours set the sentence and the chart marks', () => {
   assert.deepEqual(r.chart.filter(h => h.wet).map(h => [h.hour, h.wet]), [[10, 'snow'], [11, 'snow'], [12, 'snow']]);
 });
 
+test('−10 to 0 °C: a sweater under the winter coat, kept inside', () => {
+  const input = sample('grand-froid');
+  input.hourly.apparent_temperature = input.hourly.apparent_temperature.map(() => -4);
+  const r = run(input);
+  assert.equal(r.outfit.coat, 'hiver');
+  assert.equal(r.outfit.warm, 'chandail');
+  assert(keys(kid(r, 'inside')).includes('chandail'));
+});
+
 test('neige au sol: snow pants and winter boots on a +2 °C day', () => {
   const r = run(sample('neige-au-sol'));
   assert.equal(r.outfit.coat, 'misaison');

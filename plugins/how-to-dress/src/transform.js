@@ -42,7 +42,7 @@ const LAYER_RULES = [
   { min: 10, warm: 'chandail', feet: 'souliers' },
   { min: 5, warm: 'chandail', coat: 'misaison', feet: 'souliers' },
   { min: 0, warm: 'chandail', coat: 'misaison', head: 'tuque', hands: 'gants', feet: 'souliers' },
-  { min: -10, coat: 'hiver', pants: 'neige', head: 'tuque', hands: 'mitaines', neck: 'cachecou', feet: 'bottesHiver' },
+  { min: -10, warm: 'chandail', coat: 'hiver', pants: 'neige', head: 'tuque', hands: 'mitaines', neck: 'cachecou', feet: 'bottesHiver' },
   { min: -Infinity, warm: 'chandail', coat: 'hiver', pants: 'neige', head: 'tuque', hands: 'mitaines', neck: 'cachecou', feet: 'bottesHiver' },
 ];
 
@@ -490,10 +490,13 @@ function dashboardOf(input, out, air) {
   function hourBars(d, w, h) {
     const bars = d.hours.map(x => ({
       hour: x.hour, hi: Math.round(Math.max(x.temp, x.feels)), lo: Math.round(Math.min(x.temp, x.feels)),
+      tempOnTop: Math.round(x.temp) >= Math.round(x.feels),
       icon: meteoName(d.skyOf(x.hour, x.hour + 1), d.nightAt(x.hour + .5)),
     }));
     bars.forEach((b, i) => { b.showIcon = i === 0 || b.icon !== bars[i - 1].icon; });
     const cw = w / 24, pw = 38, FONT = 16, NUM = 21, ICON = 38, head = NUM + ICON, foot = 24;
+    // The temperature in bold, the feels-like smaller; "\u{2212}27\u{b0}" at 16 px is wider than the 38 px pill.
+    const style = (t, isTemp) => isTemp ? `font-size="${FONT}" font-weight="800"${deg(t).length > 3 ? ' textLength="32" lengthAdjust="spacingAndGlyphs"' : ''}` : 'font-size="13" font-weight="600"';
     const stripY = h - 44, stripH = 22, plotBot = stripY - 5;
     const gHi = Math.max(...bars.map(b => b.hi)), gLo = Math.min(...bars.map(b => b.lo));
     const yOf = t => gHi === gLo ? (head + plotBot - foot) / 2 : head + (gHi - t) / (gHi - gLo) * (plotBot - foot - head);
@@ -505,8 +508,8 @@ function dashboardOf(input, out, air) {
       const top = hiY - NUM;
       s += `<rect x="${f(cx - pw / 2)}" y="${f(top)}" width="${pw}" height="${f(bot - top)}" rx="${pw / 2}" fill="url(#htd-dots)" stroke-width="2"/>`;
       if (b.showIcon) s += iconAt(b.icon, cx - 20, top - ICON - 1, 40);
-      s += `<text x="${f(cx)}" y="${f(hiY)}" font-size="${FONT}" font-weight="800" text-anchor="middle" fill="${K}" class="halo">${deg(b.hi)}</text>`;
-      s += `<text x="${f(cx)}" y="${f(bot - 7)}" font-size="${FONT}" font-weight="800" text-anchor="middle" fill="${K}" class="halo">${deg(b.lo)}</text>`;
+      s += `<text x="${f(cx)}" y="${f(hiY)}" ${style(b.hi, b.tempOnTop)} text-anchor="middle" fill="${K}" class="halo">${deg(b.hi)}</text>`;
+      if (b.lo !== b.hi) s += `<text x="${f(cx)}" y="${f(bot - 7)}" ${style(b.lo, !b.tempOnTop)} text-anchor="middle" fill="${K}" class="halo">${deg(b.lo)}</text>`;
       s += `<text x="${f(cx)}" y="${h - 4}" font-size="13" font-weight="700" text-anchor="middle" fill="${K}" stroke="none">${b.hour} h</text>`;
     });
     for (let i = 0; i < 144; i++) s += `<rect x="${f(xOfMin(i * 10))}" y="${stripY}" width="${f(cw / 6 + .6)}" height="${stripH}" fill="${gray(d.light10[i])}" stroke="none"/>`;
@@ -516,6 +519,7 @@ function dashboardOf(input, out, air) {
       s += `<rect x="${f(x - 46)}" y="${stripY + 2}" width="92" height="${stripH - 4}" rx="9" fill="${W}" stroke-width="1.5"/>`;
       s += `<text x="${f(x)}" y="${stripY + 16}" font-size="14" font-weight="800" text-anchor="middle" fill="${K}" stroke="none">\u{2600}${a} ${hm(m)}</text>`;
     });
+    s += `<text x="${w}" y="12" font-size="12" font-weight="700" text-anchor="end" fill="${K}" stroke="none">gras\u{a0}: temp\u{e9}rature \u{b7} petit\u{a0}: ressenti</text>`;
     return s + '</svg>';
   }
   const hourText = h => h >= 24 ? 'minuit' : `${h}\u{a0}h`;
@@ -569,7 +573,7 @@ function dashboardOf(input, out, air) {
     phases += '</svg>';
     return `<div class="card"><h3>UV et air</h3><div class="two tops">${uv}${air}</div></div>
           <div class="card"><h3>Pr\u{e9}cipitations</h3>
-            <div class="line">${icon(wetIcon)}<div>${wet}<div class="small storm">${stormOf(d.hours)}</div></div></div></div>
+            <div class="line">${icon(wetIcon)}<div>${wet}<div class="small storm">${stormOf(d.hours)}</div>${d.scene.vent ? '<div class="small">Beaucoup de vent</div>' : ''}</div></div></div>
           <div class="card"><h3>La lune ce soir</h3>
             <div class="line">${svgOpen(84, 84)}${iconAt(`icones/lune-${d.moon.idx}`, 0, 0, 84)}</svg>
               <div><div style="font-size:20px;font-weight:800">${d.moon.name}</div><div class="small">${d.moon.idx === 0 ? 'On ne la voit presque pas.' : d.moon.idx === 4 ? 'Elle est toute ronde.' : d.moon.growing ? 'Elle grossit chaque soir.' : 'Elle rapetisse chaque soir.'}</div><div class="small">${d.moon.fullText}</div></div></div>
